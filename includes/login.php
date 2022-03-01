@@ -1,0 +1,68 @@
+<?php include "db.php";  ?>
+<?php session_start();  ?>
+
+<?php if(isset($_POST["login"])){
+    $Form_User_Name = $_POST["username"];
+    $Form_Password = $_POST["password"];
+    $conn = getConnection();
+    $Form_User_Name = mysqli_real_escape_string($conn,$Form_User_Name);
+    $Form_Password = mysqli_real_escape_string($conn,$Form_Password);
+    
+    $select_users = "SELECT * FROM users WHERE username = '{$Form_User_Name}' ";
+    $userNameResult = mysqli_query($conn,$select_users);
+    if(!$userNameResult){
+        die("query failed".mysqli_error($conn));
+    }
+
+    while($row = mysqli_fetch_array($userNameResult)){
+        $db_username = $row["username"];
+        $db_user_password = $row["user_password"];
+        $db_user_role = $row["user_role"];
+        $db_user_firstname = $row["user_firstname"];
+        $db_user_lastname = $row["user_lastname"];
+        if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
+            echo $Form_User_Name;
+            echo $Form_Password;
+            header("Location:../index.php");
+
+        }else if($Form_User_Name == $db_username && $Form_Password == $db_user_password){
+
+            //set session
+
+            header("Location:../admin");
+            
+        }else{
+            header("Location:../index.php");
+        }
+        
+
+    }
+
+
+
+
+
+
+}
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
