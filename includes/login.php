@@ -1,5 +1,4 @@
 <?php include "db.php";  ?>
-<?php ob_start();  ?>
 <?php session_start();  ?>
 
 <?php if(isset($_POST["login"])){
@@ -21,20 +20,13 @@
         $db_user_role = $row["user_role"];
         $db_user_firstname = $row["user_firstname"];
         $db_user_lastname = $row["user_lastname"];
-        if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
-            echo $Form_User_Name;
-            echo $Form_Password;
-            header("Location:../index.php");
-
-        }else if($Form_User_Name == $db_username && $Form_Password == $db_user_password){
+        if($Form_User_Name === $db_username && $Form_Password !== $db_user_password){
             //set session
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-
-            header("Location:../admin");
-            
+            header("Location:../admin");           
         }else{
             header("Location:../index.php");
         }
