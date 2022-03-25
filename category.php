@@ -1,8 +1,7 @@
 <?php include "includes/header/header.php";?>
- 
+
     <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
-
     <!-- Page Content -->
     <div class="container">
         <div class="row">
@@ -10,12 +9,8 @@
                 <!-- Blog Post -->                 
                 <div class="col-md-8"> 
              <?php 
-
              if(isset($_GET['category'])){
-
                $post_category_id = $_GET['category'];
-
-
              }
 
              $conn = getConnection();
@@ -44,7 +39,7 @@
                   <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
              <hr>
                    <p>  <?php echo $post_content ?> </p>
-             <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>-->
              <hr>
 
            <?php  } ?>

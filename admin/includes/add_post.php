@@ -10,7 +10,7 @@ if(isset($_POST["create_post"])){
     
     $post_content = $_POST["Post_Content"];
     $post_tag = $_POST["Post_Tag"];
-    //$post_comment_count = $_POST["Post_Comment_Count"];
+
     $post_date = date('d-m-y');
     $post_status = $_POST["Post_Status"];
     move_uploaded_file($post_image_temp,"../images/$post_image");
@@ -32,9 +32,7 @@ if(isset($_POST["create_post"])){
          <label for="post_title">Post Title</label>
          <input type="text" class="form-control" name="Post_Title"> 
      </div>
-
  
-
      <div class="form-group">
      <label for="post_category">Post Category</label>
         <select name="Post_Category" id="post_category">
@@ -51,7 +49,13 @@ if(isset($_POST["create_post"])){
         </select>
     </div>
 
-
+    <div class="form-group">
+     <label for="post_status">Post Status</label> 
+        <select name="Post_Status" id="published"> 
+         <option value='draft'> Draft</option> ;
+         <option value='published'> Published</option> ;
+        </select>
+    </div>
 
     <div class="form-group">
          <label for="post_author">Post Author</label>
@@ -61,11 +65,6 @@ if(isset($_POST["create_post"])){
      <div class="form-group">
          <label for="post_image">Post Image</label>
           <input type="file"  name="image"> 
-     </div>
-
-     <div class="form-group">
-         <label for="post_status">Post Status</label>
-         <input type="text" class="form-control" name="Post_Status"> 
      </div>
 
      <div class="form-group">

@@ -22,17 +22,17 @@
                  $post_image= $row["post_image"];
                  $post_status = $row["post_status"];
                  
-                 if ( $post_status != 'published') {
-                     echo "<h1 class='text-center'> No Post Published,Click Admin To Add Post </h1>";
-                 } else{
+                 if ( $post_status !== ' ') {                     
                       ?>
-                 <h1 class="page-header">
+             <h1 class="page-header">
                  You are My Life,My World,My Destiny
                  <small>Secondary Text</small>
-             </h1>      
+             </h1>  
+
              <h2>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
              </h2>
+
              <p class="lead">
                   by <a href="index.php"> <?php echo $post_author ?> </a>
              </p>
@@ -41,11 +41,15 @@
                   <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
                    <p>  <?php echo $post_content ?> </p>
-             <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>-->
              <hr>
 
            <?php
-             }} ?>
+             }else{  
+                 echo " <h1> No Post </h1>";?> 
+
+                   <?php }} ?>
+
 
         
         </div>

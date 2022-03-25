@@ -50,19 +50,15 @@ if(isset($_POST["update_post"])){
     $qeury .= "post_date = now(), ";
     $qeury .= "post_image ='{$post_image}'  ";
     $qeury .= "WHERE post_id ={$p_id} ";
-
     $update_post = mysqli_query($conn,$qeury);
     confirmQuery($update_post);
-
-    
-    
+    echo "User Created:"."<a href='posts.php'> View Posts </a>";
 }
 
 
 ?>
 
 <form action="" method="post" enctype="multipart/form-data">
-
     <div class="form-group">
         <label for="post_title">Post Title</label>
         <input value="<?php  echo $post_title ?>" type="text" class="form-control" name="Post_Title"> 
@@ -79,20 +75,27 @@ if(isset($_POST["update_post"])){
             $cat_title = $row["title"];
             echo "<option value='{$cat_id}'>{$cat_title}</option>";
         }
-        ?>
-                               
+        ?>                           
         </select>
+    </div>
 
+    <div class="form-group">
+    <label for="post_status">Post Status</label>
+        <select name="Post_Status" id=""> 
+            <option value='<?php echo $post_status; ?>'> <?php echo $post_status; ?> </option>;    
+            <?php   
+            if($post_status == 'published'){
+                echo "<option value='draft'>Draft</option>";
+            }else{
+                echo "<option value='published'>Published</option>";
+            }      
+            ?>
+        </select>
     </div>
 
     <div class="form-group">
         <label for="post_author">Post Author</label>
         <input value="<?php  echo $post_author ?>" type="text" class="form-control" name="Post_Author"> 
-    </div>
-
-    <div class="form-group">
-        <label for="post_status">Post Status</label>
-        <input value="<?php  echo $post_status ?>" type="text" class="form-control" name="Post_Status"> 
     </div>
 
     <div class="form-group">
@@ -104,7 +107,6 @@ if(isset($_POST["update_post"])){
         <label for="post_tag">Post Tag</label>
         <input value="<?php  echo $post_tag ?>" type="text" class="form-control" name="Post_Tag"> 
     </div>
-
 
     <div class="form-group">
         <label for="post_content">Post content</label>

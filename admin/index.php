@@ -35,6 +35,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
 
+                     <!--SELECT * FROM posts-->
                     <?php
                     $query = "SELECT * FROM posts";
                     $select_all_post = mysqli_query($conn,$query);
@@ -64,6 +65,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
 
+                    <!--SELECT * FROM comments-->
                     <?php
                     $query = "SELECT * FROM  comments";
                     $select_all_post = mysqli_query($conn,$query);
@@ -93,6 +95,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
 
+                    <!--SELECT * FROM users-->
                     <?php
                     $query = "SELECT * FROM  users";
                     $select_all_post = mysqli_query($conn,$query);
@@ -121,6 +124,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                  
+                    <!--SELECT * FROM categories-->
                     <?php
                     $query = "SELECT * FROM  categories";
                     $select_all_post = mysqli_query($conn,$query);
@@ -144,6 +148,59 @@
 </div>
 <!-- 2022 widges-->
 
+<!-- 添加到 Bubble Chart-->
+<?php
+ $query = "SELECT * FROM  categories WHERE title = 'JAVA' ";
+ $select_title = mysqli_query($conn,$query);
+ $category_title = mysqli_num_rows($select_title );
+
+?>
+
+
+<!-- Bubble Chart-->
+<div>  
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+   
+          ['Data', 'Counts'],
+            <?php
+            $element_text = ['Comments','Posts','Categories','Users','Title'];
+            $element_count = [$comment_counts,$post_counts,$user_counts,$category_counts,$category_title];
+            for($i = 0;$i <= 4 ;$i++){
+            echo "['{$element_text[$i]}'".","."{$element_count[$i]}],";
+            }
+            ?>
+        ]);
+
+        var options = {
+          chart: {
+            title: ' ',
+            subtitle: ' ',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+  
+    <div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
+
+
+
+
+
+
+</div>
+
+
+
        <div class="col-xs-6"> 
             <form action=""  method="POST">
 
@@ -153,7 +210,6 @@
           </div>
    </div>
     <!-- /.row -->
-
     </div>
     <!-- /.container-fluid -->
 
