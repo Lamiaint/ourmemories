@@ -17,14 +17,21 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>     
-                      <?php  qeuryNevigation(); ?>                      
+                    <?php
+                         $conn = getConnection();
+                         $qeury = "select * from categories";
+                         $qeuryResults = mysqli_query($conn,$qeury); 
+
+                    while($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)){
+                    $cat_title = $qeuryResultsRow["title"];
+                    $cat_id = $qeuryResultsRow["id"];
+                    echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
+                    }
+                    ?>                    
                     </li>
 
                     <li> <a href="admin"> Admin </a> </li>
 
-                    <li><a href="#">Services</a></li>
-
-                    <li> <a href="#">Contact</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

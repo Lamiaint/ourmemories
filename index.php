@@ -22,11 +22,10 @@
                  $post_image= $row["post_image"];
                  $post_status = $row["post_status"];
                  
-                 if ( $post_status !== ' ') {                     
+                 if ( $post_status !== null) {                     
                       ?>
              <h1 class="page-header">
-                 You are My Life,My World,My Destiny
-                 <small>Secondary Text</small>
+                 You are My Life,My World,My Destiny                
              </h1>  
 
              <h2>

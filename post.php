@@ -25,8 +25,9 @@
                      $post_image= $row["post_image"];
                  ?>
                  <h1 class="page-header">
-                 You are My Life,My World,My Destiny
-                 <small> Secondary Text </small>
+                <!-- You are My Life,My World,My Destiny
+                     <small> Secondary Text </small>
+                -->
                  </h1> 
 
              <h2>
