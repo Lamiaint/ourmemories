@@ -20,7 +20,7 @@
         $db_user_role = $row["user_role"];
         $db_user_firstname = $row["user_firstname"];
         $db_user_lastname = $row["user_lastname"];
-        if($Form_User_Name === $db_username && $Form_Password !== $db_user_password){
+        if($Form_User_Name === $db_username && $Form_Password === $db_user_password){
             //set session
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;

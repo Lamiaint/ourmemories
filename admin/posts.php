@@ -3,8 +3,7 @@
     <div id="wrapper">
         <?php     
         $conn = getConnection();
-        
-        //global $conn;
+ 
         if(!$conn){
             die("failed to connect DB");
         }       

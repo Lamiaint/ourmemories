@@ -23,6 +23,7 @@
                      $post_date= $row["post_date"];
                      $post_content= $row["post_content"];
                      $post_image= $row["post_image"];
+                     $post_status = $row["post_status"];
                  ?>
                  <h1 class="page-header">
                 <!-- You are My Life,My World,My Destiny
@@ -38,7 +39,20 @@
                   by <a href="index.php"> <?php echo $post_author ?> </a>
              </p>
 
-             <p><span class="glyphicon glyphicon-time"></span> <?php $post_date ?> </p>
+             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+             
+             <td>  <?php echo $post_status ?> </td>
+
+             <?php
+                    //首页编辑
+                    if(isset($_SESSION['user_role'])){
+                        if(isset($_GET['p_id'])){
+                            $the_post_id = $_GET['p_id'];
+                            echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit Post </a></td>";   
+                        }
+                    }
+                    ?> 
+
 
              <hr>
                   <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">

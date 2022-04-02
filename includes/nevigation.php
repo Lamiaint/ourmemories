@@ -25,12 +25,19 @@
                     while($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)){
                     $cat_title = $qeuryResultsRow["title"];
                     $cat_id = $qeuryResultsRow["id"];
-                    echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
+                    echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";                   
                     }
                     ?>                    
                     </li>
 
                     <li> <a href="admin"> Admin </a> </li>
+
+                   
+
+
+
+
+
 
                 </ul>
             </div>

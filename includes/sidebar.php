@@ -12,8 +12,7 @@
         }else{
          $rowNumber = mysqli_num_rows($queryResults);
          if($rowNumber==0){
-        //blog title search result from sidbar
-        //$conn = getConnection();
+
         $queryPostTitle = "SELECT * FROM posts WHERE post_title like '%$seachInfo%' ";//按题目查找 
         $queryPostResults = mysqli_query($conn,$queryPostTitle);
         while ($row =mysqli_fetch_assoc($queryPostResults)) {
@@ -25,8 +24,9 @@
 
              ?>
         <h1 class="page-header">
-            You are My Life,My World,My Destiny
-            <small>Secondary Text</small>
+           <!--  You are My Life,My World,My Destiny
+                 <small>Secondary Text</small>
+            -->
         </h1>      
         <h2>
              <a href="#"><?php echo $post_title ?> </a>
@@ -48,7 +48,6 @@
     }?>
     
 
-    <!-- Blog Search Well -->
     <div class="well">
         <h4>Info Search</h4>
         <form action="" method="post">
@@ -82,9 +81,7 @@
     </div>
 
 
-    
-    
-    <!-- Blog Categories Well -->
+
     <div class="well">
         <h4>Info Categories</h4>
            <?php
@@ -97,18 +94,40 @@
             <div class="col-lg-6">
                 <ul class="list-unstyled">
                     <?php
-                    while($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)){
-                    $cat_title = $qeuryResultsRow["title"];
-                    $cat_id = $qeuryResultsRow["id"];
-                    echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
+                    while ($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)) {
+                        $cat_title = $qeuryResultsRow["title"];
+                        $cat_id = $qeuryResultsRow["id"];
+                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
                     }
-                    ?>
+                   ?>
                 </ul>
             </div>
         </div>
         <!-- /.row -->
     </div>
+
+    
+<!-- 主页显示用户-->  
+<div">
+    <ul>
+    <h4>User Online</h4>
+<?php
+if (isset($_SESSION['user_role'])) {
+    $username = $_SESSION['username'];
+        $userResults = "SELECT * FROM users Where username= '{$username}' ";
+        $select_users = mysqli_query($conn, $userResults);
+        while ($user_row = mysqli_fetch_assoc($select_users)) {
+            $user_image = $user_row["user_image"];
+            echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";  
+            echo "<td>{$username}</td>"; 
+    }
+}
+?> 
+    </ul>
+</div>
+<!-- 主页显示用户 -->
     
     <!-- Side Widget Well -->
-    <?php  include "widget.php";?>
+    <?php // include "widget.php";?>
+</div>
 </div>

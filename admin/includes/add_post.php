@@ -1,7 +1,7 @@
 
 <?php
 if(isset($_POST["create_post"])){
-    $post_category_id = $_POST["Post_Category"];//
+    $post_category_id = $_POST["Post_Category"];
     $post_title = $_POST["Post_Title"];
     $post_author = $_POST["Post_Author"];
 
@@ -79,7 +79,7 @@ if(isset($_POST["create_post"])){
 
      <div class="form-group">
          <label for="summernote">Post Content</label>
-         <textarea class="form-control" name="Post_Content" id="summernote" cols="50" rows="50"></textarea>
+         <textarea class="form-control" name="Post_Content" id="summernote" cols="10" rows="10"></textarea>
      </div>
 
 

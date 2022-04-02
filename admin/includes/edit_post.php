@@ -52,7 +52,8 @@ if(isset($_POST["update_post"])){
     $qeury .= "WHERE post_id ={$p_id} ";
     $update_post = mysqli_query($conn,$qeury);
     confirmQuery($update_post);
-    echo "User Created:"."<a href='posts.php'> View Posts </a>";
+    echo "<p class='bg-success'> Post Updated :<a href='../post.php?p_id={$p_id}'> View The Post </a> </p>";
+    echo "<p class='bg-green'> <a href='posts.php'> Edit More Posts </a> </p>";
 }
 
 
@@ -109,11 +110,9 @@ if(isset($_POST["update_post"])){
     </div>
 
     <div class="form-group">
-        <label for="post_content">Post content</label>
-        <textarea class="form-control "name="Post_Content" id="" cols="30" rows="10">
-        <?php  echo $post_content ?>
-        </textarea>
-    </div>
+         <label for="summernote">Post Content</label>
+         <textarea class="form-control" name="Post_Content" id="summernote" cols="10" rows="10"></textarea>
+     </div>
 
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="update_post" value="Update Post"> 

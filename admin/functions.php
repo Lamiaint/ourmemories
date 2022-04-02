@@ -4,8 +4,6 @@ function confirmQuery($queryResults){
     global $conn;
     if(!$queryResults){
         die(" failed to create_post_query ".mysqli_error($conn));
-    }else{
-        echo "successful";
     }
 }
 

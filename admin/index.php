@@ -2,9 +2,7 @@
 
     <div id="wrapper">
         <?php     
-        $conn = getConnection();
-        if($conn){echo "connected";} 
-        
+        $conn = getConnection(); 
         ?>
 
         <!-- Navigation -->

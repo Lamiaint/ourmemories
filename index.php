@@ -22,8 +22,8 @@
                  $post_image= $row["post_image"];
                  $post_status = $row["post_status"];
                  
-                 if ( $post_status !== null) {                     
-                      ?>
+                 if ($post_id !== null) {
+                     ?>
              <h1 class="page-header">
                  You are My Life,My World,My Destiny                
              </h1>  
@@ -35,27 +35,36 @@
              <p class="lead">
                   by <a href="index.php"> <?php echo $post_author ?> </a>
              </p>
-             <p><span class="glyphicon glyphicon-time"></span> <?php $post_date ?> </p>
+
+             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+
+             <td>  <?php echo $post_status ?> </td>
+             
+              <!-- <a href="post.php?p_id=<?php // echo $post_id; ?>">  -->
+
              <hr>
                   <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
+             </a>
+
                    <p>  <?php echo $post_content ?> </p>
-            <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>-->
+
+             <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr>
 
-           <?php
-             }else{  
-                 echo " <h1> No Post </h1>";?> 
-
-                   <?php }} ?>
-
-
+            <?php
+                 }
+             }
+             ?>
         
         </div>
+         
+        <hr>
            <!-- Blog Sidebar Widgets Column -->
            <?php include "includes/sidebar.php";?>
         <!-- /.row -->
         <hr>
+       
                 
         <!-- Footer -->
         <?php include "includes/footer/footer.php"; ?> 
