@@ -21,14 +21,14 @@ while ($post_row = mysqli_fetch_assoc($select_posts)) {
 }
 if(isset($_POST["update_post"])){
     global $conn;
-    $post_author = $_POST["Post_Author"];//
-    $post_title = $_POST["Post_Title"];//
-    $post_category_id = $_POST["Post_Category"];//
-    $post_status = $_POST["Post_Status"];//
-    $post_image = $_FILES["image"]["name"];//
-    $post_image_temp = $_FILES["image"]["tmp_name"];//
-    $post_content = $_POST["Post_Content"];//
-    $post_tag = $_POST["Post_Tag"];//
+    $post_author = $_POST["Post_Author"];
+    $post_title = $_POST["Post_Title"];
+    $post_category_id = $_POST["Post_Category"];
+    $post_status = $_POST["Post_Status"];
+    $post_image = $_FILES["image"]["name"];
+    $post_image_temp = $_FILES["image"]["tmp_name"];
+    $post_content = $_POST["Post_Content"];
+    $post_tag = $_POST["Post_Tag"];
     move_uploaded_file($post_image_temp,"../images/$post_image");
     if(empty($post_image)){
         $qeury = "SELECT * FROM posts WHERE post_id = {$p_id} ";
@@ -53,7 +53,7 @@ if(isset($_POST["update_post"])){
     $update_post = mysqli_query($conn,$qeury);
     confirmQuery($update_post);
     echo "<p class='bg-success'> Post Updated :<a href='../post.php?p_id={$p_id}'> View The Post </a> </p>";
-    echo "<p class='bg-green'> <a href='posts.php'> Edit More Posts </a> </p>";
+    echo "<p class='bg-green'> Post Created. <a href='posts.php'> Edit More Posts </a> </p>";
 }
 
 
@@ -111,7 +111,9 @@ if(isset($_POST["update_post"])){
 
     <div class="form-group">
          <label for="summernote">Post Content</label>
-         <textarea class="form-control" name="Post_Content" id="summernote" cols="10" rows="10"></textarea>
+         <textarea class="form-control" name="Post_Content" id="summernote" cols="10" rows="10">
+         <?php echo $post_content; ?>
+         </textarea>
      </div>
 
     <div class="form-group">

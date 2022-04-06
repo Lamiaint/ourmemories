@@ -85,7 +85,7 @@
     <div class="well">
         <h4>Info Categories</h4>
            <?php
-                $conn = getConnection();
+               // $conn = getConnection();
                 $qeury = "select * from categories";
                 $qeuryResults = mysqli_query($conn,$qeury); 
            ?>

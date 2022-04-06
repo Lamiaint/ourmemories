@@ -19,7 +19,6 @@ if(isset($_POST["create_user"])){
     $query = "INSERT INTO users(user_firstname,user_lastname,username,user_role,user_image,user_email,user_password)";
     $query .= "VALUES('{$user_first_name}','{$user_last_name}','{$user_name}','{$user_role}','{$user_image}','{$user_email}','{$user_password}')";
 
-    global $conn;
     $create_post_query = mysqli_query($conn,$query); 
     confirmQuery($create_post_query);  
 

@@ -43,15 +43,23 @@
              
              <td>  <?php echo $post_status ?> </td>
 
-             <?php
-                    //首页编辑
-                    if(isset($_SESSION['user_role'])){
-                        if(isset($_GET['p_id'])){
-                            $the_post_id = $_GET['p_id'];
-                            echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit Post </a></td>";   
-                        }
+                <?php
+                //登陆后首页编辑
+                if(isset($_SESSION['user_role'])){
+                    if(isset($_GET['p_id'])){
+                        $the_post_id = $_GET['p_id'];
+                        echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit Post </a></td>";   
                     }
-                    ?> 
+                }
+                ?> 
+
+                        <?php
+                        //登陆后删除POST
+                        if (isset($_SESSION['user_role'])) {
+                            
+                        }
+                        
+                        ?> 
 
 
              <hr>
@@ -73,29 +81,29 @@
                  $comment_email= $_POST["comment_email"];
                  $comment_content= $_POST["comment_content"];
 
-                 $query = "INSERT INTO comments (                   
-                    comment_post_id,
-                    comment_author,                   
-                    comment_email,
-                    comment_content,
-                    comment_date,                 
-                    comment_status ) ";
+                 if(!empty($comment_autho) && !empty($comment_email) && !empty($comment_content)){
+                    $query = "INSERT INTO comments (                   
+                        comment_post_id,
+                        comment_author,                   
+                        comment_email,
+                        comment_content,
+                        comment_date,                 
+                        comment_status ) ";
+                     $query .= "VALUE(
+                         '{$the_post_id}',
+                         '{$comment_author}',
+                         '{$comment_email}',
+                         '{$comment_content}',
+                          now(),
+                         'unproved')";
+                $create_comments_query = mysqli_query($conn,$query);
+                if(!$create_comments_query){
+                    die("query failed to insert ".mysqli_error($conn));
+                } }else{
 
-                 $query .= "VALUE(
-                     '{$the_post_id}',
-                     '{$comment_author}',
-                     '{$comment_email}',
-                     '{$comment_content}',
-                      now(),
-                     'unproved')";
+                    echo "<script> alert('Fields cant not be empty!') </script>";
 
-           // $conn = getConnection();
-            $create_comments_query = mysqli_query($conn,$query);
-            if(!$create_comments_query){
-                die("query failed to insert ".mysqli_error($conn));
-            }
-
-
+                 }
 
              }           
                ?>

@@ -15,11 +15,25 @@
                 <li><a href="../index.php"> HOME SITE</a></li>
                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> My Page <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
+                    <?PHP 
+                if(isset($_SESSION['username'])){
+                    echo $_SESSION['username'];
+                }
+                    ?>
+                    
+            
+                    
+                    <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                        
                         <li>
                             <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+
+                                               
+                        <li>
+                            <a href="profile.php"><i class="fa fa-fw fa-file"></i> Profile</a>
                         </li>
 
                         <li class="divider"></li>
