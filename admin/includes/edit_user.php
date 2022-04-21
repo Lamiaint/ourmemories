@@ -12,6 +12,8 @@ while($row = mysqli_fetch_assoc($select_user_id_query)) {
     $user_email = $row["user_email"];
     $user_role = $row["user_role"];
     $user_password = $row["user_password"];
+    $db_user_image = $row["user_image"];
+
  }
 
 if(isset($_POST["edit_user"])){
@@ -20,12 +22,23 @@ if(isset($_POST["edit_user"])){
     $username = $_POST["user_name"];
     $user_email = $_POST["user_email"];
 
-    $user_image = $_FILES["image"]["name"];
-    $user_image_temp = $_FILES["image"]["tmp_name"];
-    move_uploaded_file($user_image_temp,"../images/$user_image");
+   
+        $user_image = $_FILES["image"]["name"];
+        $user_image_temp = $_FILES["image"]["tmp_name"];
+        move_uploaded_file($user_image_temp,"../images/$user_image");
 
     $user_role = $_POST["user_role"];
     $user_password = $_POST["user_password"];
+
+    //加密
+    $qeury = "SELECT randSalt FROM users";
+    $randsalt_qeuery = mysqli_query($conn, $qeury);
+    if(!$randsalt_qeuery ){
+        die("Query Failed".mysqli_error($conn));
+    }
+        $row  = mysqli_fetch_array($randsalt_qeuery);
+        $salt = $row['randSalt'];
+        $salt_user_password = crypt($user_password,$salt);
 
     $qeury = "UPDATE users SET ";
     $qeury .= "user_firstname = '{$user_first_name}', ";
@@ -33,13 +46,15 @@ if(isset($_POST["edit_user"])){
     $qeury .= "username ='{$username}', ";
     $qeury .= "user_email ='{$user_email}', ";
     $qeury .= "user_role ='{$user_role}', ";
-    $qeury .="user_password = '{$user_password}', ";
+    $qeury .="user_password = '{$salt_user_password}', ";
     //$qeury .= "post_date = now(), ";
     $qeury .= "user_image ='{$user_image}'  ";
     $qeury .= "WHERE user_id = {$edit_user_id} ";
 
     $edit_user = mysqli_query($conn,$qeury);
     confirmQuery($edit_user);
+
+    echo "User Edeted:"."<a href='users.php'> View Users </a>";
    
 }
 ?>
@@ -62,30 +77,39 @@ if(isset($_POST["edit_user"])){
  
      <div class="form-group">
         <label for="user_image">Userimage</label>
-        <input type="file"  name="image"> 
+        <input type='file'  name='image'> ;  
+        <img width="50" src="../images/<?php  echo $db_user_image; ?>" alt="">
      </div>
- 
 
      <div class="form-group">             
         <select name="user_role" id="">            
-        <option value="subscriber"><?php echo $user_role;  ?></option>  
+        <option value="subscriber">	Userrole Options</option>  
+        <option value="admin">Admin</option>
+        <option value="guest">Guest</option>
+        <option value="subscriber">Subscriber</option>
+        </select>
+    </div>
+ 
+
+     <!-- <div class="form-group">             
+        <select name="user_role" id="">            
+        <option value="<?php //echo $user_role;  ?>"><?php //echo $user_role;  ?></option>  
         <?php 
-        if($user_role == 'admin'){
-            echo "<option value='subscriber'>subscriber</option>";
-        }else{
-            echo "<option value='admin'>admin</option>";
-        } 
+        // if($user_role == 'admin'){
+        //     echo "<option value='subscriber'>subscriber</option>";
+        // }else{
+        //     echo "<option value='admin'>admin</option>";
+        // } 
         ?>
         <option value="guest">guest</option>     
         </select>
-    </div>
+    </div> -->
 
 
      <div class="form-group">
-         <label for="user_email">Useremail</label>
+         <label for="user_email">Email</label>
          <input type="text" value="<?php echo $user_email; ?>" class="form-control" name="user_email"> 
      </div>
-
 
      <div class="form-group">
          <label for="user_password">Password</label>

@@ -66,9 +66,10 @@ if(isset($_POST["create_post"])){
         </select>
     </div>
 
-    <div class="form-group">
+     <div class="form-group">
          <label for="post_author">Post Author</label>
-         <input type="text" class="form-control" name="Post_Author"> 
+         <?php if($_SESSION['username']){ $post_author_name = $_SESSION['username'];} ?>
+         <input type="text" value="<?php echo $post_author_name ?>" class="form-control" name="Post_Author"> 
      </div>
 
      <div class="form-group">

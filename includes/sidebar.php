@@ -112,9 +112,10 @@
     <ul>
     <h4>User Online</h4>
 <?php
-if (isset($_SESSION['user_role'])) {
+if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-        $userResults = "SELECT * FROM users Where username= '{$username}' ";
+    $user_role = $_SESSION['user_role'];
+        $userResults = "SELECT * FROM users Where username= '{$username}' AND user_role = '{$user_role}'  ";
         $select_users = mysqli_query($conn, $userResults);
         while ($user_row = mysqli_fetch_assoc($select_users)) {
             $user_image = $user_row["user_image"];

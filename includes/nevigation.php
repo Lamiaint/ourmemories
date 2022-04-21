@@ -23,9 +23,13 @@
                          $qeuryResults = mysqli_query($conn,$qeury); 
 
                     while($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)){
+                       
                     $cat_title = $qeuryResultsRow["title"];
                     $cat_id = $qeuryResultsRow["id"];
-                    echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";                   
+                    if(!empty($cat_title) && !empty($cat_id ) ){
+                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>"; 
+                    }
+                                      
                     }
                     ?>                    
                     </li>

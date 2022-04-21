@@ -22,7 +22,8 @@
                      $post_date= $row["post_date"];
                      $post_status = $row["post_status"];
                      $post_content= substr($row["post_content"], 0, 100);
-                     $post_image= $row["post_image"]; ?>
+                     $post_image= $row["post_image"];
+                     ?>
                  <h1 class="page-header">
                  <!-- You are My Life,My World,My Destiny
                  <small>Secondary Text</small>-->  
@@ -31,7 +32,9 @@
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
              </h2>
              <p class="lead">
-                  by <a href="index.php"> <?php echo $post_author ?> </a>
+                  All Posts by <?php //echo $post_author ?>
+                  <a href="author_post.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id ;?>"> <?php echo $post_author ?> </a>
+             
              </p>
              <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
 

@@ -14,32 +14,33 @@
         die("query failed".mysqli_error($conn));
     }
 
-    while($row = mysqli_fetch_array($userNameResult)){
+    while ($row = mysqli_fetch_array($userNameResult)) {
         $db_username = $row["username"];
         $db_user_password = $row["user_password"];
         $db_user_role = $row["user_role"];
         $db_user_firstname = $row["user_firstname"];
         $db_user_lastname = $row["user_lastname"];
-        if($Form_User_Name === $db_username && $Form_Password === $db_user_password){
-            //set session
+  
+    }
+
+    $Form_Password = crypt($Form_Password,$db_user_password);
+    
+
+        if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
+            header("Location:../index.php");
+          
+        }else{
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-            header("Location:../admin");           
-        }else{
-            header("Location:../index.php");
+            header("Location:../admin"); 
+            
         }
         
 
     }
 
-
-
-
-
-
-}
 
 ?>
 

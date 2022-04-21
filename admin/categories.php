@@ -2,8 +2,7 @@
 
     <div id="wrapper">
         <?php     
-        $conn = getConnection();
-        if($conn){echo "conn";}       
+        $conn = getConnection();    
         ?>
         <!-- Navigation -->
         <?php include "includes/admin_nevigation.php";?>
@@ -16,7 +15,13 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Wellcome to Admin
-                            <small>Author Name</small>
+                     <small> 
+                     <?PHP 
+                  if(isset($_SESSION['user_role'])){
+                    $username = $_SESSION['username'];
+                    echo $username;
+                    }?>
+                    </small>
                         </h1>
 
                     <div class="col-xs-6"> 

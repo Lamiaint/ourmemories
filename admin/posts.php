@@ -19,7 +19,12 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Wellcome to Admin
-                            <small>Author Name</small>
+                        <small>    
+                                <?PHP 
+                        if(isset($_SESSION['user_role'])){
+                        $username = $_SESSION['username'];
+                        echo $username;
+                        }?></small>
                         </h1>
                         <?php
                         if(isset($_GET['source'])){
@@ -37,9 +42,9 @@
                             include "includes/edit_post.php"; 
                             break;
 
-                            case"3";
-                            echo"c";
-                            break;
+                            // case"delete_post";
+                            // include "includes/delete_post.php"; 
+                            // break;
 
                             default:
                             include "includes/view_all_posts.php";

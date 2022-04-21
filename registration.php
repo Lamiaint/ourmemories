@@ -9,7 +9,8 @@ if(isset($_POST['submit'])){
     $username = $_POST['username'];
     $email    = $_POST['email'];
     $password = $_POST['password'];
-    $username = mysqli_real_escape_string($conn,$username);
+    if(!empty($username) && !empty( $email) && !empty($password )){
+        $username = mysqli_real_escape_string($conn,$username);
     $email    = mysqli_real_escape_string($conn,$email);
     $password = mysqli_real_escape_string($conn,$password);
 
@@ -21,22 +22,21 @@ if(isset($_POST['submit'])){
 
         $row  = mysqli_fetch_array($select_randsalt_qeuery);
         $salt = $row['randSalt'];
+        $password = crypt($password,$salt);
 
         $qeury = "INSERT INTO users (username,user_email,user_password,user_role) ";
         $qeury .= "VALUES('{$username}','{$email}','{$password}','subscriber' )";
         $register_user_query = mysqli_query($conn,$qeury);
         if(!$register_user_query){
-            die("Query Failed".mysqli_error($conn).''.mysqli_errno($conn));
+            die("Register_User_Query Failed".mysqli_error($conn).''.mysqli_errno($conn));
+        }  
+        $message = "succsseful";
 
-        }
-
- 
-
-
-
-
+    }else{ 
+        $message = "fields can not be empty";}
     
-}?>
+}else{  
+    $message = "";}?>
     
     <!-- Page Content -->
     <div class="container"> 
@@ -46,7 +46,9 @@ if(isset($_POST['submit'])){
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
+              
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                    <h3 class="text-center"> <?php echo $message;?> </h3>
                         <div class="form-group">
                             <label for="username" class="sr-only">Username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">

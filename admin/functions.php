@@ -12,7 +12,7 @@ function confirmQuery($queryResults){
 function insert_categories(){
     if(isset($_POST['submit'])){
        // $conn = getConnection();
-        global $conn;
+      global $conn;
         $title = $_POST['cat_title'];                          
         if($title == "" || empty($title)){
             echo "This field shoul not be empty";
@@ -34,7 +34,7 @@ function insert_categories(){
 function findAllCategories(){
     //$conn = getConnection();
     global $conn;
-    $qeury = "select * from categories limit 5";
+    $qeury = "select * from categories ";//limit 5
     $select_categories = mysqli_query($conn,$qeury); 
     while($qeuryResultsRow = mysqli_fetch_assoc($select_categories)){
     $cat_id = $qeuryResultsRow["id"];

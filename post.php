@@ -12,110 +12,112 @@
             <!-- Blog Entries Column -->                
                 <div class="col-md-8">                   
              <?php 
-             if(isset($_GET['p_id'])){
-                 $the_post_id = $_GET["p_id"];
-                 $conn = getConnection();
-                 $queryPost = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' ";
-                 $queryPostResults = mysqli_query($conn,$queryPost);
-                 while($row =mysqli_fetch_assoc($queryPostResults)){
-                     $post_title= $row["post_title"];
-                     $post_author= $row["post_author"];
-                     $post_date= $row["post_date"];
-                     $post_content= $row["post_content"];
-                     $post_image= $row["post_image"];
-                     $post_status = $row["post_status"];
-                 ?>
-                 <h1 class="page-header">
-                <!-- You are My Life,My World,My Destiny
-                     <small> Secondary Text </small>
-                -->
-                 </h1> 
+             if (isset($_GET['p_id'])) {
+                    $the_post_id = $_GET["p_id"];
+                        if($_SERVER['REQUEST_METHOD'] !=='POST'){
+                        $conn = getConnection();
+                        $view_query = "UPDATE posts SET post_views_count = post_views_count +1 WHERE post_id = $the_post_id";
+                        $send_query = mysqli_query($conn,$view_query);
+                            if(!$send_query){
+                                die("send_query failed");
 
-             <h2>
-                  <a href="#"><?php echo $post_title ?> </a>
-             </h2>
-
-             <p class="lead">
-                  by <a href="index.php"> <?php echo $post_author ?> </a>
-             </p>
-
-             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
-             
-             <td>  <?php echo $post_status ?> </td>
-
-                <?php
-                //登陆后首页编辑
-                if(isset($_SESSION['user_role'])){
-                    if(isset($_GET['p_id'])){
-                        $the_post_id = $_GET['p_id'];
-                        echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit Post </a></td>";   
+                            }
                     }
-                }
-                ?> 
+                 
+                 $queryPost = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' ";
+                 $queryPostResults = mysqli_query($conn, $queryPost);
+                    while ($row =mysqli_fetch_assoc($queryPostResults)) {
+                        $post_title= $row["post_title"];
+                        $post_author= $row["post_author"];
+                        $post_date= $row["post_date"];
+                        $post_content= $row["post_content"];
+                        $post_image= $row["post_image"];
+                        $post_status = $row["post_status"];
+                        $post_views_count = $row["post_views_count"]; ?>
+                    <h1 class="page-header">
+                    <!-- You are My Life,My World,My Destiny
+                        <small> Secondary Text </small>
+                    -->
+                    </h1> 
 
-                        <?php
-                        //登陆后删除POST
+                <h2>
+                    <a href="#"><?php echo $post_title ?> </a>
+                </h2>
+
+                <p class="lead">
+                    by <a href="author_post.php?author=<?php echo $post_author ?>&p_id=<?php echo $the_post_id ; ?>"> <?php echo $post_author ?> </a>
+                </p>
+
+                <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+                
+                <td>  <?php echo $post_status ?> </td>
+
+                    <?php
+                    //登陆后首页编辑/删除
                         if (isset($_SESSION['user_role'])) {
-                            
-                        }
+                            if (isset($_GET['p_id'])) {
+                                $the_post_id = $_GET['p_id'];
+                                echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit </a></td>";
                         
-                        ?> 
+                                echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$the_post_id}'> Delete </a></td>";
+                            }
+                        } ?> 
 
 
-             <hr>
-                  <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
-             <hr>
+                <hr>
+                    <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                <hr>
 
-             <p>  <?php echo $post_content ?> </p>
-              <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> -->
-             <hr>
+                <p>  <?php echo $post_content ?> </p>
+                <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> -->
+                <hr>
 
-           <?php  } ?>
+            <?php
+                    }
+                }else{
+                 header("Loction:index.php");
+
+
+             }?>
 
 
                <!-- Blog Comments -->
              <?php  
-             if(isset($_POST["create_comment"])){               
-                 $the_post_id = $_GET["p_id"];
-                 $comment_author= $_POST["comment_author"];               
-                 $comment_email= $_POST["comment_email"];
-                 $comment_content= $_POST["comment_content"];
+        if ($_SERVER['REQUEST_METHOD'] ==='POST') {
+            if (isset($_POST["create_comment"])) {
+            $the_post_id = $_GET["p_id"];
+            $comment_author= $_POST["comment_author"];
+            $comment_email= $_POST["comment_email"];
+            $comment_content= $_POST["comment_content"];
 
-                 if(!empty($comment_autho) && !empty($comment_email) && !empty($comment_content)){
+                    if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
                     $query = "INSERT INTO comments (                   
-                        comment_post_id,
-                        comment_author,                   
-                        comment_email,
-                        comment_content,
-                        comment_date,                 
-                        comment_status ) ";
-                     $query .= "VALUE(
-                         '{$the_post_id}',
-                         '{$comment_author}',
-                         '{$comment_email}',
-                         '{$comment_content}',
-                          now(),
-                         'unproved')";
-                $create_comments_query = mysqli_query($conn,$query);
-                if(!$create_comments_query){
-                    die("query failed to insert ".mysqli_error($conn));
-                } }else{
-
+                    comment_post_id,comment_author,comment_email,comment_content,comment_date,comment_status ) ";
+                    $query .= "VALUE('{$the_post_id}','{$comment_author}','{$comment_email}','{$comment_content}',now(),'unproved')";
+                    $create_comments_query = mysqli_query($conn, $query);
+                        if (!$create_comments_query) {
+                        die("query failed to insert ".mysqli_error($conn));
+                        } 
+                    } else {
                     echo "<script> alert('Fields cant not be empty!') </script>";
-
-                 }
-
-             }           
-               ?>
+                    }
+            }
+           
+           // redirect(location:"/ourmemories/post.php?p_id=$the_post_id");
+       }  
+              
+?>
 
 
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
                     <form action="" method="post" role="form">
+                        <input type="hidden" value="<?=isset($the_post_id)?? null ?>">
+
                         <div class="form-group">
-                            <label for="Author">Author</label>
-                            <input type="text" class="form-control" name="comment_author">
+                            <label for="comment_author">Author</label>
+                            <input id="comment_author" type="text" class="form-control" name="comment_author">
                         </div>
 
                         <div class="form-group">
@@ -135,7 +137,7 @@
                 <!-- Posted Comments -->
                  <?php
 
-                   $query = "SELECT * FROM comments WHERE comment_post_id = '{$the_post_id}' ";
+                   $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} ";
                    //$query .= "AND comment_status = 'approved' ";
                    $query .= "ORDER BY comment_id DESC";
 
@@ -165,7 +167,7 @@
                                   <?php echo $comment_content; ?>
                             </div>
                         </div>        
-              <?php } }?>
+              <?php  }?>
      
             
          

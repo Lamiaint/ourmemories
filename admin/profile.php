@@ -8,9 +8,9 @@ if(isset($_SESSION["username"])){
     $select_user_profile_query = mysqli_query($conn,$query);
     while($row = mysqli_fetch_array($select_user_profile_query)){
         //$user_id = $user_row["user_id"];
-        $username = $row["username"];
         $user_firstname = $row["user_firstname"];
         $user_lastname = $row["user_lastname"];
+        $username = $row["username"];
         $user_email = $row["user_email"];
         $user_role = $row["user_role"];
         //$user_image = $user_row["user_image"];
@@ -21,16 +21,16 @@ if(isset($_SESSION["username"])){
 
 <?php
 if(isset($_POST["edit_user"])){
-    $user_first_name = $_POST["user_first_name"];
-    $user_last_name = $_POST["user_last_name"];
-    $username = $_POST["user_name"];
+    $user_first_name = $_POST["user_firstname"];
+    $user_last_name = $_POST["user_lastname"];
+    $user_name = $_POST["user_name"];
     $user_email = $_POST["user_email"];
     $user_role = $_POST["user_role"];
    // $user_password = $_POST["user_password"];
     $qeury = "UPDATE users SET ";
     $qeury .= "user_firstname = '{$user_first_name}', ";
     $qeury .= "user_lastname ='{$user_last_name}', ";
-    $qeury .= "username ='{$username}', ";
+    $qeury .= "username ='{$user_name}', ";
     $qeury .= "user_email ='{$user_email}', ";
     $qeury .= "user_role ='{$user_role}' ";
    // $qeury .="user_password = '{$user_password}' ";
@@ -38,21 +38,14 @@ if(isset($_POST["edit_user"])){
 
     $edit_user = mysqli_query($conn,$qeury);
     confirmQuery($edit_user);
-echo $username;
+//echo $username;
 
 }
 
 ?>
 
     <div id="wrapper">
-        <?php     
-        $conn = getConnection();
-        
-        //global $conn;
-        if(!$conn){
-            die("failed to connect DB");
-        }       
-        ?>
+        <?php     $conn = getConnection(); if(!$conn){die("failed to connect DB"); }        ?>
         <!-- Navigation -->
         <?php include "includes/admin_nevigation.php";?>
  
@@ -64,18 +57,24 @@ echo $username;
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Wellcome to Admin
-                            <small>Author Name</small>
+                            <small>                             
+                            <?PHP 
+                            if(isset($_SESSION['user_role'])){
+                            $username = $_SESSION['username'];
+                            echo $username;
+                            }?>
+                            </small>
                         </h1>
                         
 <form action="" method="post" enctype="multipart/form-data">
      <div class="form-group">
-         <label for="User_First_Name">Firstname</label>
-         <input type="text" value="<?php echo $user_firstname ?>"class="form-control" name="user_first_name"> 
+         <label for="user_firstname">Firstname</label>
+         <input type="text" value="<?php echo $user_firstname ?>"class="form-control" name="user_firstname"> 
      </div>
 
      <div class="form-group">
-         <label for="User_Last_Name">Lastname</label>
-         <input type="text" value="<?php echo $user_lastname; ?>"  class="form-control" name="user_last_name">
+         <label for="user_lastname">Lastname</label>
+         <input type="text" value="<?php echo $user_lastname; ?>"  class="form-control" name="user_lastname">
      </div>
 
      <div class="form-group">
