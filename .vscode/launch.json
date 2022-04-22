@@ -5,63 +5,59 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch currently open script",
-            "type": "php",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/app.js",
             "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 0,
-            "runtimeArgs": [
-                "-dxdebug.start_with_request=yes"
+            "skipFiles": [
+                "<node_internals>/**"
             ],
-            "env": {
-                "XDEBUG_MODE": "debug,develop",
-                "XDEBUG_CONFIG": "client_port=${port}"
-            }
+            "type": "node"
         },
         {
-            "name": "Launch currently open script with Xdebug 2 (Legacy)",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 0,
-            "runtimeArgs": [
-                "-dxdebug.remote_enable=yes",
-                "-dxdebug.remote_autostart=yes"
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
             ],
-            "env": {
-                "XDEBUG_CONFIG": "remote_port=${port}"
-            }
+            "type": "node"
+        },
+    {
+        "address": "TCP/IP address of process to be debugged",
+        "localRoot": "${workspaceFolder}",
+        "name": "Attach to Remote",
+        "port": 9229,
+        "remoteRoot": "Absolute path to the remote directory containing the program",
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    },
+        {
+            "name": "Attach",
+            "port": 9229,
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
         },
         {
             "name": "Launch Chrome",
             "request": "launch",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
         },
-        {
-            "name": "Listen for XDebug",
-            "type": "php",
-            "request": "launch",
-            "port": 9000
-        },
-        {
-            "name": "Launch currently open script with Xdebug 2 (Legacy)",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 0,
-            "runtimeArgs": [
-                "-dxdebug.remote_enable=yes",
-                "-dxdebug.remote_autostart=yes"
-            ],
-            "env": {
-                "XDEBUG_CONFIG": "remote_port=${port}"
-            }
-        }
 
+
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
     ]
 }

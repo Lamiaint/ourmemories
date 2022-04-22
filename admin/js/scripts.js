@@ -1,3 +1,5 @@
+// tinymce.init({ selector: 'textarea' });
+
 $(document).ready(function() {
     $('#summernote').summernote({
         height: 200
@@ -7,15 +9,16 @@ $(document).ready(function() {
         if (this.checked) {
             $('.checkBoxes').each(function() {
                 this.checked = true;
-
-            })
-
+            });
         } else {
-            this.checked = false;
-
+            $('.checkBoxes').each(function() {
+                this.checked = false;
+            });
         }
+    });
 
-    })
+
+    // $("body").prepend(",,,,HELLO,,,,,");
 
     var div_box = "<div id='load-screen'><div id='loading'></div></div>";
     $("body").prepend(div_box);

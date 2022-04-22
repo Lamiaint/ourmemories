@@ -1,4 +1,4 @@
-<?php include "includes/header/header.php";?>
+<?php include "includes/header.php";?>
 
     <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
@@ -15,6 +15,7 @@
                  $conn = getConnection();
                  $queryPost = "SELECT * FROM posts WHERE post_category_id = $post_category_id ";
                  $queryPostResults = mysqli_query($conn, $queryPost);
+               
                  while ($row =mysqli_fetch_assoc($queryPostResults)) {
                      $post_id= $row["post_id"];
                      $post_title= $row["post_title"];

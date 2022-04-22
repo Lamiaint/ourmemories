@@ -1,9 +1,7 @@
 <?php include "includes/admin_header.php"; ?>
 
     <div id="wrapper">
-        <?php     
-        $conn = getConnection();    
-        ?>
+        <?php $conn = getConnection(); ?>
         <!-- Navigation -->
         <?php include "includes/admin_nevigation.php";?>
  
@@ -19,7 +17,7 @@
                      <?PHP 
                   if(isset($_SESSION['user_role'])){
                     $username = $_SESSION['username'];
-                    echo $username;
+                   // echo $username;
                     }?>
                     </small>
                         </h1>
