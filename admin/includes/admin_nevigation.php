@@ -12,6 +12,11 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
+            
+            <!-- users_online(); -->
+            <li><a href="">Users Online:<span class="usersonline"></span></a></li>
+            <li><a href=""> test_user_online:<?php  users_online(); ?></a></li>
+
                 <li><a href="../index.php"> HOME SITE</a></li>
                 
                 <li class="dropdown">

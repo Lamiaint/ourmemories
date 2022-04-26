@@ -1,5 +1,38 @@
 <?php
 
+function users_online(){
+    //    if (isset($_GET['onlineusers'])) {
+        global $conn;
+       if($conn){
+        //    session_start();
+        //    include("../includes/db.php");
+        //    global $conn;
+           
+            $session = session_id();
+            $time = time();
+            $time_out_in_seconds =10;
+            $time_out = $time - $time_out_in_seconds;
+    
+            $query = "SELECT * FROM users_online WHERE session = '$session'";
+            $send_query = mysqli_query($conn, $query);
+            $count = mysqli_num_rows($send_query);
+                if ($count == null) {
+                    mysqli_query($conn, "INSERT INTO users_online(session,time) VALUES('$session','$time')");
+                } else {
+                    mysqli_query($conn, "UPDATE users_online SET time = '$time' WHERE session= '$session'");
+                    
+                }
+                $users_online_query = mysqli_query($conn, "SELECT * FROM users_online WHERE time >'$time_out'");
+    
+           echo $count_user = mysqli_num_rows($users_online_query);
+       }
+
+    //   }//get request
+}
+users_online();
+
+ 
+
 function confirmQuery($queryResults){
     global $conn;
     if(!$queryResults){
@@ -32,7 +65,7 @@ function insert_categories(){
 
 
 function findAllCategories(){
-    //$conn = getConnection();
+   
     global $conn;
     $qeury = "select * from categories ";//limit 5
     $select_categories = mysqli_query($conn,$qeury); 
@@ -51,7 +84,7 @@ function findAllCategories(){
 }
 
 function deleteCategories(){
-    //$conn = getConnection();
+    
     global $conn;
     if(isset($_GET['delete'])){
         $the_cat_id = $_GET['delete'];
@@ -62,31 +95,10 @@ function deleteCategories(){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 ?>
 
 
-
-
-
-
-
-
-
-
-
+ 

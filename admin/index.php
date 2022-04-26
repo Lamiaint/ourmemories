@@ -1,9 +1,6 @@
 <?php include "includes/admin_header.php"; ?>
-
-    <div id="wrapper">
-        <?php     
-        $conn = getConnection(); 
-        ?>
+<div id="wrapper">
+<?php $conn = getConnection(); ?>
 
         <!-- Navigation -->
         <?php include "includes/admin_nevigation.php";?>
@@ -18,7 +15,7 @@
                             Wellcome to Admin
                             <small> <?php  echo $_SESSION['username']  ?> </small>
                         </h1>
-
+  
                      </div> 
                 </div> 
 
