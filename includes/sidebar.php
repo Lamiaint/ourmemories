@@ -46,7 +46,12 @@
                  }
             } 
     }?>
-    
+
+            <!-- 首页添加POST -->
+            <li>
+                <a href="add_posts_index.php?source=add_post_index">Add Post</a>
+            </li>   
+                
 
     <div class="well">
         <h4>Info Search</h4>
@@ -66,6 +71,8 @@
 
     <div class="well">
         <h4>Login</h4>
+        <!-- <td><a onClick=\" javascript: return confirm('用户名或密码错误');\" href='posts.php?delete={$post_id}'>Login</a></td>"; -->
+          
         <form action="includes/login.php" method="post">
         <div class="form-group">
             <input name="username" type="text" placeholder="enter username" class="form-control">      
@@ -73,8 +80,9 @@
         <div class="input-group">
         <input name="password" type="password" placeholder="enter password" class="form-control">          
         <span>
-            <button class="btn btn-primary" name="login" type="submit">submit</button>
+            <button class="btn btn-primary" name="login" type="submit">登陆</button>
         </span>
+        
         </div>
        </form> 
 
@@ -83,52 +91,122 @@
 
 
     <div class="well">
-        <h4>Info Categories</h4>
-           <?php
-               // $conn = getConnection();
-                $qeury = "select * from categories";
-                $qeuryResults = mysqli_query($conn,$qeury); 
-           ?>
-
+        <h4>User Info</h4>      
+        <form action="" method="post">
         <div class="row">
-            <div class="col-lg-6">
-                <ul class="list-unstyled">
-                    <?php
-                    while ($qeuryResultsRow = mysqli_fetch_assoc($qeuryResults)) {
-                        $cat_title = $qeuryResultsRow["title"];
-                        $cat_id = $qeuryResultsRow["id"];
-                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
-                    }
-                   ?>
-                </ul>
+            <div>
+        <?php
+        if(isset($_SESSION['username'])){   
+            $name = $_SESSION['username'];
+                $userResults = "SELECT * FROM users u Where u.username= '{$name}'";
+                $select_users = mysqli_query($conn, $userResults);
+                if ($user_row = mysqli_fetch_assoc($select_users)) {
+                    $username = $user_row["username"];
+                    $user_image = $user_row["user_image"];
+                    echo "<td>{$username}</td>"; 
+                    echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";  
+                    // echo "<textarea name='commt_content' class='form-control' rows='5'></textarea>";             
+                }               
+                      
+            }else{
+                $userResults = "SELECT ui.user_name,u.user_image,ui.user_info FROM user_information ui,users u Where ui.user_name=u.username AND ui.user_name= 'Lamiaint' ";
+                $select_users = mysqli_query($conn, $userResults);
+                if ($user_row = mysqli_fetch_assoc($select_users)) {
+                    $user_name = $user_row["user_name"];
+                    $user_info = $user_row["user_info"];
+                    $user_image = $user_row["user_image"];
+                    echo " <p>{$user_name}</p>";
+                    echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";
+                    echo "<div class='form-group'><h5><span>{$user_info}</span></h5></div>";
+
+                
+                }
+            }
+        ?>
             </div>
-        </div>
         <!-- /.row -->
+        </div>
+        </form> 
     </div>
 
+
+               <!-- Add sidebar Comments -->
+               <?php  
+        if ($_SERVER['REQUEST_METHOD'] ==='POST') {
+            if (isset($_POST["add_comment"])) {
+            $comment_user= $_POST["comment_username"];
+            $comment_content= $_POST["comment_content"];
+
+                    if (!empty($comment_user) && !empty($comment_content)) {
+                    $query = "INSERT INTO sidebar_comments (                   
+                    comment_username,comment_content,comment_date ) ";
+                    $query .= "VALUE('{$comment_user}','{$comment_content}',now() )";
+                    $create_comments_query = mysqli_query($conn, $query);
+                        if (!$create_comments_query) {
+                        die("query failed to insert ".mysqli_error($conn));
+                        } 
+                    } else {
+                    // echo "<script> alert('Fields cant not be empty!') </script>";
+                    }
+            }
+           
+             //redirect(location:"/ourmemories/post.php?p_id=$the_post_id");
+       }  
+              
+?>
     
-<!-- 主页显示用户-->  
-<div">
-    <ul>
-    <h4>User Online</h4>
-<?php
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $user_role = $_SESSION['user_role'];
-        $userResults = "SELECT * FROM users Where username= '{$username}' AND user_role = '{$user_role}'  ";
-        $select_users = mysqli_query($conn, $userResults);
-        while ($user_row = mysqli_fetch_assoc($select_users)) {
-            $user_image = $user_row["user_image"];
-            echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";  
-            echo "<td>{$username}</td>"; 
-    }
-}
-?> 
-    </ul>
-</div>
-<!-- 主页显示用户 -->
+        <!-- sidebar comments-->  
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form action="" method="post" role="form">
+                <div class="form-group">
+                    <label for="comment_username">Author</label>
+                    <input name="comment_username" type="text" class="form-control" placeholder='Enter Your Username' >
+                </div>
+
+                <div class="form-group">
+                    <label for="Comment">Comment</label>
+                    <textarea name="comment_content" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" name="add_comment" class="btn btn-primary">提交留言</button>
+            </form>
+        </div>
+        <!-- sidebar comments -->
+
+        <!-- display sidebar Comments -->
+        <?php
+                   $query = "SELECT * FROM sidebar_comments ";
+                   $query .= "ORDER BY comment_id DESC";
+
+                    $select_comment_query = mysqli_query($conn,$query);
+                    if(!$select_comment_query){
+                        die("Query Failed".mysqli_error($conn));              
+                    }
+
+                    while ($row = mysqli_fetch_array($select_comment_query)) {
+                        $comment_username = $row["comment_username"];
+                        $comment_date = $row["comment_date"];
+                        $comment_content = $row["comment_content"];
+
+                        ?>
+                        
+                        <!-- siebar Comment -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            </a>
+                            <div class="media-body">      
+                                 <h4 class="media-heading" > <?php echo $comment_username; ?>     
+                                 </h4>
+                                 <div>
+                                 <?php echo $comment_content; ?> 
+                                 </div>
+                                  <td><span class="glyphicon glyphicon-time"></span> <?php echo $comment_date; ?> </td>
+                            </div>
+                        </div>        
+              <?php  }?>
     
-    <!-- Side Widget Well -->
+     
     <?php // include "widget.php";?>
 </div>
 </div>

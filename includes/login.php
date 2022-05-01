@@ -4,6 +4,7 @@
 <?php if(isset($_POST["login"])){
     $Form_User_Name = $_POST["username"];
     $Form_Password = $_POST["password"];
+    
     $conn = getConnection();
     $Form_User_Name = mysqli_real_escape_string($conn,$Form_User_Name);
     $Form_Password = mysqli_real_escape_string($conn,$Form_Password);
@@ -26,40 +27,25 @@
     $Form_Password = crypt($Form_Password,$db_user_password);
     
 
+
         if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
-            header("Location:../index.php");
-          
+           header("Location:../index.php");
+               
         }else{
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-            header("Location:../admin"); 
+            $_SESSION['password'] = $db_user_password;
+            // header("Location:../admin"); 
+
+            header("Location:../index.php");
+            
             
         }
-        
-
     }
 
-
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

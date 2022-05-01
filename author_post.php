@@ -1,5 +1,5 @@
 <?php //include "includes/data/dbManipulation.php";?>
-<?php include "includes/header/header.php";?>
+<?php include "includes/header.php";?>
     
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
@@ -31,28 +31,36 @@
                      <small> Secondary Text </small>
                 -->
                  </h1> 
+<!-- 
+             <h2>
+                  <a href="#"><?php // echo $post_title ?> </a>
+             </h2> -->
 
              <h2>
-                  <a href="#"><?php echo $post_title ?> </a>
+                  <a href="post.php?p_id=<?php echo $the_post_id ?>"><?php echo $post_title; ?> </a>
              </h2>
 
              <p class="lead">
-                  All Posts by <?php //echo $post_author ?>
-                  <a href="author_post.php?author=<?php echo $post_author ?>&p_id=<?php echo $the_post_id ;?>"> <?php echo $post_author ?> </a>
+                  All Posts by
+                  <a href="author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $the_post_id;?>"> <?php echo $post_author ?> </a>
              </p>
 
-             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
              
              <td>  <?php echo $post_status ?> </td>
 
                 <?php
                 //登陆后首页编辑/删除
-                if(isset($_SESSION['user_role'])){
+                if(isset( $_SESSION['username']) && isset($_SESSION['password'])){
+                    $username = $_SESSION['username'];
                     if(isset($_GET['p_id'])){
                         $the_post_id = $_GET['p_id'];
-                        echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit </a></td>"; 
-                   
-                        echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$the_post_id}'> Delete </a></td>"; 
+                        $the_post_author= $_GET["author"];
+                        if($username === $the_post_author ){
+                            echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit </a></td>"; 
+                            echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$the_post_id}'> Delete </a></td>"; 
+                        }
+
                     }
                 }
                 ?> 

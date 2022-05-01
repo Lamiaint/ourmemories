@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"> 首页导航 </a>
+                <a class="navbar-brand" href="index.php"> 首页 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -34,10 +34,37 @@
                     ?>                    
                     </li>
 
-                    <li> <a href="admin"> Admin </a> </li>
+    <!-- 用户角色登陆后权限 -->
+    <?PHP
+    if (isset($_SESSION['username'])) {
+        $login_username = $_SESSION['username'];
+        $login_userrole = $_SESSION['user_role'];
+        $password = $_SESSION['password'];
+            $login_userResults = "SELECT * FROM users Where username= '{$login_username}' AND user_password = '{$password}' ";
+            $select_login_user = mysqli_query($conn, $login_userResults);
+            while ($login_user_row = mysqli_fetch_assoc($select_login_user)) {
+                $username = $login_user_row['username'];
+                $user_role = $login_user_row['user_role'];
+                if("admin" == $user_role ){
+                    echo"<li> <a href='admin'> Admin </a> </li>";
+                   
+                }else{
+                    echo"<li> <a onClick=\" javascript: return confirm('非管理员权限');\" href='index.php'> Admin </a> </li>";
+                    
+                    
+                    
+                }  
+        }
+    }
+    ?>
+
+                    <!-- <li> <a href="admin"> Admin </a> </li> -->
+                   
                     <li> <a href="registration.php"> Registration </a> </li>
 
-                   
+                    <li>
+                            <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
 
 
 

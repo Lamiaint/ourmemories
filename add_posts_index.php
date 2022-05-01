@@ -1,16 +1,17 @@
-<?php include "includes/admin_header.php"; ?>
+<?php include "includes/header.php"; ?>
+
 
     <div id="wrapper">
+  
+        <!-- Navigation -->
+        <?php include "includes/nevigation.php";?>
         <?php     
         $conn = getConnection();
-        
-        //global $conn;
+ 
         if(!$conn){
             die("failed to connect DB");
         }       
         ?>
-        <!-- Navigation -->
-        <?php include "includes/admin_nevigation.php";?>
  
     <div id="page-wrapper">
 
@@ -19,14 +20,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Wellcome to Admin
-                        <small>
-                        <?PHP 
+                            Wellcome
+                        <small>    
+                                <?PHP 
                         if(isset($_SESSION['user_role'])){
                         $username = $_SESSION['username'];
                         echo $username;
-                        }?>
-                        </small>
+                        }?></small>
                         </h1>
                         <?php
                         if(isset($_GET['source'])){
@@ -36,17 +36,23 @@
                         }
 
                         switch($source){
-                            case"add_user";
-                            include "includes/add_user.php"; 
+                            case"add_post_index";
+                            include "includes/add_post_index.php"; 
+
+                           // add_posts_index.php?source=add_post_index
                             break;
 
-                            case"edit_user";
-                            include "includes/edit_user.php"; 
-                            break;
+                            // case"edit_post";
+                            // include "includes/edit_post.php"; 
+                            // break;
 
-                            default:
-                            include "includes/view_all_users.php";
-                            break;
+                            // case"delete_post";
+                            // include "includes/delete_post.php"; 
+                            // break;
+
+                            // default:
+                            // include "includes/view_all_posts.php";
+                            // break;
 
                         }
                         
@@ -59,4 +65,4 @@
 </div><!-- /#page-wrapper -->
 
      
-<?php include "includes/admin_footer.php";  ?>
+<?php include "includes/footer/footer.php";  ?>

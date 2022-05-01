@@ -48,7 +48,12 @@ if(isset($_POST['submit'])){
                 <h1>Register</h1>
               
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                     <!-- 注册成功 -->
                     <h3 class="text-center"> <?php echo $message;?> </h3>
+                     <!-- 注册后登陆 -->
+                    <h3 class="active_link"> <a href="index.php"> login </a></h3>
+
+              
                         <div class="form-group">
                             <label for="username" class="sr-only">Username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">

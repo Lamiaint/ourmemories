@@ -1,8 +1,6 @@
 <?php include "includes/header.php";?>
- 
-    <!-- Navigation -->
-    <?php  include "includes/nevigation.php"; ?>
-
+ <!-- Navigation -->
+<?php  include "includes/nevigation.php"; ?>
     <!-- Page Content -->
     <div class="container">
         <div class="row">
@@ -31,7 +29,7 @@
              $post_query_count = "SELECT * FROM posts";
              $find_count = mysqli_query($conn, $post_query_count);
              $count = mysqli_num_rows($find_count);//counts
-             $count = ceil($count/5);
+             $count = ceil($count/$per_page);//总数除每页显示数量 = 一共有几页
 
             
              $queryPost = "SELECT * FROM posts LIMIT $page_1, $per_page";//从page_1开始展示，显示$per_page条
@@ -56,10 +54,10 @@
              </h2>
 
              <p class="lead">
-                  by <a href="author_post.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id ;?>"> <?php echo $post_author ?> </a>
+                  by <a href="author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ;?>"> <?php echo $post_author ?> </a>
              </p>
 
-             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+             <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
 
              <td>  <?php echo $post_status ?> </td>
              
@@ -70,18 +68,12 @@
              <hr>
              </a>
 
-                   <p>  <?php echo $post_content ?> </p>
+                   <p>  <?php echo $post_content; ?> </p>
 
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr>
 
             <?php
-                 }else{
-                    ?>
-                    <h1 class="page-header">
-                    <?php echo " No Post";    ?>          
-                  </h1>  
-               <?php
                  }
              }
 
@@ -90,7 +82,7 @@
         </div>
          
         <hr>
-           <!-- Blog Sidebar Widgets Column -->
+           <!-- Blog Sidebar Widgets Column  --> 
            <?php include "includes/sidebar.php";?>
         <!-- /.row -->
         <hr>

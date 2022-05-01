@@ -1,5 +1,4 @@
 <?php
-
 function users_online(){
     //    if (isset($_GET['onlineusers'])) {
         global $conn;
@@ -10,7 +9,7 @@ function users_online(){
            
             $session = session_id();
             $time = time();
-            $time_out_in_seconds =10;
+            $time_out_in_seconds =30;
             $time_out = $time - $time_out_in_seconds;
     
             $query = "SELECT * FROM users_online WHERE session = '$session'";
@@ -27,7 +26,7 @@ function users_online(){
            echo $count_user = mysqli_num_rows($users_online_query);
        }
 
-    //   }//get request
+    // }//get request
 }
 users_online();
 

@@ -1,5 +1,5 @@
 <?php //include "includes/data/dbManipulation.php";?>
-<?php include "includes/header/header.php";?>
+<?php include "includes/header.php";?>
     
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
@@ -41,27 +41,33 @@
                     </h1> 
 
                 <h2>
-                    <a href="#"><?php echo $post_title ?> </a>
+                    <!-- <a href="#"><?php //echo $post_title ?> </a> -->
+                    <a href="post.php?p_id=<?php echo $the_post_id; ?>"><?php echo $post_title; ?> </a>   
+                    
                 </h2>
 
                 <p class="lead">
-                    by <a href="author_post.php?author=<?php echo $post_author ?>&p_id=<?php echo $the_post_id ; ?>"> <?php echo $post_author ?> </a>
+                    by <a href="author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $the_post_id ; ?>"> <?php echo $post_author ?> </a>
                 </p>
 
-                <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
+                <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
                 
                 <td>  <?php echo $post_status ?> </td>
 
-                    <?php
-                    //登陆后首页编辑/删除
-                        if (isset($_SESSION['user_role'])) {
-                            if (isset($_GET['p_id'])) {
-                                $the_post_id = $_GET['p_id'];
-                                echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit </a></td>";
-                        
-                                echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$the_post_id}'> Delete </a></td>";
-                            }
-                        } ?> 
+                <?php
+                //登陆后首页编辑/删除
+                if(isset( $_SESSION['username']) && isset($_SESSION['password'])){
+                    $username = $_SESSION['username'];
+                    if(isset($_GET['p_id'])){
+                        $the_post_id = $_GET['p_id'];
+                        if($username === $post_author ){
+                            echo "<td><a href='admin/posts.php?source=edit_post&p_id=$the_post_id'> Edit </a></td>"; 
+                            echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$the_post_id}'> Delete </a></td>"; 
+                        }
+
+                    }
+                }
+                ?> 
 
 
                 <hr>
@@ -81,7 +87,7 @@
              }?>
 
 
-               <!-- Blog Comments -->
+               <!-- Add Blog Comments -->
              <?php  
         if ($_SERVER['REQUEST_METHOD'] ==='POST') {
             if (isset($_POST["create_comment"])) {
@@ -103,7 +109,7 @@
                     }
             }
            
-           // redirect(location:"/ourmemories/post.php?p_id=$the_post_id");
+             //redirect(location:"/ourmemories/post.php?p_id=$the_post_id");
        }  
               
 ?>
@@ -132,11 +138,10 @@
                         <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <hr>
 
+                <hr>
                 <!-- Posted Comments -->
                  <?php
-
                    $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} ";
                    //$query .= "AND comment_status = 'approved' ";
                    $query .= "ORDER BY comment_id DESC";
