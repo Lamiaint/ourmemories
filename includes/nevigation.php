@@ -43,22 +43,18 @@
             $login_userResults = "SELECT * FROM users Where username= '{$login_username}' AND user_password = '{$password}' ";
             $select_login_user = mysqli_query($conn, $login_userResults);
             while ($login_user_row = mysqli_fetch_assoc($select_login_user)) {
-                $username = $login_user_row['username'];
                 $user_role = $login_user_row['user_role'];
-                if("admin" == $user_role ){
+                if( $user_role =="admin"){
                     echo"<li> <a href='admin'> Admin </a> </li>";
                    
                 }else{
                     echo"<li> <a onClick=\" javascript: return confirm('非管理员权限');\" href='index.php'> Admin </a> </li>";
-                    
-                    
+ 
                     
                 }  
         }
     }
     ?>
-
-                    <!-- <li> <a href="admin"> Admin </a> </li> -->
                    
                     <li> <a href="registration.php"> Registration </a> </li>
 
@@ -74,6 +70,7 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
+
              
         </div>
         

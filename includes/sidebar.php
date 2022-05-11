@@ -1,5 +1,7 @@
 <div class="col-md-4">
-    
+<!-- 首页添加POST --> 
+<button type="button" class="btn btn-outline-primary"> <a href="add_posts_index.php?source=add_post_index">Add Post</a></button>   
+ 
     <?php 
     if(isset($_POST['submit'])){
     //sibar search 
@@ -23,11 +25,7 @@
             $post_image= $row["post_image"]; 
 
              ?>
-        <h1 class="page-header">
-           <!--  You are My Life,My World,My Destiny
-                 <small>Secondary Text</small>
-            -->
-        </h1>      
+     
         <h2>
              <a href="#"><?php echo $post_title ?> </a>
         </h2>
@@ -47,26 +45,41 @@
             } 
     }?>
 
-            <!-- 首页添加POST -->
-            <li>
-                <a href="add_posts_index.php?source=add_post_index">Add Post</a>
-            </li>   
+        
+<!--Sidebar User Info -->
+<div class="card">    
+        <form action="" method="post"> 
+        <?php
+        if(isset($_SESSION['username'])){   
+            $name = $_SESSION['username'];
+                $userResults = "SELECT * FROM users u Where u.username= '{$name}'";
+                $select_users = mysqli_query($conn, $userResults);
+                if ($user_row = mysqli_fetch_assoc($select_users)) {
+                    $username = $user_row["username"];
+                    $user_image = $user_row["user_image"];
+                    echo "<div class='card-header'><h4 class='card-text'>{$username}</h4></div>";
+                    // echo "<td><img class='card-img-top' width='50' src='images/$user_image' alt='Card image'></td>"; 
+                    echo "<p class='card-text'> <something class=''></something></p>";           
+                }                                   
+            }else{  
+                $userResults = "SELECT ui.user_name,u.user_image,ui.user_info FROM user_information ui,users u Where ui.user_name=u.username AND ui.user_name= 'Lamiaint' ";
+                $select_users = mysqli_query($conn, $userResults);
+                if ($user_row = mysqli_fetch_assoc($select_users)) {
+                    $user_name = $user_row["user_name"];
+                    $user_info = $user_row["user_info"];
+                    $user_image = $user_row["user_image"];
+                    //rounded-circle 类将图像塑造为圆形：
+                    echo "<div class='card-header'><h4 class='card-text'>{$user_name}</h4></div>";
+                    echo "<p><img class='rounded-circle' width='80' src='images/$user_image' alt='Cinque Terre'></p>"; 
+                    echo "<div class='card-body'><h4 class='text-danger'>{$user_info}</h4></div>";
                 
-
-    <div class="well">
-        <h4>Info Search</h4>
-        <form action="" method="post">
-        <div class="input-group">
-            <input name="search" type="text" class="form-control">
-            <span class="input-group-btn">
-                <button name="submit" class="btn btn-default" type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-            </button>
-            </span>
-        </div>
-       </form>          
+                }
+            }
+        ?>
+        <!-- /.row -->
+         
+        </form> 
     </div>
-
 
 
     <div class="well">
@@ -87,48 +100,6 @@
        </form> 
 
     </div>
-
-
-
-    <div class="well">
-        <h4>User Info</h4>      
-        <form action="" method="post">
-        <div class="row">
-            <div>
-        <?php
-        if(isset($_SESSION['username'])){   
-            $name = $_SESSION['username'];
-                $userResults = "SELECT * FROM users u Where u.username= '{$name}'";
-                $select_users = mysqli_query($conn, $userResults);
-                if ($user_row = mysqli_fetch_assoc($select_users)) {
-                    $username = $user_row["username"];
-                    $user_image = $user_row["user_image"];
-                    echo "<td>{$username}</td>"; 
-                    echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";  
-                    // echo "<textarea name='commt_content' class='form-control' rows='5'></textarea>";             
-                }               
-                      
-            }else{
-                $userResults = "SELECT ui.user_name,u.user_image,ui.user_info FROM user_information ui,users u Where ui.user_name=u.username AND ui.user_name= 'Lamiaint' ";
-                $select_users = mysqli_query($conn, $userResults);
-                if ($user_row = mysqli_fetch_assoc($select_users)) {
-                    $user_name = $user_row["user_name"];
-                    $user_info = $user_row["user_info"];
-                    $user_image = $user_row["user_image"];
-                    echo " <p>{$user_name}</p>";
-                    echo "<td><img width='50' src='./images/$user_image' alt='image'></td>";
-                    echo "<div class='form-group'><h5><span>{$user_info}</span></h5></div>";
-
-                
-                }
-            }
-        ?>
-            </div>
-        <!-- /.row -->
-        </div>
-        </form> 
-    </div>
-
 
                <!-- Add sidebar Comments -->
                <?php  
@@ -154,10 +125,25 @@
        }  
               
 ?>
+
+
+<div class="well">
+        <h4>Info Search</h4>
+        <form action="" method="post">
+        <div class="input-group">
+            <input name="search" type="text" class="form-control">
+            <span class="input-group-btn">
+                <button name="submit" class="btn btn-default" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+            </button>
+            </span>
+        </div>
+       </form>          
+    </div>
     
         <!-- sidebar comments-->  
         <div class="well">
-            <h4>Leave a Comment:</h4>
+            <h4>Leave a Comment:</h4> 
             <form action="" method="post" role="form">
                 <div class="form-group">
                     <label for="comment_username">Author</label>
@@ -173,7 +159,10 @@
         </div>
         <!-- sidebar comments -->
 
+
+
         <!-- display sidebar Comments -->
+        <span>留言区:</span> 
         <?php
                    $query = "SELECT * FROM sidebar_comments ";
                    $query .= "ORDER BY comment_id DESC";
@@ -190,14 +179,14 @@
 
                         ?>
                         
-                        <!-- siebar Comment -->
-                        <div class="media">
+                        <!-- siebar Comment  class="media" -->
+                        <div div id="block-6" class="widget widget_block">
                             <a class="pull-left" href="#">
                                 <img class="media-object" src="http://placehold.it/64x64" alt="">
                             </a>
-                            <div class="media-body">      
-                                 <h4 class="media-heading" > <?php echo $comment_username; ?>     
-                                 </h4>
+                            <div class="media-body">  
+                                
+                                 <h4 class="media-heading" > <?php echo $comment_username; ?> </h4>
                                  <div>
                                  <?php echo $comment_content; ?> 
                                  </div>
@@ -207,6 +196,23 @@
               <?php  }?>
     
      
-    <?php // include "widget.php";?>
+    <?php   include "widget.php";?>
+
+    <!-- <div id="block-6" class="widget widget_block">
+    <figure class="wp-block-embed is-type-rich is-provider-twitter wp-block-embed-twitter">
+            <div class="wp-block-embed__wrapper">
+          <a class="twitter-timeline" data-width="1140" data-height="1000" 
+        data-dnt="true" href="https://twitter.com/DavidHuSG1?ref_src=twsrc%5Etfw">Tweets by  name </a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+        </div>
+    </figure>
 </div>
+
 </div>
+	</aside>
+
+</div> 
+
+<!-- 
+</div>
+</div> -->

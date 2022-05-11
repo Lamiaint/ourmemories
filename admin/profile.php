@@ -13,6 +13,7 @@ if(isset($_SESSION["username"])){
         $username = $row["username"];
         $user_email = $row["user_email"];
         $user_role = $row["user_role"];
+        $password = $row["user_password"];
         //$user_image = $user_row["user_image"];
     }
 }
@@ -65,7 +66,10 @@ if(isset($_POST["edit_user"])){
                             }?>
                             </small>
                         </h1>
-                        
+
+<div class="container main-container" role="main">
+<div class="well">
+<div class="page-area">                     
 <form action="" method="post" enctype="multipart/form-data">
      <div class="form-group">
          <label for="user_firstname">Firstname</label>
@@ -108,18 +112,21 @@ if(isset($_POST["edit_user"])){
          <input type="text" value="<?php echo $user_email; ?>" class="form-control" name="user_email"> 
      </div>
 
-<!--
+<!-- 
      <div class="form-group">
          <label for="user_password">Password</label>
-         <input type="text" value="<?php echo $user_password; ?>" class="form-control" name="user_password"> 
-     </div>
--->
+         <input  type="password" autocomplete="off" class="form-control" name="user_password"> 
+     </div> -->
+
 
      <div class="form-group">
          <input class="btn btn-primary" type="submit" name="edit_user" value="Update Profile"> 
      </div>
 
 </form>
+</div>
+</div>
+</div>
                    
                      </div>
 

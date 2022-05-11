@@ -3,11 +3,29 @@
     
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
-   
+
+    <div class="site-header container-fluid" style="background-image: url()">
+<div class="custom-header container" >
+    <div class="site-heading text-center">
+        <div class="site-branding-logo">
+                <div class="site-branding-text">
+                <h1 class="site-title"><a href="#" rel="home">You are My Life,My World,My Destiny</a></h1>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="main-menu">
+	<nav id="site-navigation" class="navbar navbar-default navbar-center">     
+		<div class="container">   
+			<div class="navbar-header"></div>
+		</div>
+	</nav> 
+</div>
    
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
             <!-- Blog Entries Column -->                
                 <div class="col-md-8">                   
@@ -20,7 +38,6 @@
                         $send_query = mysqli_query($conn,$view_query);
                             if(!$send_query){
                                 die("send_query failed");
-
                             }
                     }
                  
@@ -34,6 +51,7 @@
                         $post_image= $row["post_image"];
                         $post_status = $row["post_status"];
                         $post_views_count = $row["post_views_count"]; ?>
+                        
                     <h1 class="page-header">
                     <!-- You are My Life,My World,My Destiny
                         <small> Secondary Text </small>
@@ -41,13 +59,12 @@
                     </h1> 
 
                 <h2>
-                    <!-- <a href="#"><?php //echo $post_title ?> </a> -->
                     <a href="post.php?p_id=<?php echo $the_post_id; ?>"><?php echo $post_title; ?> </a>   
                     
                 </h2>
 
                 <p class="lead">
-                    by <a href="author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $the_post_id ; ?>"> <?php echo $post_author ?> </a>
+                   All Posts by <a href="author_post.php?author=<?php echo $post_author; ?>"> <?php echo $post_author ?> </a>
                 </p>
 
                 <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
@@ -104,6 +121,10 @@
                         if (!$create_comments_query) {
                         die("query failed to insert ".mysqli_error($conn));
                         } 
+
+                        // $query ="UPDATE posts SET post_comment_cont = post_comment_count +1";
+                        // $query .="WHERE comment_post_id = {$the_post_id} ";
+    
                     } else {
                     echo "<script> alert('Fields cant not be empty!') </script>";
                     }

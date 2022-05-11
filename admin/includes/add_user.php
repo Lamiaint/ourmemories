@@ -12,6 +12,7 @@ if(isset($_POST["create_user"])){
     
     $user_email = $_POST["user_email"];
     $user_password = $_POST["user_password"];
+    $user_password = password_hash($user_password,PASSWORD_BCRYPT,array('cost'=>12));
    // $user_date = date('d-m-y');
 
    move_uploaded_file($user_image_temp,"../images/$user_image");

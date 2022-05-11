@@ -1,27 +1,24 @@
 <?php
-if (isset($_GET["source"])) {
+if (isset($_GET["edit_user"])) {
     $edit_user_id = $_GET["edit_user"];
-}
 
-$query = "SELECT * FROM users WHERE user_id = '{$edit_user_id}' ";
-$select_user_id_query = mysqli_query($conn, $query);
-while($row = mysqli_fetch_assoc($select_user_id_query)) {
-    $user_first_name = $row["user_firstname"];
-    $user_last_name = $row["user_lastname"];
-    $username = $row["username"];
-    $user_email = $row["user_email"];
-    $user_role = $row["user_role"];
-    $user_password = $row["user_password"];
-    $db_user_image = $row["user_image"];
-
- }
+    $query = "SELECT * FROM users WHERE user_id = '{$edit_user_id}' ";
+    $select_user_id_query = mysqli_query($conn, $query);
+    while ($row = mysqli_fetch_assoc($select_user_id_query)) {
+        $user_first_name = $row["user_firstname"];
+        $user_last_name = $row["user_lastname"];
+        $username = $row["username"];
+        $user_email = $row["user_email"];
+        $user_role = $row["user_role"];
+        $db_user_image = $row["user_image"];
+        $password = $row["user_password"];
+    }
 
 if(isset($_POST["edit_user"])){
     $user_first_name = $_POST["user_first_name"];
     $user_last_name = $_POST["user_last_name"];
     $username = $_POST["user_name"];
     $user_email = $_POST["user_email"];
-
    
         $user_image = $_FILES["image"]["name"];
         $user_image_temp = $_FILES["image"]["tmp_name"];
@@ -29,16 +26,20 @@ if(isset($_POST["edit_user"])){
 
     $user_role = $_POST["user_role"];
     $user_password = $_POST["user_password"];
-
-    //加密
-    $qeury = "SELECT randSalt FROM users";
-    $randsalt_qeuery = mysqli_query($conn, $qeury);
-    if(!$randsalt_qeuery ){
-        die("Query Failed".mysqli_error($conn));
+    
+    if(!empty($user_password)){
+        $query_password = "SELECT user_password FROM users WHERE user_id = $edit_user_id ";
+        $get_user_query = mysqli_query($conn,$query_password);
+        confirmQuery($get_user_query );
+        $row = mysqli_fetch_array($get_user_query);
+        $db_user_password = $row['user_password'];
+        if($db_user_password !== $user_password){
+           $hash_password = password_hash($user_password,PASSWORD_BCRYPT,array('cost'=>10));
+        }
+    }else{
+        $hash_password = $password;
     }
-        $row  = mysqli_fetch_array($randsalt_qeuery);
-        $salt = $row['randSalt'];
-        $salt_user_password = crypt($user_password,$salt);
+
 
     $qeury = "UPDATE users SET ";
     $qeury .= "user_firstname = '{$user_first_name}', ";
@@ -46,16 +47,19 @@ if(isset($_POST["edit_user"])){
     $qeury .= "username ='{$username}', ";
     $qeury .= "user_email ='{$user_email}', ";
     $qeury .= "user_role ='{$user_role}', ";
-    $qeury .="user_password = '{$salt_user_password}', ";
+    $qeury .="user_password = '{$hash_password}', ";
     //$qeury .= "post_date = now(), ";
     $qeury .= "user_image ='{$user_image}'  ";
     $qeury .= "WHERE user_id = {$edit_user_id} ";
 
     $edit_user = mysqli_query($conn,$qeury);
     confirmQuery($edit_user);
-
     echo "User Edeted:"."<a href='users.php'> View Users </a>";
    
+}
+}else{
+    header("location:index.php");
+
 }
 ?>
 
@@ -105,7 +109,6 @@ if(isset($_POST["edit_user"])){
         </select>
     </div> -->
 
-
      <div class="form-group">
          <label for="user_email">Email</label>
          <input type="text" value="<?php echo $user_email; ?>" class="form-control" name="user_email"> 
@@ -113,7 +116,7 @@ if(isset($_POST["edit_user"])){
 
      <div class="form-group">
          <label for="user_password">Password</label>
-         <input type="text" value="<?php echo $user_password; ?>" class="form-control" name="user_password"> 
+         <input type="password" autocomplete="off" class="form-control" placeholder="请输入登陆密码" name="user_password"> 
      </div>
 
      <div class="form-group">

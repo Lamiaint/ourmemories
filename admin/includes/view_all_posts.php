@@ -25,7 +25,7 @@ if(isset($_POST['chekBoxArray'])){
                         $select_posts = mysqli_query($conn, $query);
                         while ($post_row = mysqli_fetch_assoc($select_posts)) {
                             $post_id = $post_row["post_id"];
-                            $post_author = $post_row["post_author"];
+                            $post_user = $post_row["post_user"];
                             $post_title = $post_row["post_title"];
                             $post_category_id = $post_row["post_category_id"];
                             $post_status = $post_row["post_status"];
@@ -38,7 +38,7 @@ if(isset($_POST['chekBoxArray'])){
 
                             $query = "INSERT INTO posts(post_category_id,post_title,post_author,
                             post_image,post_tag,post_date,post_status)";
-                             $query .= "VALUES({$post_category_id},'{$post_title}','{$post_author}','{$post_image}',
+                             $query .= "VALUES({$post_category_id},'{$post_title}','{$post_user}','{$post_image}',
                             '{$post_tag}',now(),'{$post_status}')";
                             $copy_query = mysqli_query($conn, $query);
                             if (!$copy_query) {
@@ -69,7 +69,7 @@ if(isset($_POST['chekBoxArray'])){
             <tr>
              <th> <input id="selectAllBoxes" type="checkbox"></th>
                 <th>Post Id</th>
-                <th>Post Author</th>
+                <th>Users</th>
                 <th>Post Title</th>
                 <th>Post Category</th>
                 <th>Post Status</th>
@@ -93,6 +93,7 @@ if(isset($_POST['chekBoxArray'])){
         while ($post_row = mysqli_fetch_assoc($select_posts)) {
             $post_id = $post_row["post_id"];
             $post_author = $post_row["post_author"];
+            $post_user = $post_row["post_user"];
             $post_title = $post_row["post_title"];
             $post_category_id = $post_row["post_category_id"];
             $post_status = $post_row["post_status"];
@@ -107,11 +108,15 @@ if(isset($_POST['chekBoxArray'])){
             <td> <input class='checkBoxes' type='checkbox' name='chekBoxArray[]' value='<?php echo $post_id; ?>'></td>
             
             <?php
-            echo "<td>{$post_id}</td>"; 
-            echo "<td>{$post_author}</td>";
+            echo "<td>{$post_id}</td>";            
+            
+            if(!empty($post_author)){
+                echo "<td>{$post_author}</td>";
+            }else{
+                echo "<td>{$post_user}</td>";
+            }
+        
             echo "<td>{$post_title}</td>";
-
-
            // global $conn;
             //view_all_posts中的seasons
             $qeury = "SELECT * FROM categories WHERE id = {$post_category_id} ";
@@ -121,14 +126,20 @@ if(isset($_POST['chekBoxArray'])){
                 $cat_title = $categoriesRow["title"];
                 echo "<td class='text-center'>{$cat_title}</td>";
             }
-            
-           
             echo "<td>{$post_status}</td>";
             echo "<td><img width='80' src='../images/$post_image' alt='image'></td>";
-            
             echo "<td>{$post_tag}</td>"; 
-            echo "<td>{$post_comment_count}</td>";
-           
+            $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
+            $send_comment_query = mysqli_query($conn,$query);
+            $rows = mysqli_fetch_array($send_comment_query);
+            // if(!$rows){
+            //    $comment_id="";      
+            // }else{
+            //     $comment_id = $rows['comment_id'];     
+            // }
+            $count_comments = mysqli_num_rows($send_comment_query);
+            echo "<td><a href='post_comments.php?id={$post_id}'>{$count_comments}</a></td>";
+        
             echo "<td>{$post_date}</td>";
             echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
             echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
@@ -146,7 +157,6 @@ if(isset($_POST['chekBoxArray'])){
 //delete posts from Admin_view_all_posts
 if(isset($_GET["delete"])){
     
-  //  global $conn;
     $the_post_id = $_GET["delete"];
     $query = "DELETE FROM posts WHERE post_id = '{$the_post_id}' ";
     $delete_query = mysqli_query($conn,$query);
@@ -155,8 +165,7 @@ if(isset($_GET["delete"])){
 
 
 if (isset($_GET["reset"])) {
-    
-    //  global $conn;
+
     $the_post_id = $_GET["reset"];
     if ($_SERVER['REQUEST'] !=='POST') {
         $query = "UPDATE posts SET post_views_count = 0 WHERE post_id =".mysqli_real_escape_string($conn, $_GET["reset"])."";
