@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET["p_id"])){
-    $p_id = $_GET["p_id"];
+    $p_id = escape($_GET["p_id"]);
     global $conn;
     $postResults = "SELECT * FROM posts WHERE post_id = $p_id";
     $select_posts = mysqli_query($conn,$postResults); 
@@ -21,25 +21,22 @@ while ($post_row = mysqli_fetch_assoc($select_posts)) {
 }
 if(isset($_POST["update_post"])){
     global $conn;
-    $post_author = $_POST["Post_Author"];
-    $post_user = $_POST["post_user"];
-    $post_title = $_POST["Post_Title"];
-    $post_category_id = $_POST["Post_Category"];
-    $post_status = $_POST["Post_Status"];
-    $post_image = $_FILES["image"]["name"];
-    $post_image_temp = $_FILES["image"]["tmp_name"];
-    $post_content = $_POST["Post_Content"];
-    $post_tag = $_POST["Post_Tag"];
+    $post_author = escape($_POST["Post_Author"]);
+    $post_user = escape($_POST["post_user"]);
+    $post_title = escape($_POST["Post_Title"]);
+    $post_category_id = escape($_POST["Post_Category"]);
+    $post_status = escape($_POST["Post_Status"]);
+    $post_image = escape($_FILES["image"]["name"]);
+    $post_image_temp = escape($_FILES["image"]["tmp_name"]);
+    $post_content = escape($_POST["Post_Content"]);
+    $post_tag = escape($_POST["Post_Tag"]);
     move_uploaded_file($post_image_temp,"../images/$post_image");
     if(empty($post_image)){
         $qeury = "SELECT * FROM posts WHERE post_id = {$p_id} ";
         $select_image = mysqli_query($conn,$qeury);
         while($row = mysqli_fetch_array($select_image)){
             $post_image = $row['post_image'];
-
-
         }
-
     }
 
     $qeury = "UPDATE posts SET ";

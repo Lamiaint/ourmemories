@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
     $email    = $_POST['email'];
     $password = $_POST['password'];
     if(!empty($username) && !empty( $email) && !empty($password )){
-        $username = mysqli_real_escape_string($conn,$username);
+    $username = mysqli_real_escape_string($conn,$username);
     $email    = mysqli_real_escape_string($conn,$email);
     $password = mysqli_real_escape_string($conn,$password);
 

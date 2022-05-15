@@ -3,7 +3,7 @@
 if(isset($_POST['chekBoxArray'])){
     $chekBoxArrays  = $_POST['chekBoxArray'];
     foreach ($chekBoxArrays as $postValueId) {
-        $bulk_Oprions = $_POST['bulk_Oprions'];
+        $bulk_Oprions = escape($_POST['bulk_Oprions']);
         switch ($bulk_Oprions) {
            case 'published':
            $query = "UPDATE posts SET post_status = '$bulk_Oprions' WHERE post_id= {$postValueId}";
@@ -24,16 +24,16 @@ if(isset($_POST['chekBoxArray'])){
                         $query = "SELECT * FROM posts WHERE post_id= {$postValueId}";
                         $select_posts = mysqli_query($conn, $query);
                         while ($post_row = mysqli_fetch_assoc($select_posts)) {
-                            $post_id = $post_row["post_id"];
-                            $post_user = $post_row["post_user"];
-                            $post_title = $post_row["post_title"];
-                            $post_category_id = $post_row["post_category_id"];
-                            $post_status = $post_row["post_status"];
+                            $post_id = escape($post_row["post_id"]);
+                            $post_user = escape($post_row["post_user"]);
+                            $post_title = escape($post_row["post_title"]);
+                            $post_category_id = escape($post_row["post_category_id"]);
+                            $post_status = escape($post_row["post_status"]);
                            // $post_content = $post_content["post_content"];
-                            $post_image = $post_row["post_image"];
-                            $post_tag = $post_row["post_tag"];
-                            $post_comment_count = $post_row["post_comment_count"];
-                            $post_date = $post_row["post_date"];
+                            $post_image = escape($post_row["post_image"]);
+                            $post_tag = escape($post_row["post_tag"]);
+                            $post_comment_count = escape($post_row["post_comment_count"]);
+                            $post_date = escape($post_row["post_date"]);
                         }
 
                             $query = "INSERT INTO posts(post_category_id,post_title,post_author,
@@ -157,7 +157,7 @@ if(isset($_POST['chekBoxArray'])){
 //delete posts from Admin_view_all_posts
 if(isset($_GET["delete"])){
     
-    $the_post_id = $_GET["delete"];
+    $the_post_id = escape($_GET["delete"]);
     $query = "DELETE FROM posts WHERE post_id = '{$the_post_id}' ";
     $delete_query = mysqli_query($conn,$query);
     header("Location:posts.php");
@@ -166,7 +166,7 @@ if(isset($_GET["delete"])){
 
 if (isset($_GET["reset"])) {
 
-    $the_post_id = $_GET["reset"];
+    $the_post_id = escape($_GET["reset"]);
     if ($_SERVER['REQUEST'] !=='POST') {
         $query = "UPDATE posts SET post_views_count = 0 WHERE post_id =".mysqli_real_escape_string($conn, $_GET["reset"])."";
         $delete_query = mysqli_query($conn, $query);

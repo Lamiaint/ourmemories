@@ -7,13 +7,13 @@
                             
                             <?php
                             if (isset($_GET["edit"])) {
-                                $cat_id = $_GET["edit"];                                    
+                                $cat_id = escape($_GET["edit"]);                                    
                                 //$conn = getConnection();
                                 $qeury = "SELECT * FROM categories WHERE id = $cat_id";
                                 $select_categories_id = mysqli_query($conn, $qeury);
                                 while ($row = mysqli_fetch_assoc($select_categories_id)) {
-                                   $cat_id = $row["id"];
-                                    $cat_title = $row["title"];
+                                   $cat_id = escape($row["id"]);
+                                    $cat_title = escape($row["title"]);
                                    // if (isset($cat_title)) { echo $cat_title;}
                                     ?>
                                 <input value="<?php if (isset($cat_title)) { echo $cat_title;}?>"
@@ -26,7 +26,7 @@
 
                        //update query
                        if(isset($_POST['update_category'])){
-                        $the_cat_title = $_POST["cat_title"];
+                        $the_cat_title = escape($_POST["cat_title"]);
                         $query = "UPDATE categories SET title = '{$the_cat_title}' WHERE id = '$cat_id'";
                         $update_query = mysqli_query($conn,$query); 
                         if(!$update_query){

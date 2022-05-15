@@ -1,5 +1,5 @@
-<?php include "db.php";  ?>
-<?php session_start();  ?>
+<?php   include "db.php";  ?>
+<?php  session_start();  ?>
 
 <?php if(isset($_POST["login"])){
     $Form_User_Name = $_POST["username"];
@@ -32,12 +32,12 @@
             $_SESSION['lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
             $_SESSION['password'] = $db_user_password;
-            //  header("Location:../admin"); 
+               header("Location:../admin"); 
 
-             header("Location:../index.php");
+            // header("Location:../index.php");
         }else{
-             header("Location:../index.php");
-            // header("Location:../admin"); 
+             //header("Location:../index.php");
+              header("Location:../admin"); 
 
            
 

@@ -1,3 +1,48 @@
+/* page color */
+
 .pager li .active_link {
     background: rgb(179, 215, 61) !important;
+    text-decoration: black;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+/* sidebar person info image   rounded-circle*/
+
+.image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.image img {
+    width: 120px;
+    clip-path: circle();
+    border-radius: 99%;
+}
+
+
+/* you are my world image */
+
+.main-header {
+    background-image: url(../images/微信图片_20220513145835.jpg);
+    background-color: rgb(219, 209, 193);
+    /* position: fixed; */
+    width: auto;
+    height: auto;
+    padding: 6%;
+}
+
+
+/*  sidebar comments color */
+
+.sidebar.sidebar__inner.info-d a {
+    text-decoration: black;
 }

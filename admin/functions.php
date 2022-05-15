@@ -1,4 +1,12 @@
 <?php
+function escape($string){
+    global $conn;
+    return mysqli_real_escape_string($conn,trim($string));
+}
+
+
+
+
 function users_online(){
     //    if (isset($_GET['onlineusers'])) {
         global $conn;
@@ -23,7 +31,7 @@ function users_online(){
                 }
                 $users_online_query = mysqli_query($conn, "SELECT * FROM users_online WHERE time >'$time_out'");
     
-           echo $count_user = mysqli_num_rows($users_online_query);
+           // echo $count_user = mysqli_num_rows($users_online_query); //显示在线用户数量
        }
 
     // }//get request
@@ -45,7 +53,7 @@ function insert_categories(){
     if(isset($_POST['submit'])){
        // $conn = getConnection();
       global $conn;
-        $title = $_POST['cat_title'];                          
+        $title = escape($_POST['cat_title']);                          
         if($title == "" || empty($title)){
             echo "This field shoul not be empty";
         }else{
@@ -86,7 +94,7 @@ function deleteCategories(){
     
     global $conn;
     if(isset($_GET['delete'])){
-        $the_cat_id = $_GET['delete'];
+        $the_cat_id = escape($_GET['delete']);
         $query = "DELETE FROM categories WHERE id = {$the_cat_id} ";
         $delete_query = mysqli_query($conn,$query);
         header("Location:categories.php");

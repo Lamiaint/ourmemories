@@ -1,35 +1,15 @@
-<?php //include "includes/data/dbManipulation.php";?>
+
 <?php include "includes/header.php";?>
     
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
 
-    <!-- <div class="site-header container-fluid" style="background-image: url()"> -->
-<div class="custom-header container" >
-    <div class="site-heading text-center">
-        <div class="site-branding-logo">
-                <div class="site-branding-text">
-                <h1 class="site-title"><a href="#" rel="home">You are My Life,My World,My Destiny</a></h1>
-                </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="main-menu">
-	<nav id="site-navigation" class="navbar navbar-default navbar-center">     
-		<div class="container">   
-			<div class="navbar-header"></div>
-		</div>
-	</nav> 
-</div>
+ 
    
-   
+    <body>
     <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-            <!-- Blog Entries Column -->                
+    <div class="page-area">
+    <div class="container main-container" role="main">           
                 <div class="col-md-8">                   
              <?php 
              $conn = getConnection();
@@ -47,15 +27,16 @@
                 $page_1 = ($page * $per_page) - $per_page;//页数显示计算公式，计算得出从第几位开始展示
                 }
 
-                $post_query_count = "SELECT * FROM posts";
-                $find_count = mysqli_query($conn, $post_query_count);
-                $count = mysqli_num_rows($find_count);//counts
-                $count = ceil($count/$per_page);//总数除每页显示数量 = 一共有几页
-          //................................................................................
 
              if (isset($_GET['author'])) {
                  //$the_post_id = $_GET["p_id"];
-                 $the_post_author= $_GET["author"];
+                 $the_post_author= escape($_GET["author"]);
+
+                $post_query_count = "SELECT * FROM posts WHERE  post_user = '{$the_post_author}' OR post_author = '{$the_post_author}'";
+                $find_count = mysqli_query($conn, $post_query_count);
+                $count = mysqli_num_rows($find_count);//counts
+                $count = ceil($count/$per_page);//总数除每页显示数量 = 一共有几页
+
                  // $queryPost = "SELECT * FROM posts WHERE post_author = '{$the_post_author}' OR post_user = '{$the_post_author}'LIMIT $page_1, $per_page";
                  $queryPost = "SELECT * FROM posts WHERE post_user = '{$the_post_author}' OR post_author = '{$the_post_author}' ";
                  $queryPostResults = mysqli_query($conn, $queryPost);
@@ -101,11 +82,13 @@
                     }
                 } ?> 
 
+                <p>  <?php echo $post_content ?> </p>
+
              <hr>
-                  <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
 
-             <p>  <?php echo $post_content ?> </p>
+             
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
             
              <hr>
@@ -118,10 +101,10 @@
                <!-- Blog Comments -->
              <?php
              if (isset($_POST["create_comment"])) {
-                 $the_post_id = $_GET["p_id"];
-                 $comment_author= $_POST["comment_author"];
-                 $comment_email= $_POST["comment_email"];
-                 $comment_content= $_POST["comment_content"];
+                 $the_post_id = escape($_GET["p_id"]);
+                 $comment_author= escape($_POST["comment_author"]);
+                 $comment_email= escape($_POST["comment_email"]);
+                 $comment_content= escape($_POST["comment_content"]);
 
                  if (!empty($comment_autho) && !empty($comment_email) && !empty($comment_content)) {
                      $query = "INSERT INTO comments (                   
@@ -173,6 +156,8 @@
 
                 <!-- Posted Comments -->
                 <?php
+
+                
                  $queryPost = "SELECT p.post_id,p.post_title,p.post_author,p.post_user,";
                  $queryPost .= "c.comment_post_id,c.comment_author,c.comment_date,c.comment_content FROM posts p,comments c ";
                  $queryPost .= "WHERE c.comment_post_id = p.post_id AND p.post_author = '{$the_post_author}' ";

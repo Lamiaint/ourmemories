@@ -1,18 +1,18 @@
 
 <?php
 if(isset($_POST["create_post"])){
-    $post_category_id = $_POST["Post_Category"];
-    $post_title = $_POST["Post_Title"];
-    $post_user = $_POST["Post_User"];
-    $post_author = $_POST["post_author"];
-    $post_image = $_FILES['image']['name'];
-    $post_image_temp = $_FILES["image"]["tmp_name"];
+    $post_category_id = escape($_POST["Post_Category"]);
+    $post_title = escape($_POST["Post_Title"]);
+    $post_user = escape($_POST["Post_User"]);
+    $post_author = escape($_POST["post_author"]);
+    $post_image = escape($_FILES['image']['name']);
+    $post_image_temp = escape($_FILES["image"]["tmp_name"]);
     
-    $post_content = $_POST["Post_Content"];
-    $post_tag = $_POST["Post_Tag"];
+    $post_content = escape($_POST["Post_Content"]);
+    $post_tag = escape($_POST["Post_Tag"]);
 
-    $post_date = date('d-m-y');
-    $post_status = $_POST["Post_Status"];
+    $post_date = escape(date('d-m-y'));
+    $post_status = escape($_POST["Post_Status"]);
     move_uploaded_file($post_image_temp,"../images/$post_image");
 
     $query = "INSERT INTO posts(post_category_id,post_title,post_user,post_author,post_image,post_content,post_tag,post_date,post_status)";

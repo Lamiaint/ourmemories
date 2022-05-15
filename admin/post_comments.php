@@ -31,7 +31,7 @@
        global $conn;
 
         if(isset($_GET['id'])){
-           $post_id = $_GET['id'];
+           $post_id = escape($_GET['id']);
 
         
         $postResults = "SELECT * FROM comments WHERE comment_post_id =".mysqli_real_escape_string($conn,$post_id)."";
@@ -90,7 +90,7 @@
 
 if(isset($_GET["approve"])){
     global $conn;
-    $the_comment_id = $_GET["approve"];
+    $the_comment_id = escape($_GET["approve"]);
     $query = "UPDATE comments SET comment_status = 'approve' WHERE comment_id = '{$the_comment_id}' ";
     $approve_comment_query = mysqli_query($conn,$query);
     header("Location:comments.php");
@@ -98,7 +98,7 @@ if(isset($_GET["approve"])){
 
 if(isset($_GET["unapprove"])){
     global $conn;
-    $the_comment_id = $_GET["unapprove"];
+    $the_comment_id = escape($_GET["unapprove"]);
     $query = "UPDATE comments SET comment_status = 'unapprove' WHERE comment_id = '{$the_comment_id}' ";
     $approve_comment_query = mysqli_query($conn,$query);
     header("Location:comments.php");
@@ -106,7 +106,7 @@ if(isset($_GET["unapprove"])){
 
 if(isset($_GET["delete"])){
     global $conn;
-    $the_comment_id = $_GET["delete"];
+    $the_comment_id = escape($_GET["delete"]);
     $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id}";
     $delete_query = mysqli_query($conn,$query);
     header("Location:post_comments.php?id=".$_GET['id']."");

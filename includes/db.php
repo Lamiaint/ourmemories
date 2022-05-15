@@ -30,14 +30,20 @@ if($connection){
 function getConnection(){
   $db_host= "localhost";
   $db_user = "root";
+  $charset="utf8mb4";
   $db_pass = "";
   $dbdb_name = "ourmemories";
   $connection=mysqli_connect($db_host,$db_user,$db_pass,$dbdb_name);
   return $connection;
 }
 
+//$conn = getConnection();
+
+
+
+
 function qeuryNevigation(){
-  $conn = getConnection();
+  global $conn;
 //2.qeury data NevigationTitle from db
 $qeury = "select * from categories";
     $qeuryResults = mysqli_query($conn,$qeury); 

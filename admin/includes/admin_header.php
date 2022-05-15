@@ -33,6 +33,9 @@ if(!isset($_SESSION['user_role'])){
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- emojis -->
+    <link rel="stylesheet" href="./css/emojionearea.min.css">
     
 
     <!-- Custom Fonts -->

@@ -15,17 +15,17 @@ if (isset($_GET["edit_user"])) {
     }
 
 if(isset($_POST["edit_user"])){
-    $user_first_name = $_POST["user_first_name"];
-    $user_last_name = $_POST["user_last_name"];
-    $username = $_POST["user_name"];
-    $user_email = $_POST["user_email"];
+    $user_first_name = escape($_POST["user_first_name"]);
+    $user_last_name = escape($_POST["user_last_name"]);
+    $username = escape($_POST["user_name"]);
+    $user_email = escape($_POST["user_email"]);
    
-        $user_image = $_FILES["image"]["name"];
-        $user_image_temp = $_FILES["image"]["tmp_name"];
+        $user_image = escape($_FILES["image"]["name"]);
+        $user_image_temp = escape($_FILES["image"]["tmp_name"]);
         move_uploaded_file($user_image_temp,"../images/$user_image");
 
-    $user_role = $_POST["user_role"];
-    $user_password = $_POST["user_password"];
+    $user_role = escape($_POST["user_role"]);
+    $user_password = escape($_POST["user_password"]);
     
     if(!empty($user_password)){
         $query_password = "SELECT user_password FROM users WHERE user_id = $edit_user_id ";

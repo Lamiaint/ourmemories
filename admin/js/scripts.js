@@ -5,6 +5,7 @@ $(document).ready(function() {
         height: 200
     });
 
+
     $('#selectAllBoxes').click(function(event) {
         if (this.checked) {
             $('.checkBoxes').each(function() {

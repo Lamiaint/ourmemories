@@ -3,36 +3,18 @@
 <?php  include "includes/nevigation.php"; ?>
 
 
-<div class="site-header container-fluid" style="background-image: url()">
-	<div class="custom-header container" >
-			<div class="site-heading text-center">
-        				<div class="site-branding-logo">
-				     <div class="site-branding-text">
-											<h1 class="site-title"><a href="#" rel="home">You are My Life,My World,My Destiny</a></h1>
-									</div>
-        			</div>
-    	</div>
-</div>
 
-
-<div class="main-menu">
-	<nav id="site-navigation" class="navbar navbar-default navbar-center">     
-		<div class="container">   
-			<div class="navbar-header">
-							</div>
-					</div>
-			</nav> 
-</div>
-
-
+<body>
     <!-- Page Content -->
-    <div class="container">
-        <div class="row">
-            <!-- Blog Entries Column -->
-                <!-- Blog Post -->                 
-                <div class="col-md-8"> 
+    <div class="page-area">
+   
+   <div class="container main-container" role="main">  
+    <!-- <div class="row"> -->
+    <!-- <div class="container"> -->
+        <!-- <div class="row"> -->             
+                  <div class="col-md-8">  
+                
              <?php 
-              $conn = getConnection();
 
               $per_page = 3;//每页展示数量
 
@@ -56,7 +38,7 @@
              $count = ceil($count/$per_page);//总数除每页显示数量 = 一共有几页
 
             
-             $queryPost = "SELECT * FROM posts LIMIT $page_1, $per_page";//从page_1开始展示，显示$per_page条
+             $queryPost = "SELECT * FROM posts ORDER BY post_id DESC LIMIT $page_1, $per_page";//从page_1开始展示，显示$per_page条
 
              $queryPostResults = mysqli_query($conn, $queryPost);
              
@@ -83,14 +65,14 @@
 
              <td>  <?php echo $post_status ?> </td>
              
-              <!-- <a href="post.php?p_id=<?php // echo $post_id;?>">  -->
-
+          
+             <p>  <?php echo $post_content; ?> </p>
              <hr>
                   <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
-             </a>
+              
 
-                   <p>  <?php echo $post_content; ?> </p>
+                  
 
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr>
@@ -134,7 +116,7 @@
         
         
 
-
+       
         
         <!-- Footer -->
         <?php include "includes/footer/footer.php"; ?> 

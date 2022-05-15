@@ -43,7 +43,7 @@
                         <?php
                         //表单移到includes/update_categories.php  
                         if(isset($_GET["edit"])){
-                            $cat_id = $_GET["edit"];
+                            $cat_id = escape($_GET["edit"]);
                             include "includes/update_categories.php";
                         }
                         ?>
