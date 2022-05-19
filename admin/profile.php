@@ -3,7 +3,7 @@
 $conn = getConnection();        
 
 if(isset($_SESSION["username"])){
-    $username = $_SESSION["username"];
+    $username = escape($_SESSION["username"]);
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_profile_query = mysqli_query($conn,$query);
     while($row = mysqli_fetch_array($select_user_profile_query)){
@@ -22,11 +22,11 @@ if(isset($_SESSION["username"])){
 
 <?php
 if(isset($_POST["edit_user"])){
-    $user_first_name = $_POST["user_firstname"];
-    $user_last_name = $_POST["user_lastname"];
-    $user_name = $_POST["user_name"];
-    $user_email = $_POST["user_email"];
-    $user_role = $_POST["user_role"];
+    $user_first_name =  escape($_POST["user_firstname"]);
+    $user_last_name =  escape($_POST["user_lastname"]);
+    $user_name =  escape($_POST["user_name"]);
+    $user_email =  escape($_POST["user_email"]);
+    $user_role =  escape($_POST["user_role"]);
    // $user_password = $_POST["user_password"];
     $qeury = "UPDATE users SET ";
     $qeury .= "user_firstname = '{$user_first_name}', ";

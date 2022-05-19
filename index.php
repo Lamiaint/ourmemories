@@ -1,25 +1,17 @@
 <?php include "includes/header.php";?>
+
  <!-- Navigation -->
-<?php  include "includes/nevigation.php"; ?>
+ <?php  include "includes/nevigation.php"; ?>
 
+<div class="row">
+        <?php  include "includes/sidebar_left.php"; ?>
+          <div class="column middle">
 
-
-<body>
-    <!-- Page Content -->
-    <div class="page-area">
-   
-   <div class="container main-container" role="main">  
-    <!-- <div class="row"> -->
-    <!-- <div class="container"> -->
-        <!-- <div class="row"> -->             
-                  <div class="col-md-8">  
-                
-             <?php 
-
+            <?php 
               $per_page = 3;//每页展示数量
 
               if(isset($_GET['page'])){
-                $page = $_GET['page'];
+                $page = escape($_GET['page']);
               }else{
                   $page = "";
               }
@@ -48,16 +40,16 @@
                      $post_author= $row["post_author"];
                      $post_user= $row["post_user"];
                      $post_date= $row["post_date"];
-                     $post_content= substr($row["post_content"], 0, 200);
+                     $post_content= substr($row["post_content"], 0, 400);
                      $post_image= $row["post_image"];
                      $post_status = $row["post_status"]; ?> 
-             <h2>
+             <h3>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
-             </h2>
+             </h3>
            
 
              <p class="lead">
-         by <a href='author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ; ?>'> <?php echo $post_author=$post_user?$post_user:$post_author?> </a> 
+            by <a href='author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ; ?>'> <?php echo $post_author=$post_user?$post_user:$post_author?> </a> 
              </p>
 
 
@@ -66,57 +58,45 @@
              <td>  <?php echo $post_status ?> </td>
              
           
-             <p>  <?php echo $post_content; ?> </p>
+             <P> <?php echo $post_content ?> </P>
+
              <hr>
                   <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
-              
-
-                  
+            
 
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr>
 
             <?php
                  }
-             
-              // echo "<h2>No Post </h2>";
-              // if(!$queryPostResults){
-              //   echo "<h2>No Post </h2>";
-              //   }
-            
-                 
-            
-
              ?>
-        
-           </div>
+          </div>
+          
+          
+            <!-- <div class="column right-side"> -->
+            <?php include "includes/sidebar.php";?>
+            <!-- </div> -->
+ 
+</div>
 
-           
-           <hr>
-           <!-- Blog Sidebar Widgets Column  --> 
-           <?php include "includes/sidebar.php";?>
-           <hr>
-            <!-- /.row -->
-        </div>
-
-
-
-        <ul class="pager">
-            <?php
-            for($i=1;$i <= $count;$i++){
-              if($i == $page){
-                echo "<li '><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
-              }else{
-                echo "<li '><a href='index.php?page={$i}'>{$i}</a></li>";               
-              } 
-            }
-            ?>
-        </ul>   
+          <ul class="pager">
+              <?php
+              for($i=1;$i <= $count;$i++){
+                if($i == $page){
+                  echo "<li '><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+                }else{
+                  echo "<li '><a href='index.php?page={$i}'>{$i}</a></li>";               
+                } 
+              }
+              ?>
+          </ul>   
         
         
-
-       
         
         <!-- Footer -->
+        <div class="footer">
         <?php include "includes/footer/footer.php"; ?> 
+        </div>
+  
+        

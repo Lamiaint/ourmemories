@@ -19,7 +19,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/blog-home.css" rel="stylesheet">
+    <!-- <link href="css/blog-home.css" rel="stylesheet"> -->
     <link href="css/styles.css" rel="stylesheet">
 
 
@@ -31,6 +31,13 @@
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      
 
+   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,29 +46,18 @@
     <![endif]-->
 
 </head>
-<div class="main-header" id="backgroundImage">
-<!-- <div class="site-header container-fluid" >
-  <div class="custom-header container" > -->
-			<!-- <div class="site-heading text-center">  				 -->
-				     <!-- <div class="site-branding-text"> -->
-											<h2 class="text-center">You are My Life,My World,My Destiny</h2>
-						 <!-- </div>	 -->
-    	<!-- </div> -->
- <!-- </div>
-</div> -->
+
+
+ <body>
+ <div class="header">
+  
+ <h1>You Are My Life,My World,My Destiny</h1>
+ <!-- <div class="cloudwrapperTwo"><div class="cloud c2"></div></div> -->
  
+ <!-- <div class="cloudwrapperThree"><div class="cloud c3"></div></div> -->
+    
+    <p>testing......</p>
+
 </div>
+   
  
-
- 
-
-<!-- <div class="main-menu">
-	<nav id="site-navigation" class="navbar navbar-default navbar-center">     
-		<div class="container">   
-			<div class="navbar-header">
-      </div>
-		</div>
-	</nav> 
-</div> -->
-
- <!-- <body>  -->

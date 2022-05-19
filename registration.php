@@ -6,25 +6,12 @@
 <?php
 $conn = getConnection();
 if(isset($_POST['submit'])){
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $password = $_POST['password'];
+    $username = escape($_POST['username']);
+    $email    = escape($_POST['email']);
+    $password = escape($_POST['password']);
     if(!empty($username) && !empty( $email) && !empty($password )){
-    $username = mysqli_real_escape_string($conn,$username);
-    $email    = mysqli_real_escape_string($conn,$email);
-    $password = mysqli_real_escape_string($conn,$password);
-
+ 
     $password = password_hash($password,PASSWORD_BCRYPT,array('cost'=>12));
-
-    // $qeury = "SELECT randSalt FROM users";
-    // $select_randsalt_qeuery = mysqli_query($conn, $qeury);
-    // if(!$select_randsalt_qeuery ){
-    //     die("Query Failed".mysqli_error($conn));
-    // }
-
-    //     $row  = mysqli_fetch_array($select_randsalt_qeuery);
-    //     $salt = $row['randSalt'];
-    //     $password = crypt($password,$salt);
 
         $qeury = "INSERT INTO users (username,user_email,user_password,user_role) ";
         $qeury .= "VALUES('{$username}','{$email}','{$password}','subscriber' )";
@@ -54,7 +41,6 @@ if(isset($_POST['submit'])){
                     <h3 class="text-center"> <?php echo $message;?> </h3>
                      <!-- 注册后登陆 -->
                     <h3 class="active_link"> <a href="index.php"> login </a></h3>
-
               
                         <div class="form-group">
                             <label for="username" class="sr-only">Username</label>

@@ -4,20 +4,16 @@
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
 
- 
-   
-    <body>
-    <!-- Page Content -->
-    <div class="page-area">
-    <div class="container main-container" role="main">           
-                <div class="col-md-8">                   
+    <div class="row">
+        <?php  include "includes/sidebar_left.php"; ?>
+    <div class="column middle">                 
              <?php 
              $conn = getConnection();
 
                 $per_page = 3;//每页展示数量
 
                 if(isset($_GET['page'])){
-                $page = $_GET['page'];
+                $page = escape($_GET['page']);
                 }else{
                     $page = "";
                 }
@@ -47,7 +43,7 @@
                      $post_author= $row["post_author"];
                      $post_user= $row["post_user"];
                      $post_date= $row["post_date"];
-                     $post_content= $row["post_content"];
+                     $post_content= substr($row["post_content"], 0, 600);
                      $post_image= $row["post_image"];
                      $post_status = $row["post_status"]; 
                      
@@ -57,9 +53,9 @@
 
                  </h1> 
 
-             <h2>
+             <h3>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
-             </h2>
+             </h3>
 
              <p class="lead">
                 All Posts by <a href="author_post.php?author=<?php echo $post_author; ?>"> <?php echo $post_author ?> </a>
@@ -74,7 +70,7 @@
                 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
                     $username = $_SESSION['username'];
                     if (isset($_GET['author'])) {
-                        $the_post_author= $_GET["author"];
+                        $the_post_author= escape($_GET["author"]);
                         if ($username === $the_post_author) {
                             echo "<td><a href='admin/posts.php?source=edit_post&p_id=$post_id'> Edit </a></td>";
                             echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$post_id}'> Delete </a></td>";
@@ -176,32 +172,35 @@
                                  <h4 class="media-heading" > <?php echo $comment_author; ?>                       
                                     <small> <?php echo $comment_date; ?> </small>
                                  </h4>
-                                  <?php echo $comment_content; ?>
+                                 <P>  <?php echo $comment_content; ?></P> 
                             </div>
                         </div> 
               <?php
              }
-           ?>
-     
-        
-        </div>
-           <!-- Blog Sidebar Widgets Column -->
-           <?php include "includes/sidebar.php";?>
-        <!-- /.row -->
-        <hr>
+           ?> 
+     </div>
+          
+          
+          <!-- <div class="column right-side"> -->
+          <?php include "includes/sidebar.php";?>
+          <!-- </div> -->
 
-    <ul class="pager">
-        <?php
-   
-      for ($i=1;$i <= $count;$i++) {
-          if ($i == $page) {
-              echo "<li '><a class='active_link' href='author_post.php?author={$the_post_author}page={$i}'>{$i}</a></li>";
-          } else {
-              echo "<li '><a href='author_post.php?author={$the_post_author}&page={$i}'>{$i}</a></li>";
-          }
-      }
-        ?>
-    </ul>    
-                
-        <!-- Footer -->
+</div>
+
+        <ul class="pager">
+            <?php
+        for ($i=1;$i <= $count;$i++) {
+            if ($i == $page) {
+                echo "<li '><a class='active_link' href='author_post.php?author={$the_post_author}page={$i}'>{$i}</a></li>";
+            } else {
+                echo "<li '><a href='author_post.php?author={$the_post_author}&page={$i}'>{$i}</a></li>";
+            }
+        }
+            ?>
+        </ul>    
+          
+    
+            <!-- Footer -->
+            <div class="footer">
         <?php include "includes/footer/footer.php"; ?> 
+        </div>

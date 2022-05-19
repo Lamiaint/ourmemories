@@ -2,18 +2,15 @@
     <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
 
-    <body>
-    <!-- Page Content -->
-    <div class="page-area">
-    <div class="container main-container" >
-      
-                <!-- Blog Post -->                 
-            <div class="col-md-8"> 
+<div class="row">
+        <?php  include "includes/sidebar_left.php"; ?>
+  <div class="column middle">
+
              <?php 
              $per_page = 3;//每页展示数量
 
              if(isset($_GET['page'])){
-               $page = $_GET['page'];
+               $page = escape($_GET['page']);
              }else{
                  $page = "";
              }
@@ -24,24 +21,19 @@
                $page_1 = ($page * $per_page) - $per_page;//页数显示计算公式，计算得出从第几位开始展示
              }
             
-            // $post_query_count = "SELECT p.*,c.* FROM  posts p,categories c  WHERE p.post_category_id=c.id ORDER BY p.post_id DESC ";
-            // $find_count = mysqli_query($conn, $post_query_count);
-            // $counts = mysqli_num_rows($find_count);//counts
-            // $count = ceil($counts/$per_page);//总数除每页显示数量 = 一共有几页
-
-
         if (isset($_GET['category'])) {
-            $post_category_id = $_GET['category'];
+            $post_category_id = escape($_GET['category']);
 
             $post_query_count = "SELECT c.*,p.* FROM categories c,posts p  WHERE c.id = p.post_category_id AND c.id = $post_category_id ORDER BY p.post_date DESC";
             $find_count = mysqli_query($conn, $post_query_count);
             $counts = mysqli_num_rows($find_count);//counts
-      $count = ceil($counts/$per_page);//总数除每页显示数量 = 一共有几页
+            $count = ceil($counts/$per_page);//总数除每页显示数量 = 一共有几页
 
-      $queryPost = "SELECT c.*,p.* FROM categories c,posts p  WHERE c.id = p.post_category_id AND post_category_id = $post_category_id LIMIT $page_1, $per_page";
+            $queryPost = "SELECT c.*,p.* FROM categories c,posts p  WHERE c.id = p.post_category_id AND post_category_id = $post_category_id ORDER BY p.post_date DESC LIMIT $page_1, $per_page";
             $queryPostResults = mysqli_query($conn, $queryPost);
+
+         
      
-          
                 while ($row =mysqli_fetch_assoc($queryPostResults)) {
                     $post_id= $row["post_id"];
                     $post_title= $row["post_title"];
@@ -49,11 +41,11 @@
                     $post_user= $row["post_user"];
                     $post_date= $row["post_date"];
                     $post_status = $row["post_status"];
-                    $post_content= substr($row["post_content"], 0, 200);
+                    $post_content= substr($row["post_content"], 0, 600);
                     $post_image= $row["post_image"]; ?>     
-             <h2>
+             <h3>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
-             </h2>
+             </h3>
          
              <p class="lead">
          by <a href='post.php?p_id=<?php echo $post_id; ?>'> <?php echo $post_author?> </a> 
@@ -72,27 +64,23 @@
              <hr>
            <?php
                 }
+
+                if(empty($queryPostResults)){
+                  echo " <p> No Post </p>";
+                }
               
         }
         
               ?>
 
-
-
-
-            </div>
+  </div>
           
+          
+          <!-- <div class="column right-side"> -->
+          <?php include "includes/sidebar.php";?>
+          <!-- </div> -->
 
-   
-                <hr>
-                <!-- Blog Sidebar Widgets Column  --> 
-                <?php include "includes/sidebar.php";?>
-                <!-- /.row -->
-                <hr>
-  
-         
-            </div>
-            </div>
+</div>
 
 
         <ul class="pager">
@@ -101,15 +89,14 @@
             if($i == $page){
               echo "<li><a class='active_link' href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";
             }else{
-                echo "<li '><a href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";  
-              
-                        
+                echo "<li '><a href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";             
             } 
           }
           ?>
       </ul>
 
 
-             
-        <!-- Footer -->
+               <!-- Footer -->
+               <div class="footer">
         <?php include "includes/footer/footer.php"; ?> 
+        </div>
