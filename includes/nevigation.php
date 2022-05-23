@@ -28,46 +28,43 @@
 
                     <!-- 用户角色登陆后权限 -->
                     <?PHP
-                //     if (isset($_SESSION['username'])) {
-                //         $login_username = $_SESSION['username'];
-                //         $user_role = $_SESSION['user_role'];
+                    if(isset($_SESSION['username'])){
+                        $login_username = $_SESSION['username'];
+                        $user_role = $_SESSION['user_role'];
                         
-                //         $password = $_SESSION['password'];
-                //             $login_userResults = "SELECT * FROM users Where username= '{$login_username}' AND user_password = '{$password}' ";
-                //             $select_login_user = mysqli_query($conn, $login_userResults);
-                //             while ($login_user_row = mysqli_fetch_assoc($select_login_user)) {
-                //                 $user_role = $login_user_row['user_role'];
-                //                 if( $user_role =="admin"){
-                //                     echo"<li> <a href='admin'> Admin </a> </li>";  
-                //                 }else{
-                //                     // echo"<li> <a onClick=\" javascript: return confirm('非管理员权限');\" href='index.php'> Admin </a> </li>";                
-                //                     echo"<li> <a href='admin'> Admin </a> </li>";  
-                //                 }  
-                //         }
-                //    }
+                        $password = $_SESSION['password'];
+                            $login_userResults = "SELECT * FROM users Where username= '{$login_username}' AND user_password = '{$password}' ";
+                            $select_login_user = mysqli_query($conn, $login_userResults);
+                            while ($login_user_row = mysqli_fetch_assoc($select_login_user)) {
+                                $user_role = $login_user_row['user_role'];
+                                if( $user_role =="admin"){
+                                    echo"<li> <a href='admin'> Admin </a> </li>";  
+                                }else{
+                                  echo"<li> <a onClick=\" javascript: return confirm('非管理员权限');\" href='index.php'> Admin </a> </li>";                
+                                    echo"<li> <a href='admin'> Admin </a> </li>";  
+                                }  
+                        }
+                   }
                     ?>
                                 
                     <li> <a href="registration.php"> Registration </a> </li>
-                    <li> <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+                    <li> <a href="./includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
 
                     
             <!-- 首页添加POST 128522--> 
             <button type="button" class="ad-post"> <a href="posts_index.php?source=add_post_index"> Add Post&#128522 </a></button>
                 </ul>
+        </div>
+ 
 
-    </div>
-
-            
-                <div class="login-container">
-                <form action="./includes/login.php" method="POST">
-                <input type="text" placeholder="Username" name="username">
-                <input type="text" placeholder="Password" name="password">
-                <button type="submit" name="login" >Login</button>
-                </form>
+                <div class="login-container" >  
+                    <form action="includes/login.php" method="POST" id="login-form" autocomplete="off" role="form" >
+                        <input type="text" placeholder="Username" name="username" id="username">
+                        <input type="password" placeholder="Password" name="password" id="password">
+                        <button type="submit" name="login" >Login</button>
+                    </form>
                 </div>
  
- 
-
 
 </div>
 

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 
 
-    //emoji sidebart
+    //emoji sidebar
     $('#e_comments').emojioneArea({
         pickerPosition: "top"
     });

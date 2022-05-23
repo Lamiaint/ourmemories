@@ -50,7 +50,7 @@
 } */
 
 body {
-    margin: 0;
+    margin: 0px;
     /* font-family: Arial, Helvetica, sans-serif; */
 }
 
@@ -156,9 +156,10 @@ button:hover {
 
 .column.left-side {
     width: 20%;
+    color: #3a3835;
     /* position: relative; */
     position: static;
-    left: 10px;
+    left: 15px;
     border-style: none;
     border: none;
 }
@@ -171,7 +172,11 @@ button:hover {
     /* margin-bottom: 5%; */
 }
 
+.sidebar-links {
+    padding-top: 60px;
+}
+
 footer {
-    margin: 80px 0;
+    margin-bottom: 60px 0;
     color: #3a3835;
 }
