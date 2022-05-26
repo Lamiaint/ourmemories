@@ -11,17 +11,23 @@ if(isset($_POST["create_post"])){
 
     $post_image = escape($_FILES['image']['name']);
     $post_image_temp = escape($_FILES["image"]["tmp_name"]);
+    move_uploaded_file($post_image_temp,"./images/$post_image");
+
+    $post_video = escape($_FILES['video']['name']);
+    $post_video_temp = escape($_FILES["video"]["tmp_name"]);
+    $videos = "./videos".$post_video;
+    move_uploaded_file($post_video_temp,$videos);
+
     
     $post_content = escape($_POST["Post_Content"]);
     $post_tag = escape($_POST["Post_Tag"]);
 
     $post_date = escape(date('d-m-y'));
     $post_status = escape($_POST["Post_Status"]);
-    move_uploaded_file($post_image_temp,"./images/$post_image");
+  
 
-    $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_user,post_image,post_content,post_tag,post_date,post_status)";
-    $query .= "VALUES('{$post_category_id}','{$post_title}','{$post_author}','{$post_user}','{$post_image}',
-   '{$post_content}','{$post_tag}',now(),'{$post_status}')";
+    $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_user,post_image,post_video,post_content,post_tag,post_date,post_status)";
+    $query .= "VALUES('{$post_category_id}','{$post_title}','{$post_author}','{$post_user}','{$post_image}','{$post_video}','{$post_content}','{$post_tag}',now(),'{$post_status}')";
 
 //    global $conn;
    $create_post_query = mysqli_query($conn,$query); 
@@ -102,6 +108,17 @@ if(isset($_POST["create_post"])){
          <label for="post_image">Post Image</label>
           <input type="file"  name="image"> 
      </div>
+
+
+   
+     <div class="form-group">
+     <label for="video">Post Video</label>
+     <input type="file"  name="video" id="video"> 
+     </div>
+ 
+
+
+
 
      <div class="form-group">
          <label for="post_tag">Post Tag</label>

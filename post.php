@@ -28,6 +28,8 @@
                             $post_date= $row["post_date"];
                             $post_content= $row["post_content"];
                             $post_image= $row["post_image"];
+                            $post_video= $row["post_video"];
+
                             $post_status = $row["post_status"];
                             $post_views_count = $row["post_views_count"]; ?>
                         
@@ -62,6 +64,15 @@
                     <hr>
                         <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
                     <hr> 
+
+
+                    <div class="video">
+                    <video class="" controls>
+                    <source src="videos/<?php echo $post_video;  ?>" type="" alt="">
+                    </video>
+                    </div>
+ 
+                    
 
                     
                     <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> -->

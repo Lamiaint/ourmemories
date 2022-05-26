@@ -10,7 +10,7 @@
              <?php 
              $conn = getConnection();
 
-                $per_page = 3;//每页展示数量
+                $per_page = 5;//每页展示数量
 
                 if(isset($_GET['page'])){
                 $page = escape($_GET['page']);
@@ -45,6 +45,7 @@
                      $post_date= $row["post_date"];
                      $post_content= substr($row["post_content"], 0, 600);
                      $post_image= $row["post_image"];
+                     $post_video= $row["post_video"];
                      $post_status = $row["post_status"]; 
                      
                      
@@ -83,6 +84,13 @@
              <hr>
                   <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
              <hr>
+
+
+                    <div class="video">
+                    <video class="" >
+                    <source src="videos/<?php echo $post_video;  ?>" type="" alt="">
+                    </video>
+                    </div>
 
              
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
