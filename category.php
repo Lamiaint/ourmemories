@@ -3,7 +3,7 @@
     <?php  include "includes/nevigation.php"; ?>
 
 <div class="row">
-        <?php  include "includes/sidebar_left.php"; ?>
+        <?php   include "includes/sidebar_left.php"; ?>
   <div class="column middle">
 
              <?php 
@@ -41,7 +41,7 @@
                     $post_user= $row["post_user"];
                     $post_date= $row["post_date"];
                     $post_status = $row["post_status"];
-                    $post_content= substr($row["post_content"], 0, 600);
+                    $post_content= substr($row["post_content"], 0, 1500);
                     $post_image= $row["post_image"]; 
                     $post_video= $row["post_video"];
                     
@@ -57,23 +57,13 @@
              <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> </td>
 
                <td>  <?php echo $post_status ?> </td>
-
+               <P>  </P>
                <p>  <?php echo $post_content ?> </p>
-             <hr>
-                  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
-             <hr>
-
+             
+               <img class="img-responsive" width="200" src="images/<?php echo $post_image; ?>" alt="">
+           
+               <div class=""><?php if($post_video){ echo "<video><source src='videos/$post_video' type='video'></video>";}?></div>
     
-                    <div class="video">
-                    <video class="" >
-                    <source src="videos/<?php echo $post_video;  ?>" type="" alt="">
-                    </video>
-                    </div>
-
-
-
-
-                   
                    <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> 
              <hr>
            <?php
@@ -103,7 +93,7 @@
             if($i == $page){
               echo "<li><a class='active_link' href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";
             }else{
-                echo "<li '><a href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";             
+                echo "<li><a href='category.php?category={$post_category_id}&page={$i}'>{$i}</a></li>";             
             } 
           }
           ?>

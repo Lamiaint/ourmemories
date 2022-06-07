@@ -13,7 +13,11 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Wellcome to Admin
-                            <small> <?php  echo $_SESSION['username']  ?> </small>
+                            <small> <?php   if(isset($_SESSION['user_role'])){
+                            $username = $_SESSION['username'];
+                            echo $username;
+                            } ?> 
+                            </small>
                         </h1>
   
                      </div> 

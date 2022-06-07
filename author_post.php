@@ -1,12 +1,11 @@
-
 <?php include "includes/header.php";?>
-    
+
 <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
 
     <div class="row">
         <?php  include "includes/sidebar_left.php"; ?>
-    <div class="column middle">                 
+        <div class="column middle">                 
              <?php 
              $conn = getConnection();
 
@@ -28,13 +27,12 @@
                  //$the_post_id = $_GET["p_id"];
                  $the_post_author= escape($_GET["author"]);
 
-                $post_query_count = "SELECT * FROM posts WHERE  post_user = '{$the_post_author}' OR post_author = '{$the_post_author}'";
+                $post_query_count = "SELECT p.*,u.* FROM posts p,users u WHERE p.post_author = u.username and p.post_author = '{$the_post_author}' ORDER BY post_date DESC";
                 $find_count = mysqli_query($conn, $post_query_count);
                 $count = mysqli_num_rows($find_count);//counts
                 $count = ceil($count/$per_page);//总数除每页显示数量 = 一共有几页
 
-                 // $queryPost = "SELECT * FROM posts WHERE post_author = '{$the_post_author}' OR post_user = '{$the_post_author}'LIMIT $page_1, $per_page";
-                 $queryPost = "SELECT * FROM posts WHERE post_user = '{$the_post_author}' OR post_author = '{$the_post_author}' ";
+                 $queryPost = "SELECT p.*,u.* FROM posts p,users u WHERE p.post_author = u.username and p.post_author = '{$the_post_author}' ORDER BY p.post_date DESC LIMIT $page_1, $per_page "; 
                  $queryPostResults = mysqli_query($conn, $queryPost);
 
                  while ($row =mysqli_fetch_assoc($queryPostResults)) {
@@ -43,16 +41,13 @@
                      $post_author= $row["post_author"];
                      $post_user= $row["post_user"];
                      $post_date= $row["post_date"];
-                     $post_content= substr($row["post_content"], 0, 600);
+                     $post_content= substr($row["post_content"], 0, 1500);
                      $post_image= $row["post_image"];
                      $post_video= $row["post_video"];
                      $post_status = $row["post_status"]; 
                      
                      
                      ?>
-                 <h1 class="page-header">
-
-                 </h1> 
 
              <h3>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
@@ -68,129 +63,31 @@
 
                 <?php
                // 登陆后首页编辑/删除
-                if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
-                    $username = $_SESSION['username'];
-                    if (isset($_GET['author'])) {
-                        $the_post_author= escape($_GET["author"]);
-                        if ($username === $the_post_author) {
-                            echo "<td><a href='admin/posts.php?source=edit_post&p_id=$post_id'> Edit </a></td>";
-                            echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$post_id}'> Delete </a></td>";
-                        }
-                    }
-                } ?> 
-
+                // if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+                //     $username = $_SESSION['username'];
+                //     if (isset($_GET['author'])) {
+                //         $the_post_author= escape($_GET["author"]);
+                //         if ($username === $the_post_author) {
+                //             echo "<td><a href='admin/posts.php?source=edit_post&p_id=$post_id'> Edit </a></td>";
+                //             echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$post_id}'> Delete </a></td>";
+                //         }
+                //     }
+                // } ?> 
+                <P>  </P>
                 <p>  <?php echo $post_content ?> </p>
-
-             <hr>
-                  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
-             <hr>
-
-
-                    <div class="video">
-                    <video class="" >
-                    <source src="videos/<?php echo $post_video;  ?>" type="" alt="">
-                    </video>
-                    </div>
-
-             
+                <img class="img-responsive" width="200" src="images/<?php echo $post_image; ?>" alt="">
+                <div class=""><?php if($post_video){ echo "<video><source src='videos/$post_video' type='video'></video>";}?></div>             
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
-            
-             <hr>
-
-
+             <hr> 
            <?php
                      } 
-                 }?>
-
-               <!-- Blog Comments -->
-             <?php
-             if (isset($_POST["create_comment"])) {
-                 $the_post_id = escape($_GET["p_id"]);
-                 $comment_author= escape($_POST["comment_author"]);
-                 $comment_email= escape($_POST["comment_email"]);
-                 $comment_content= escape($_POST["comment_content"]);
-
-                 if (!empty($comment_autho) && !empty($comment_email) && !empty($comment_content)) {
-                     $query = "INSERT INTO comments (                   
-                        comment_post_id,
-                        comment_author,                   
-                        comment_email,
-                        comment_content,
-                        comment_date,                 
-                        comment_status ) ";
-                     $query .= "VALUE(
-                         '{$the_post_id}',
-                         '{$comment_author}',
-                         '{$comment_email}',
-                         '{$comment_content}',
-                          now(),
-                         'unproved')";
-                     $create_comments_query = mysqli_query($conn, $query);
-                     if (!$create_comments_query) {
-                         die("query failed to insert ".mysqli_error($conn));
-                     }
-                 } else {
-                     echo "<script> alert('Fields cant not be empty!') </script>";
-                 }
-             } ?>
-
-
-                <!-- Comments Form -->
-                <!-- <div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form action="" method="post" role="form">
-                        <div class="form-group">
-                            <label for="Author">Author</label>
-                            <input type="text" class="form-control" name="comment_author">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input type="email" class="form-control" name="comment_email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Comment">Comment</label>
-                            <textarea name="comment_content" class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
-                    </form>
-                </div> -->
-                <!-- <hr> -->
-
-                <!-- Posted Comments -->
-                <?php
-
+                 }?>   
                 
-                 $queryPost = "SELECT p.post_id,p.post_title,p.post_author,p.post_user,";
-                 $queryPost .= "c.comment_post_id,c.comment_author,c.comment_date,c.comment_content FROM posts p,comments c ";
-                 $queryPost .= "WHERE c.comment_post_id = p.post_id AND p.post_author = '{$the_post_author}' ";
-                 $queryPost .= "ORDER BY p.post_id DESC";
-                 $queryPostResults = mysqli_query($conn, $queryPost);
-                 while ($row =mysqli_fetch_assoc($queryPostResults)) {
-                     $comment_author = $row["comment_author"];
-                     $comment_date = $row["comment_date"];
-                     $comment_content = $row["comment_content"]; 
-                     ?>             
-                <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                 <h4 class="media-heading" > <?php echo $comment_author; ?>                       
-                                    <small> <?php echo $comment_date; ?> </small>
-                                 </h4>
-                                 <P>  <?php echo $comment_content; ?></P> 
-                            </div>
-                        </div> 
-              <?php
-             }
-           ?> 
-     </div>
+    </div>
           
           
           <!-- <div class="column right-side"> -->
-          <?php include "includes/sidebar.php";?>
+          <?php  include "includes/sidebar.php";?>
           <!-- </div> -->
 
 </div>
@@ -199,12 +96,13 @@
             <?php
         for ($i=1;$i <= $count;$i++) {
             if ($i == $page) {
-                echo "<li '><a class='active_link' href='author_post.php?author={$the_post_author}page={$i}'>{$i}</a></li>";
+                echo "<li><a class='active_link' href='author_post.php?author={$the_post_author}&page={$i}'>{$i}</a></li>";
             } else {
-                echo "<li '><a href='author_post.php?author={$the_post_author}&page={$i}'>{$i}</a></li>";
+                echo "<li><a href='author_post.php?author={$the_post_author}&page={$i}'>{$i}</a></li>";
             }
         }
-            ?>
+  
+           ?>
         </ul>    
           
     

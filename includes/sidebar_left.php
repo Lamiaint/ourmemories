@@ -26,7 +26,7 @@
 
                     echo "<div class='image'> <img class='image' src='images/$user_image' alt='im'></div>"; 
                     echo "<div class='card-header'><h3 class='card-text'>{$user_name}</h3></div>";
-                    echo "<div class='card-body'><h4 class='text-danger'>{$user_info}</h4></div>";
+                   // echo "<div class='card-body'><h4 class='text-danger'>{$user_info}</h4></div>";
                 }
             }
         ?>
@@ -44,7 +44,7 @@
             <li class="nav-item">
             <a class="nav-link" href="https://www.w3schools.com/">w3c</a>
             <a class="nav-link" href="https://codepen.io/">codepen</a>
-            <a class="nav-link disabled" href="#">Disabled</a>
+          
             </li>
         </ul>
       </div> 

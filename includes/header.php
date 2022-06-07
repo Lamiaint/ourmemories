@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 <?php ob_start(); ?>
-<?php  //session_start();  ?>
-<?php  include "./admin/functions.php"; ?>
+<?php include "./admin/functions.php"; ?>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -51,15 +51,9 @@
 
 
  <body>
- <div class="header">
-  
- <h1>You Are My Life,My World,My Destiny</h1>
- <!-- <div class="cloudwrapperTwo"><div class="cloud c2"></div></div> -->
- 
- <!-- <div class="cloudwrapperThree"><div class="cloud c3"></div></div> -->
-    
+  <!-- <div class="header">
+ <h1>You Are My Life,My World,My Destiny</h1> 
     <p>testing......</p>
-
-</div>
-   
+</div> -->
+  
  

@@ -21,7 +21,7 @@
 /* sidebar person info image   rounded-circle*/
 
 .image img {
-    /* width: 300px; */
+    width: 300px;
     padding-right: 10%;
     /* clip-path: circle();
     border-radius: 99%; */
@@ -37,46 +37,38 @@
     box-sizing: inherit;
 } */
 
-.header {
+
+/* .header {
     border: none;
-    /* background: url(../images/26.png); */
+      background: url(../images/26.png);  
     background-repeat: no-repeat;
-    padding: 50px;
+    padding: 20px;
     box-sizing: inherit;
-    /* animation: skyChange 30s linear infinite; */
+      animation: skyChange 30s linear infinite;  
     background-color: #edf1ea;
     text-align: center;
-}
-
-
-/* * {
-    box-sizing: border-box;
 } */
-
-body {
-    margin: 0px;
-    /* font-family: Arial, Helvetica, sans-serif; */
-}
 
 
 /* Style the header */
 
-.header h1 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+/* .header h1 {
+   
     font-size: 50px;
     text-transform: capitalize;
-    /* color: rgb(121, 181, 222); */
+   
     color: rgb(219, 184, 138);
     text-shadow: 2px 2px 5px rgb(142, 229, 43);
-}
+} */
 
 
 /* Style the top navigation bar */
 
 .topnav {
     overflow: hidden;
-    background-color: rgb(226, 232, 210);
-    /* background-color: #e9e9e9; */
+    /* background-color: rgb(226, 232, 210); */
+    background-color: #e9e9e9;
 }
 
 .nav-m {
@@ -90,7 +82,7 @@ body {
     border: none;
     padding: 14px;
     margin: 0px;
-    background-color: rgb(226, 232, 210);
+    /* background-color: rgb(226, 232, 210); */
     /* cursor: pointer; */
     /* border-radius: 50%; */
     /* color: rgb(226, 232, 210); */
@@ -105,7 +97,7 @@ body {
 
 .login-container button {
     padding: 15px;
-    background-color: rgb(226, 232, 210);
+    /* background-color: rgb(226, 232, 210); */
     /* font-size: 17px; */
     border: none;
     /* cursor: pointer; */
@@ -151,25 +143,25 @@ button:hover {
 .column.middle {
     border-style: none;
     border: none;
-    box-shadow: 5px 10px 8px 10px #888888;
-    width: 55%;
+    box-shadow: 2px 6px 5px 8px #f3f4f5;
+    width: 65%;
 }
 
 
 /* Left and right column */
 
 .column.left-side {
-    width: 20%;
+    width: 15%;
     color: #3a3835;
     /* position: relative; */
     position: static;
-    left: 15px;
+    /* left: 15px; */
     border-style: none;
     border: none;
 }
 
 .column.right-side {
-    width: 25%;
+    width: 20%;
     color: #3a3835;
     border-style: none;
     border: none;
@@ -182,14 +174,14 @@ button:hover {
 }
 
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
+    /* mobile phone */
     [class*="column "] {
         width: 100%;
     }
 }
 
 video {
-    width: "400";
+    width: 400px;
     /* width: 100%; */
     height: auto;
 }

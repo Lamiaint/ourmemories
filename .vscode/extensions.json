@@ -1,0 +1,12 @@
+{
+    // "recommendations": [
+    //     "kakumei.php-xdebug"
+    // ]
+
+    "recommendations": [
+        "xdebug.php-debug"
+    ]
+
+
+    
+}

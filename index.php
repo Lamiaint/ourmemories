@@ -1,10 +1,13 @@
 <?php include "includes/header.php";?>
 
+ 
  <!-- Navigation -->
  <?php  include "includes/nevigation.php"; ?>
 
 <div class="row">
+  
         <?php  include "includes/sidebar_left.php"; ?>
+
           <div class="column middle">
 
             <?php 
@@ -40,7 +43,7 @@
                      $post_author= $row["post_author"];
                      $post_user= $row["post_user"];
                      $post_date= $row["post_date"];
-                     $post_content= substr($row["post_content"], 0, 400);
+                     $post_content= substr($row["post_content"], 0, 1500);
                      $post_image= $row["post_image"];
                      $post_video= $row["post_video"];
                      $post_status = $row["post_status"]; ?> 
@@ -57,20 +60,13 @@
              <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
 
              <td>  <?php echo $post_status ?> </td>
-             
-          
+             <P>  </P>
              <P> <?php echo $post_content ?> </P>
+             <P> <img class="img-responsive" width="200" src="images/<?php echo $post_image; ?>" alt=""></P>
 
-             <hr>
-                  <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
-             <hr>
-
-                    <div class="video">
-                    <video class="" >
-                    <source src="videos/<?php echo $post_video;  ?>" alt="">
-                    </video>
-                    </div>
-            
+            <div class="">
+             <?php if($post_video){ echo "<video><source src='videos/$post_video' type='video' ></video>";}?>
+            </div>
 
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr>
@@ -91,9 +87,9 @@
               <?php
               for($i=1;$i <= $count;$i++){
                 if($i == $page){
-                  echo "<li '><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+                  echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
                 }else{
-                  echo "<li '><a href='index.php?page={$i}'>{$i}</a></li>";               
+                  echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";               
                 } 
               }
               ?>

@@ -1,11 +1,11 @@
-<?php //include "includes/data/dbManipulation.php";?>
 <?php include "includes/header.php";?>
-    
+
  <!-- Navigation -->
     <?php  include "includes/nevigation.php"; ?>
 
 <div class="row">
-        <?php  include "includes/sidebar_left.php"; ?>
+        <?php include "includes/sidebar_left.php"; ?>
+
     <div class="column middle">
 
                 <?php 
@@ -49,35 +49,29 @@
 
                     <?php
                     //登陆后首页编辑/删除 
-                    if(isset($_SESSION['username'])){
-                        $username = $_SESSION['username'];
-                        if(isset($_GET['p_id'])){
-                            $the_post_id = escape($_GET['p_id']);
-                                echo "<td><a href='posts_index.php?source=edite_post_index&p_id=$the_post_id'> Edite </a></td>";
-                                    echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='post.php?delete={$the_post_id}'> Delete </a></td>"; 
-                        }
-                    }
+                    // if(isset($_SESSION['username'])){
+                    //     $username = $_SESSION['username'];
+                    //     if(isset($_GET['p_id'])){
+                    //         $the_post_id = escape($_GET['p_id']);
+                    //             echo "<td><a href='posts_index.php?source=edite_post_index&p_id=$the_post_id'> Edite </a></td>";
+                    //                 echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='post.php?delete={$the_post_id}'> Delete </a></td>"; 
+                    //     }
+                    // }
                     ?> 
-            
-                   
+                     <P>  </P>
                      <P>  <?php echo $post_content ?> </P>
-                    <hr>
-                        <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt="">
-                    <hr> 
+                     <P>  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt=""></P>
+                     <?php if($post_video){ 
+                         echo "<video><source src='videos/$post_video' type='video/mp4'></video>";
+                        //  echo "<video><source src='videos/$post_video' type='video/ogg'></video>";
+                        
+                         
+                         }?>
 
 
-                    <div class="video">
-                    <video class="" controls>
-                    <source src="videos/<?php echo $post_video;  ?>" type="" alt="">
-                    </video>
-                    </div>
- 
-                    
 
-                    
-                    <!-- <a class="btn btn-primary" href="#">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> -->
-                    <hr>
 
+                     
                     <?php
                     }
             }else{
@@ -128,6 +122,7 @@
                     ?>
                     
                     <!-- Comment -->
+                    <hr>
                     <div class="media">
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -167,7 +162,7 @@
                     </form>
                 </div>
 
-                <hr>
+                 
        
      
         <?php
@@ -187,7 +182,7 @@
 
 
         <!-- <div class="column right-side"> -->
-        <?php include "includes/sidebar.php";?>
+        <?php  include "includes/sidebar.php";?>
         <!-- </div> -->
 
 </div>
