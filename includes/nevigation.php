@@ -20,7 +20,9 @@
                     $cat_title = $qeuryResultsRow["title"];
                     $cat_id = $qeuryResultsRow["id"];
                     if(!empty($cat_title) && !empty($cat_id ) ){
-                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>"; 
+                       
+                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
+                        
                     }
                                       
                     }
@@ -48,8 +50,9 @@
                 //    }
                     ?>
                                 
-                    <li> <a href="registration.php"> Registration </a> </li>
-                    <li> <a href="./includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+                    <!-- <li> <a href="registration.php"> Registration </a> </li> -->
+                    
+                    <!-- <li> <a href="./includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li> -->
 
                     
             <!-- 首页添加POST 128522--> 
@@ -65,10 +68,10 @@
                         <button type="submit" name="login" >Login</button>
                     </form> -->
                    <?php 
-                    // if(isset($_SESSION['username'])){
-                    //         $username = $_SESSION['username'];
-                    //         echo $username;
-                    // }?>
+                    if(isset($_SESSION['username'])){
+                            $username = $_SESSION['username'];
+                            echo $username;
+                    }?>
                 </div>
 
 

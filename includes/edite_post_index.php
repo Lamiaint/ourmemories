@@ -14,10 +14,12 @@ if(isset($_GET["p_id"])){
     $post_category_id = $post_row["post_category_id"];
     $post_status = $post_row["post_status"];
     $post_image = $post_row["post_image"];
+    $post_video = $post_row["post_video"];
     $post_tag = $post_row["post_tag"];
     $post_content = $post_row["post_content"];
     $post_comment_count = $post_row["post_comment_count"];
     $post_date = $post_row["post_date"];
+    $post_edite_date = $post_row["post_edite_date"];
    }
 }
 
@@ -29,8 +31,10 @@ if(isset($_POST["edite_post"])){
     $post_status = escape($_POST["Post_Status"]);
     $post_image = escape($_FILES["image"]["name"]);
     $post_image_temp = escape($_FILES["image"]["tmp_name"]);
-    $post_content = escape($_POST["Post_Content"]);
+
     $post_tag = escape($_POST["Post_Tag"]);
+    $post_content = escape($_POST["Post_Content"]);
+    
     move_uploaded_file($post_image_temp,"../images/$post_image");
     if(empty($post_image)){
         $qeury = "SELECT * FROM posts WHERE post_id = {$p_id} ";
@@ -48,7 +52,7 @@ if(isset($_POST["edite_post"])){
     $qeury .= "post_status ='{$post_status}', ";
     $qeury .= "post_tag ='{$post_tag}', ";
     $qeury .= "post_content ='{$post_content}', ";
-    $qeury .= "post_date = now(), ";
+    $qeury .= "post_edite_date = now(), ";
     $qeury .= "post_image ='{$post_image}'  ";
     $qeury .= "WHERE post_id ={$p_id} ";
     $update_post = mysqli_query($conn,$qeury);

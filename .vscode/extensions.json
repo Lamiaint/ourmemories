@@ -4,7 +4,11 @@
     // ]
 
     "recommendations": [
-        "xdebug.php-debug"
+        "xdebug.php-debug",
+        "robberphex.php-debug",
+        "kakumei.php-xdebug",
+        "devsense.phptools-vscode",
+        "xdebug.php-pack"
     ]
 
 

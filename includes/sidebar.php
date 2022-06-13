@@ -1,5 +1,4 @@
-
- <div class="column right-side">
+<div class="column right-side">
       
 
             <!-- <div class="well">
@@ -60,7 +59,7 @@
             <?php 
             //sibar search <h5>Search Results</h5>
             if(isset($_POST['search'])){
-                $seachInfo =  escape($_POST['search']);
+                $seachInfo =  $_POST['search'];
             $results = "SELECT * FROM posts where post_tag like '%$seachInfo%' "; 
             $queryResults = mysqli_query($conn,$results);
                 
@@ -82,7 +81,7 @@
                             ?>
                         <li> 
                     <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?> </a>
-                        by <a href="post.php?p_id=<?php echo $post_id; ?>"> <?php echo $post_author ?> </a>
+                        <!-- by <a href="post.php?p_id=<?php //echo $post_id; ?>"> <?php //echo $post_author ?> </a> -->
                         <span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?> 
                         </li>
                     <?php

@@ -36,6 +36,7 @@
                  $queryPostResults = mysqli_query($conn, $queryPost);
 
                  while ($row =mysqli_fetch_assoc($queryPostResults)) {
+                    $post_category_id = $row["post_category_id"];
                      $post_id=$row["post_id"];
                      $post_title= $row["post_title"];
                      $post_author= $row["post_author"];
@@ -49,12 +50,12 @@
                      
                      ?>
 
-             <h3>
+             <h4>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
-             </h3>
+             </h4>
 
              <p class="lead">
-                All Posts by <a href="author_post.php?author=<?php echo $post_author; ?>"> <?php echo $post_author ?> </a>
+             <h5> All Posts by <a href="author_post.php?author=<?php echo $post_author; ?>"> <?php echo $post_author ?> </a></h5>
              </p>
 
              <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
@@ -74,9 +75,22 @@
                 //     }
                 // } ?> 
                 <P>  </P>
-                <p>  <?php echo $post_content ?> </p>
+
+                     <P>  <?php 
+                     if($post_category_id == 48){
+                        echo " 暂不可见 ";
+                       }else{
+                        echo $post_content;
+                        }
+                     ?> </P>
+
+
                 <img class="img-responsive" width="200" src="images/<?php echo $post_image; ?>" alt="">
-                <div class=""><?php if($post_video){ echo "<video><source src='videos/$post_video' type='video'></video>";}?></div>             
+                
+            <?php
+            if($post_video){ echo "<iframe width='420' height='345' src='videos/$post_video?autoplay=1&mute=1'></iframe>";}
+            ?>
+                
              <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
              <hr> 
            <?php

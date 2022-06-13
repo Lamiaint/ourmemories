@@ -23,9 +23,12 @@
                     $queryPost = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' ";
                     $queryPostResults = mysqli_query($conn, $queryPost);
                         while ($row =mysqli_fetch_assoc($queryPostResults)) {
+                            $post_category_id = $row["post_category_id"];
                             $post_title= $row["post_title"];
                             $post_author= $row["post_author"];
                             $post_date= $row["post_date"];
+                            $post_edite_date= $row["post_edite_date"];
+
                             $post_content= $row["post_content"];
                             $post_image= $row["post_image"];
                             $post_video= $row["post_video"];
@@ -43,12 +46,16 @@
                     All Posts by <a href="author_post.php?author=<?php echo $post_author; ?>"> <?php echo $post_author ?> </a>
                     </p>
 
-                    <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
+                     <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
+                     <td>  <?php echo $post_status ?> </td>
+
+                     <!-- <td><span class="glyphicon glyphicon-time"></span> <?php //echo $post_edite_date; ?> </td> -->
                     
-                    <td>  <?php echo $post_status ?> </td>
+                    
+                  
 
                     <?php
-                    //登陆后首页编辑/删除 
+                    // //登陆后首页编辑/删除 
                     // if(isset($_SESSION['username'])){
                     //     $username = $_SESSION['username'];
                     //     if(isset($_GET['p_id'])){
@@ -59,15 +66,50 @@
                     // }
                     ?> 
                      <P>  </P>
-                     <P>  <?php echo $post_content ?> </P>
-                     <P>  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt=""></P>
-                     <?php if($post_video){ 
-                         echo "<video><source src='videos/$post_video' type='video/mp4'></video>";
-                        //  echo "<video><source src='videos/$post_video' type='video/ogg'></video>";
-                        
-                         
-                         }?>
 
+
+                     <P>  <?php 
+                     if($post_category_id == 48){
+                        echo " 暂不可见 ";
+                       }else{
+                        echo $post_content;
+                        }
+                     ?> </P>
+                     
+ 
+
+                     <P>  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt=""></P>
+                     
+            <?php
+            if($post_video){ echo "<iframe width='420' height='345' src='videos/$post_video'></iframe>";}
+            ?>
+
+                     <hr>
+                        <div class="share-btn-container">
+                            <a href="#" class="facebook-btn">
+                                <i class="fab fa-facebook">
+                                </i>
+                            </a>
+                            <a href="#" class="twitter-btn">
+                                <i class="fab fa-twitter">
+                                </i>
+                            </a>
+
+                            <a href="#" class="pinterest-btn">
+                                <i class="fab fa-pinterest">
+                                </i>
+                            </a>
+
+                            <a href="#" class="linkedin-btn">
+                                <i class="fab fa-linkedin">
+                                </i>
+                            </a>
+
+                            <a href="#" class="whatsapp-btn">
+                                <i class="fab fa-whatsapp">
+                                </i>
+                            </a>
+                        </div>
 
 
 
@@ -82,7 +124,7 @@
 
                <!-- Add Blog Comments -->
              <?php  
-                if ($_SERVER['REQUEST_METHOD'] ==='POST') {
+                if ($_SERVER["REQUEST_METHOD"] ==="POST") {
                     if (isset($_POST["create_comment"])) {
                     $the_post_id = escape($_GET["p_id"]);
                     $comment_author= escape($_POST["comment_author"]);

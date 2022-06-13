@@ -36,28 +36,28 @@
 
                         $Form_Password = crypt($Form_Password, $db_user_password);
 
-                    //  if (password_verify($Form_Password, $db_user_password) && $Form_User_Name == $db_username) {
-                    //     $_SESSION['username'] = $db_username;
-                    //     $_SESSION['firstname'] = $db_user_firstname;
-                    //     $_SESSION['lastname'] = $db_user_lastname;
-                    //     $_SESSION['user_role'] = $db_user_role;
-                    //     $_SESSION['password'] = $db_user_password;
-                    //     header("Location:../admin");
-                    //     } else {
-                    //         header("Location:../admin");
-                    //     }
+                     if (password_verify($Form_Password, $db_user_password) && $Form_User_Name === $db_username) {
+                        $_SESSION['username'] = $db_username;
+                        $_SESSION['firstname'] = $db_user_firstname;
+                        $_SESSION['lastname'] = $db_user_lastname;
+                        $_SESSION['user_role'] = $db_user_role;
+                        $_SESSION['password'] = $db_user_password;
+                        header("Location:../admin");
+                        } else {
+                            header("Location:../admin");
+                        }
 
                    
-                            if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
-                                $_SESSION['username'] = $db_username;
-                                $_SESSION['firstname'] = $db_user_firstname;
-                                $_SESSION['lastname'] = $db_user_lastname;
-                                $_SESSION['user_role'] = $db_user_role;
-                                $_SESSION['password'] = $db_user_password;
-                                header("Location:../admin");
-                             } else {
-                                header("Location:../admin");
-                             }
+                            // if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
+                            //     $_SESSION['username'] = $db_username;
+                            //     $_SESSION['firstname'] = $db_user_firstname;
+                            //     $_SESSION['lastname'] = $db_user_lastname;
+                            //     $_SESSION['user_role'] = $db_user_role;
+                            //     $_SESSION['password'] = $db_user_password;
+                            //     header("Location:../admin");
+                            //  } else {
+                            //     header("Location:../admin");
+                            //  }
 
 
                     }

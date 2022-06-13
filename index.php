@@ -38,22 +38,23 @@
              $queryPostResults = mysqli_query($conn, $queryPost);
              
                  while ($row =mysqli_fetch_assoc($queryPostResults)) {
+                     $post_category_id = $row["post_category_id"];
                      $post_id= $row["post_id"];
                      $post_title= $row["post_title"];
                      $post_author= $row["post_author"];
                      $post_user= $row["post_user"];
                      $post_date= $row["post_date"];
-                     $post_content= substr($row["post_content"], 0, 1500);
+                     $post_content= substr($row["post_content"], 0, 600);
                      $post_image= $row["post_image"];
                      $post_video= $row["post_video"];
                      $post_status = $row["post_status"]; ?> 
-             <h3>
+             <h4>
                   <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
-             </h3>
+             </h4>
            
 
              <p class="lead">
-            by <a href='author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ; ?>'> <?php echo $post_author=$post_user?$post_user:$post_author?> </a> 
+             <h5>by <a href='author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ; ?>'> <?php echo $post_author=$post_user?$post_user:$post_author?> </a> </h5>
              </p>
 
 
@@ -61,14 +62,24 @@
 
              <td>  <?php echo $post_status ?> </td>
              <P>  </P>
-             <P> <?php echo $post_content ?> </P>
+
+                  <P>  <?php 
+                     if($post_category_id == 48){
+                        echo " 暂不可见 ";
+                       }else{
+                        echo $post_content;
+                        }
+                     ?> </P>
+
+
              <P> <img class="img-responsive" width="200" src="images/<?php echo $post_image; ?>" alt=""></P>
 
-            <div class="">
-             <?php if($post_video){ echo "<video><source src='videos/$post_video' type='video' ></video>";}?>
-            </div>
 
-             <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <?php
+            if($post_video){ echo "<iframe width='200' height='200' src='videos/$post_video?autoplay=1&mute=1&controls=0'></iframe> <br>";}
+            ?>
+
+             <!-- <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More  <span class="glyphicon glyphicon-chevron-right"></span></a> -->
              <hr>
 
             <?php
