@@ -10,10 +10,10 @@
                 $username = $user_row["username"];
                 $user_image = $user_row["user_image"];
                 $user_info = $user_row["user_info_content"];
-                echo "<div class='card-header'><h4 class='card-text'>{$username}</h4></div>";
                 // echo "<td><img class='card-img-top' width='50' src='images/$user_image' alt='Card image'></td>";
                 echo "<div class='image'> <img class='image' weidth='50' src='images/$user_image' alt='im'></div>";
-                echo "<div class='card-body'><h4 class='text-danger'>{$user_info}</h4></div>";
+                echo "<div><h4 class='card-text'>{$username}</h4></div>";
+                echo "<div>{$user_info}</div>";
             } 
        
         ?>
@@ -22,8 +22,8 @@
     </div> 
 
 
-    <div class="w3-bar-block">
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    <div class="contact-sidebar-left">
+    <a href="#contact" onclick="w3_close()" ><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
     </div>
 
 

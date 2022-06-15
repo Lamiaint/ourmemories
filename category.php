@@ -62,13 +62,13 @@
                <?php
                 if ($post_category_id == 48) {
                     echo " <div class='w3-container w3-cell w3-mobile'> ";
-                    echo "<a target='_blank' href='post.php?p_id=$post_id'> $post_title </a>";
+                    echo "<a target='_blank' href='post.php?p_id=$post_id'> <h3>$post_title</h3> </a>";
                     echo "<p> </p>";
                     echo "<p> invisable </p> </div>";
                 } else if($post_category_id == 47){
                     echo "<div class='w3-third w3-container w3-margin-bottom'>";
                     echo "<div class='w3-container w3-white'>";
-                    echo "<a href='post.php?p_id=$post_id'> $post_title </a>";
+                    echo "<a href='post.php?p_id=$post_id'> <h3>$post_title</h3> </a>";
                     echo "<a target='_blank' href='post.php?p_id=$post_id'><img src='images/$post_image' alt='Norway' height='200px' width='200px' class='w3-hover-opacity' ></p> </a>";
                     echo "<p> $post_content</p>";
                     echo "</div></div>";
@@ -76,7 +76,7 @@
                 }else{
                     echo "<div class='w3-third w3-container w3-margin-bottom'>";
                     echo "<div class='w3-container'>";
-                    echo "<a target='_blank' href='post.php?p_id=$post_id'> $post_title </a>";
+                    echo "<a target='_blank' href='post.php?p_id=$post_id'> <h3>$post_title</h3></a>";
                     echo "<p> $post_content</p></div></div>";
                 }
                  ?>          
@@ -105,9 +105,15 @@
 
 
 
-  <?php include "includes/footer_category.php";  ?>
 
-  <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+ <?php //include "includes/contact_section.php";  ?>
+
+
+  <?php //include "includes/footer_category.php";  ?>
+
+   
+
+  <div class=" w3-bottombar w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
 <!-- End page content -->
 </div>

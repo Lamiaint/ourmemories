@@ -12,6 +12,14 @@
                 echo $Form_User_Name." =Form_User_Name,  ";
                 echo $Form_Password." =Form_Password,";
 
+
+
+                // if(emptyInputSignup($Form_User_Name,$Form_Password )){
+
+                // }
+
+
+
                 //$Form_Password = password_hash($Form_Password,PASSWORD_BCRYPT,array('cost'=>12));
 
                 $conn = getConnection();
@@ -43,22 +51,10 @@
                         $_SESSION['user_role'] = $db_user_role;
                         $_SESSION['password'] = $db_user_password;
                         header("Location:../admin");
+                        exit();
                         } else {
                             header("Location:../admin");
                         }
-
-                   
-                            // if($Form_User_Name !== $db_username && $Form_Password !== $db_user_password){
-                            //     $_SESSION['username'] = $db_username;
-                            //     $_SESSION['firstname'] = $db_user_firstname;
-                            //     $_SESSION['lastname'] = $db_user_lastname;
-                            //     $_SESSION['user_role'] = $db_user_role;
-                            //     $_SESSION['password'] = $db_user_password;
-                            //     header("Location:../admin");
-                            //  } else {
-                            //     header("Location:../admin");
-                            //  }
-
 
                     }
 

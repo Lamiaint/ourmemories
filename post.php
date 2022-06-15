@@ -49,24 +49,7 @@
                      <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
                      <td>  <?php echo $post_status ?> </td>
 
-                     <!-- <td><span class="glyphicon glyphicon-time"></span> <?php //echo $post_edite_date; ?> </td> -->
-                    
-                    
-                  
-
-                    <?php
-                    // //登陆后首页编辑/删除 
-                    // if(isset($_SESSION['username'])){
-                    //     $username = $_SESSION['username'];
-                    //     if(isset($_GET['p_id'])){
-                    //         $the_post_id = escape($_GET['p_id']);
-                    //             echo "<td><a href='posts_index.php?source=edite_post_index&p_id=$the_post_id'> Edite </a></td>";
-                    //                 echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='post.php?delete={$the_post_id}'> Delete </a></td>"; 
-                    //     }
-                    // }
-                    ?> 
                      <P>  </P>
-
 
                      <P>  <?php 
                      if($post_category_id == 48){
@@ -76,9 +59,8 @@
                         }
                      ?> </P>
                      
- 
 
-                     <P>  <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>" alt=""></P>
+                    <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>">
                      
             <?php
             if($post_video){ echo "<iframe width='420' height='345' src='videos/$post_video'></iframe>";}
@@ -145,7 +127,7 @@
                 }  
              ?>
 
-
+<hr>
         <!-- Posted Comments -->
         <?php
 
@@ -164,18 +146,14 @@
                     ?>
                     
                     <!-- Comment -->
-                    <hr>
+                  
                     <div class="media">
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://placehold.it/64x64" alt="">
                         </a>
-                        <div class="media-body">
-                        <h4 class="media-heading" ><?php echo $comment_content; ?></h4>
-                        </div>
-                        <?php 
-                            echo $comment_author; 
-                        ?>                       
-                        <small> <?php echo $comment_date; ?> </small> 
+                        <div><?php echo $comment_content; ?></div> 
+                        <?php echo $comment_author; ?>                       
+                        <?php echo $comment_date; ?> 
                     </div>        
                 <?php 
                 }}?>

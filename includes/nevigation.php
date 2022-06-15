@@ -1,15 +1,15 @@
 <?php  include "db.php";  ?>
-<?php  //session_start();  ?>
+<?php  session_start();  ?>
 
 
 
 <div class="topnav">
   
   <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
-    <div class="nav-m">
-                <ul class="nav navbar-nav">
-                <a class="navbar-brand" href="index.php"> 首页 </a> 
-                     <li> 
+    <div class='nav-m'>
+                
+         <a href="index.php" class="w3-margin-right">  首页 </a> 
+                    
                     <?php
                          $conn = getConnection();
                          $qeury = "select * from categories";
@@ -21,61 +21,43 @@
                     $cat_id = $qeuryResultsRow["id"];
                     if(!empty($cat_title) && !empty($cat_id ) ){
                        
-                        echo "<li><a href='category.php?category=$cat_id'>{$cat_title }</a></li>";
+                        // echo "<a href='category.php?category=$cat_id'>{$cat_title }</a>";
+                        echo "   <a class='w3-margin-right' href='category.php?category=$cat_id'>{$cat_title } </a>  ";
                         
                     }
                                       
                     }
                     ?>                    
-                     </li> 
+               
 
-                    <!-- 用户角色登陆后权限 -->
-                    <?PHP
-                //     if(isset($_SESSION['username'])){
-                //         $login_username = $_SESSION['username'];
-                //         $user_role = $_SESSION['user_role'];
-                        
-                //         $password = $_SESSION['password'];
-                //             $login_userResults = "SELECT * FROM users Where username= '{$login_username}' AND user_password = '{$password}' ";
-                //             $select_login_user = mysqli_query($conn, $login_userResults);
-                //             while ($login_user_row = mysqli_fetch_assoc($select_login_user)) {
-                //                 $user_role = $login_user_row['user_role'];
-                //                 if( $user_role =="admin"){
-                //                     echo"<li> <a href='admin'> Admin </a> </li>";  
-                //                 }else{
-                //                   echo"<li> <a onClick=\" javascript: return confirm('非管理员权限');\" href='index.php'> Admin </a> </li>";                
-                //                     echo"<li> <a href='admin'> Admin </a> </li>";  
-                //                 }  
-                //         }
-                //    }
-                    ?>
-                                
-                    <!-- <li> <a href="registration.php"> Registration </a> </li> -->
-                    
-                    <!-- <li> <a href="./includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li> -->
+                    <!-- 首页添加POST 128522--> 
+                     <a class='w3-margin-right' href="posts_index.php?source=add_post_index"> Add Post&#128522 </a>        
+                     <a class='w3-margin-right' href="registeration.php">  Registeration </a>   
+                     <a class='w3-margin-right' href="./includes/logout.php"> Log Out </a>  
 
-                    
-            <!-- 首页添加POST 128522--> 
-            <button type="button" class="ad-post"> <a href="posts_index.php?source=add_post_index"> Add Post&#128522 </a></button>
-                </ul>
-        </div>
- 
 
                 <div class="login-container" >  
-                    <!-- <form action="./includes/login.php" method="POST" > 
+                    <form action="includes/login.php" method="POST" > 
                         <input type="text" placeholder="Username" name="username" id="username">
                         <input type="password" placeholder="Password" name="password" id="password">
                         <button type="submit" name="login" >Login</button>
-                    </form> -->
-                   <?php 
-                    if(isset($_SESSION['username'])){
-                            $username = $_SESSION['username'];
-                            echo $username;
-                    }?>
+                    </form>
                 </div>
+               
+    </div>
 
+               
 
-              
+                 <!-- <section class="signup-form" > 
+                    <div class="login.inc.php" method="post"> 
+                    <form action="./includes/login.php" method="POST" > 
+                        <input type="text" placeholder="Username" name="username" id="username">
+                        <input type="password" placeholder="Password" name="password" id="password">
+                        <button type="submit" name="login" >Log In</button>
+                    </form>
+                    </div>
+                 </section> -->
+                
 
 
 

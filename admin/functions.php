@@ -4,6 +4,12 @@ function escape($string){
     return mysqli_real_escape_string($conn,trim($string));
 }
 
+function emptyInputSignup($username,$email,$password){
+    //$result;
+
+
+}
+
 
 
 

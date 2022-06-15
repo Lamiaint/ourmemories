@@ -49,9 +49,8 @@
                      $post_video= $row["post_video"];
                      $post_status = $row["post_status"]; ?> 
              <h4>
-                  <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?> </a>
+                  <a href="post.php?p_id=<?php echo $post_id; ?>"><h3><?php echo $post_title; ?></h3> </a>
              </h4>
-           
 
              <p class="lead">
              <h5>by <a href='author_post.php?author=<?php echo $post_author; ?>&p_id=<?php echo $post_id ; ?>'> <?php echo $post_author=$post_user?$post_user:$post_author?> </a> </h5>
@@ -63,7 +62,7 @@
              <td>  <?php echo $post_status ?> </td>
              <P>  </P>
 
-                  <P>  <?php 
+                  <P class="w3-grey">  <?php 
                      if($post_category_id == 48){
                         echo " 暂不可见 ";
                        }else{

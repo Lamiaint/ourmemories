@@ -6,7 +6,7 @@
 
     <!-- <h1><b>My Portfolio</b></h1> -->
     <div class="w3-section w3-bottombar w3-padding-16">
-      <a href="index.php"><span class="w3-margin-right"> 首页 </span></a> 
+    <a class='w3-margin-right' href="index.php">首页 </a>  
                     <?php
                          $conn = getConnection();
                          $qeury = "select * from categories";
@@ -18,7 +18,7 @@
                     $cat_id = $qeuryResultsRow["id"];
                     if(!empty($cat_title) && !empty($cat_id ) ){
                        
-                        echo " <a href='category.php?category=$cat_id'><i class='w3-margin-right'></i> {$cat_title } </a> ";
+                        echo " <a class='w3-margin-right' href='category.php?category=$cat_id'>{$cat_title }</a>";
                         
                     }
                                       

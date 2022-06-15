@@ -41,13 +41,12 @@
 
  
         <div class="well" >
-            <h4>Info Search</h4>
             <form action="" method="post">
                 <div class="input-group">
-                    <input name="search" type="text" class="form-control">
+                    <input name="search" type="text" class="form-control" placeholder='查找...'>
                     <span class="input-group-btn">
                         <button name="search" class="btn btn-default" type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="glyphicon glyphicon-search">Search</span>
                         </button>
                     </span>
                 </div>
@@ -92,10 +91,11 @@
             ?>
         </div>
 
-    
+         
+        <p> </p>
         <!-- sidebar comments-->  
         <div class="well">
-            <h4>Leave a Comment:</h4> 
+            Leave a Comment:
             <form action="" method="post" role="form">
                 <div class="form-group">
                     <label for="comment_username">Author</label>
@@ -129,11 +129,11 @@
                             ?>
                             <!-- siebar Comment  class="media" -->
                             <!-- <div id="block-6" class="widget widget_block"> -->
-                                <a class="pull-left" href="#">
+                                <!-- <a class="pull-left" href="#">
                                     <img class="media-object" src="http://placehold.it/64x64" alt="">
-                                </a>
+                                </a> -->
                                 <div class="media-content">     
-                                    <h4> <?php echo $comment_content; ?>  </h4>
+                                     <?php echo $comment_content; ?>  
                                 </div>
                                 <?php echo $comment_username; ?>
                                 <td><span class="glyphicon glyphicon-time"></span> <?php echo $comment_date; ?> </td>

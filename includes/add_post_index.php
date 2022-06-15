@@ -42,7 +42,7 @@ if(isset($_POST["create_post"])){
 
 <div class="container main-container" role="main">
 <div class="well">
-	<div class="page-area">
+<div class="page-area">
  
 <form action="" method="post" enctype="multipart/form-data">
 
@@ -116,9 +116,6 @@ if(isset($_POST["create_post"])){
      <input type="file"  name="video" id="video"> 
      </div>
  
-
-
-
 
      <div class="form-group">
          <label for="post_tag">Post Tag</label>

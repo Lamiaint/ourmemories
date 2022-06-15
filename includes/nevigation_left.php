@@ -10,22 +10,19 @@
         <?php
 
 if (isset($_GET['category'])) {
-
     $conn = getConnection();
-    
     $category_id = escape($_GET['category']);
-    
-    $userResults = "SELECT c.id,c.title,ui.user_name,ui.user_info_content,ui.info_image FROM categories c,user_info ui WHERE c.id = ui.category_id AND c.id = {$category_id} ";
- 
+    $userResults = "SELECT ui.* FROM user_info ui WHERE ui.category_id = {$category_id}";
+
     $select_users = mysqli_query($conn, $userResults);
     if ($user_row = mysqli_fetch_assoc($select_users)) {
         $user_image = $user_row["info_image"];
-        $category_title = $user_row["title"];
+        $category_id = $user_row["category_id"];
         $user_info = $user_row["user_info_content"];
                
 
         echo "<img class='image' src='images/$user_image' style='width:45%;' class='w3-round'>";
-        echo "<h4 class='card-text'>{$category_title}</h4>";
+        echo "<h4 class='card-text'>{$category_id}</h4>";
         echo "<p class='w3-text-grey'>{$user_info}</p>";
     } ?>
         </div>
@@ -57,12 +54,12 @@ if (isset($_GET['category'])) {
    
         
    
-?>  
+ ?>  
 
 
 
 
-<div class="w3-bar-block">
+ <div class="w3-bar-block">
     <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
     <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
     <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
@@ -71,8 +68,8 @@ if (isset($_GET['category'])) {
 
 
           <!--form Category comments-->  
-          <div class="w3-padding">
-            <h4>请留言:</h4> 
+          <div class="comment-nav-left">
+            <h5>留言:</h5> 
             <form action="" method="post" role="form">
                 <div class="form-group">
                     <label for="comment_username">用户名</label>
@@ -88,8 +85,7 @@ if (isset($_GET['category'])) {
 
     <?php
         // display category comment
-    $query = "SELECT c.*,cc.* FROM categories c,category_comments cc WHERE c.id = cc.category_id AND c.id = $category_id ";
-    $query .= "ORDER BY c.id DESC";
+    $query = "SELECT c.*,cc.* FROM categories c,category_comments cc WHERE c.id = cc.category_id AND c.id = $category_id ORDER BY cc.comment_id DESC ";
     $select_comment_query = mysqli_query($conn, $query);
     if (!$select_comment_query) {
         die("Query Failed".mysqli_error($conn));
@@ -100,7 +96,7 @@ if (isset($_GET['category'])) {
             $comment_content = $row["comment_content"]; 
             ?>
                 <div class="media-content">     
-                    <h4> <?php echo $comment_content; ?>  </h4>
+                    <?php echo $comment_content; ?>  
                 </div>
                 <td><span class="glyphicon glyphicon-time"></span> <?php echo $comment_date; ?> </td>
             <?php

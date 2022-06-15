@@ -1,6 +1,9 @@
 <?php  include "includes/header.php"; ?>
  <!-- Navigation -->
  <?php  include "includes/nevigation.php"; ?>
+ 
+ <?php //include "includes/nevigation_left.php"; ?>
+ <?php  //include "includes/post_content_header.php"; ?>  
 
 
 <?php
@@ -34,9 +37,9 @@ if(isset($_POST['submit'])){
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
-                <h1>Register</h1>
+                <h1>Registeration</h1>
               
-                    <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                    <form role="form" action="registeration.php" method="post" id="login-form" autocomplete="off">
                      <!-- 注册成功 -->
                     <h3 class="text-center"> <?php echo $message;?> </h3>
                      <!-- 注册后登陆 -->

@@ -10,6 +10,13 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+});
+
+$(document).ready(function() {
     //emoji sidebar
     $('#e_comments').emojioneArea({
         pickerPosition: "top"
@@ -20,10 +27,12 @@ $(document).ready(function() {
     $('#p_comments').emojioneArea({
         pickerPosition: "top"
     });
+})
 
 
 
-});
+
+
 
 
 // Script to open and close sidebar
@@ -85,3 +94,9 @@ function init() {
 }
 
 init();
+
+
+
+
+const userAgentData = navigator.userAgentData;
+const { platform } = userAgentData;
