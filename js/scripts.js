@@ -73,14 +73,14 @@ Linkedin:
 https://www.linkedin.com/shareArticle?url=[post-url]&title=[post-title]
 */
 
-const facebookBtn = document.querySelector(".facebook-btn");
-const twitterBtn = document.querySelector(".twitter-btn");
-const linkedinBtn = document.querySelector(".linkedin-btn");
-const pinterestBtn = document.querySelector(".pinterest-btn");
-const whatsappBtn = document.querySelector(".whatsapp-btn");
+const facebookBtn = document.querySelector("facebook-btn");
+const twitterBtn = document.querySelector("twitter-btn");
+const linkedinBtn = document.querySelector("linkedin-btn");
+const pinterestBtn = document.querySelector("pinterest-btn");
+const whatsappBtn = document.querySelector("whatsapp-btn");
 
 function init() {
-    const pinterestImg = document.querySelector(".img-responsive");
+    const pinterestImg = document.querySelector("img-responsive");
 
     let postUrl = encodeURI(document.location.href);
     let postTitle = encodeURI("pl check this out: ");

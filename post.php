@@ -60,7 +60,7 @@
                      ?> </P>
                      
 
-                    <img class="img-responsive" width="500" src="images/<?php echo $post_image; ?>">
+                    <img class="img-responsive" id="img-responsive"　width="500" src="images/<?php echo $post_image; ?>">
                      
             <?php
             if($post_video){ echo "<iframe width='420' height='345' src='videos/$post_video'></iframe>";}
@@ -68,26 +68,26 @@
 
                      <hr>
                         <div class="share-btn-container">
-                            <a href="#" class="facebook-btn">
+                            <a href="#" class="facebook-btn" id="facebook-btn">
                                 <i class="fab fa-facebook">
                                 </i>
                             </a>
-                            <a href="#" class="twitter-btn">
+                            <a href="#" class="twitter-btn" id="twitter-btn">
                                 <i class="fab fa-twitter">
                                 </i>
                             </a>
 
-                            <a href="#" class="pinterest-btn">
+                            <a href="#" class="pinterest-btn" id="pinterest-btn">
                                 <i class="fab fa-pinterest">
                                 </i>
                             </a>
 
-                            <a href="#" class="linkedin-btn">
+                            <a href="#" class="linkedin-btn" id="linkedin-btn">
                                 <i class="fab fa-linkedin">
                                 </i>
                             </a>
 
-                            <a href="#" class="whatsapp-btn">
+                            <a href="#" class="whatsapp-btn" id="whatsapp-btn">
                                 <i class="fab fa-whatsapp">
                                 </i>
                             </a>
