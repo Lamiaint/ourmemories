@@ -1,7 +1,7 @@
 <?php include "includes/header.php";?>
 
 <!-- Navigation -->
-    <?php  include "includes/nevigation.php"; ?>
+    <?php  include "includes/nevigation_post.php"; ?>
 
     <div class="row">
         <?php  include "includes/sidebar_left.php"; ?>
@@ -61,19 +61,7 @@
              <td><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> </td>
              
              <td>  <?php echo $post_status ?> </td>
-
-                <?php
-               // 登陆后首页编辑/删除
-                // if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
-                //     $username = $_SESSION['username'];
-                //     if (isset($_GET['author'])) {
-                //         $the_post_author= escape($_GET["author"]);
-                //         if ($username === $the_post_author) {
-                //             echo "<td><a href='admin/posts.php?source=edit_post&p_id=$post_id'> Edit </a></td>";
-                //             echo "<td><a  onClick=\" javascript: return confirm('Are you sure you want to delete it?');\" href='admin/posts.php?delete={$post_id}'> Delete </a></td>";
-                //         }
-                //     }
-                // } ?> 
+             
                 <P>  </P>
 
                      <P>  <?php 

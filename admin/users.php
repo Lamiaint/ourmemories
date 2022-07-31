@@ -1,5 +1,21 @@
 <?php include "includes/admin_header.php"; ?>
 
+
+<?php 
+
+$conn = getConnection();
+if(!is_admin($_SESSION['username'])){
+    header("Lacotion:index.php");
+} 
+
+
+?>
+
+
+
+
+
+
     <div id="wrapper">
         <?php     
         $conn = getConnection();

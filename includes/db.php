@@ -1,3 +1,5 @@
+ <?php ob_start();?>
+ 
  <?php
  /* 
 //set DataBase Connection
@@ -32,8 +34,8 @@ function getConnection(){
   $db_user = "root";
   $charset="utf8mb4";
   $db_pass = "";
-  $dbdb_name = "ourmemories";
-  $connection=mysqli_connect($db_host,$db_user,$db_pass,$dbdb_name);
+  $db_name = "ourmemories";
+  $connection=mysqli_connect($db_host,$db_user,$db_pass,$db_name);
   return $connection;
 }
 

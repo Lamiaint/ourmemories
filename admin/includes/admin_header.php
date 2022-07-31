@@ -1,21 +1,9 @@
-<?php include "../includes/db.php";  ?>
-<?php include "functions.php"; ?>
-<?php //ob_start();?>
-<?php //session_start();  ?>
-
 <?php ob_start();?>
 <?php session_start();  ?>
-<?php  
-
-if(!isset($_SESSION['user_role'])){
-
-  header("Location: ../index.php");
-
-}
+<?php include "../includes/db.php";  ?>
+<?php include "functions.php"; ?>
 
 
-
-?>
 
 
 <!DOCTYPE html>
@@ -23,11 +11,22 @@ if(!isset($_SESSION['user_role'])){
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- bootstrap -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+ 
+ 
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  -->
+    
+   
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content=""> -->
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
@@ -37,28 +36,20 @@ if(!isset($_SESSION['user_role'])){
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
-    <!-- emojis -->
-    <link rel="stylesheet" href="./css/emojionearea.min.css">
-    
-
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
-       
-      
-    
-     <!--  add post text editor-->
-      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">       
-     <!-- <link rel="stylesheet" href="css/summernote.css"> -->
+      <!-- summernote add post text editor-->
+      <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">        -->
+      <link rel="stylesheet" href="css/summernote.css">
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
  
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="js/jquery.js"></script>
 
 </head>
 

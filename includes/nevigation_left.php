@@ -16,23 +16,17 @@ if (isset($_GET['category'])) {
 
     $select_users = mysqli_query($conn, $userResults);
     if ($user_row = mysqli_fetch_assoc($select_users)) {
-        $user_image = $user_row["info_image"];
-        $category_id = $user_row["category_id"];
+        // $user_image = $user_row["info_image"];
+        // $category_id = $user_row["category_id"];
         $user_info = $user_row["user_info_content"];
-               
+        //echo "<img class='image' src='images/$user_image' style='width:45%;' class='w3-round'>";
+        echo "<h4><br><p class='w3-text-grey'>{$user_info}</p><br></h4> ";
 
-        echo "<img class='image' src='images/$user_image' style='width:45%;' class='w3-round'>";
-        echo "<h4 class='card-text'>{$category_id}</h4>";
-        echo "<p class='w3-text-grey'>{$user_info}</p>";
     } ?>
         </div>
 
-  
-
-
           <!-- Add sidebar-left Category Comments -->
           <?php
-
             if ($_SERVER['REQUEST_METHOD'] ==='POST') {
                 if (isset($_POST["add_category_comment"])) {
                     $comment_user= escape($_POST["comment_username"]);
@@ -58,11 +52,10 @@ if (isset($_GET['category'])) {
 
 
 
-
  <div class="w3-bar-block">
     <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
     <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    <a href="contact.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
   </div>
 
 

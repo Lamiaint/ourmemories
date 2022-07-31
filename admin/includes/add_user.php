@@ -2,6 +2,7 @@
 <?php
 if(isset($_POST["create_user"])){
     //$user_name = $_POST["user_id"];
+    $user_info = escape($_POST["User_Info"]);
     $user_first_name = escape($_POST["user_first_name"]); 
     $user_last_name = escape($_POST["user_last_name"]);
     $user_name = escape($_POST["user_name"]);
@@ -17,8 +18,8 @@ if(isset($_POST["create_user"])){
 
    move_uploaded_file($user_image_temp,"../images/$user_image");
 
-    $query = "INSERT INTO users(user_firstname,user_lastname,username,user_role,user_image,user_email,user_password)";
-    $query .= "VALUES('{$user_first_name}','{$user_last_name}','{$user_name}','{$user_role}','{$user_image}','{$user_email}','{$user_password}')";
+    $query = "INSERT INTO users(user_info,user_firstname,user_lastname,username,user_role,user_image,user_email,user_password)";
+    $query .= "VALUES('{$user_info}','{$user_first_name}','{$user_last_name}','{$user_name}','{$user_role}','{$user_image}','{$user_email}','{$user_password}')";
 
     $create_post_query = mysqli_query($conn,$query); 
     confirmQuery($create_post_query);  
@@ -29,6 +30,12 @@ if(isset($_POST["create_user"])){
 ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+    
+    <div class="form-group">
+        <label for="User_Info">User Info</label>
+        <textarea id="User_Info" name="User_Info" class="form-control" rows="5" ></textarea>
+    </div>
+
      <div class="form-group">
          <label for="User_First_Name">Firstname</label>
          <input type="text" class="form-control" name="user_first_name"> 

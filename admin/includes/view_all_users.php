@@ -2,6 +2,7 @@
         <thead>
             <tr>
                 <th> Id </th>
+                <th> Userinfo</th>
                 <th> Username </th>
                 <th> Firstname </th>
                 <th> Lastname </th>
@@ -25,6 +26,7 @@
             
         while ($user_row = mysqli_fetch_assoc($select_users)) {
             $user_id = $user_row["user_id"];
+            $user_info = $user_row["user_info"];  
             $username = $user_row["username"];
             $user_firstname = $user_row["user_firstname"];
             $user_lastname = $user_row["user_lastname"];
@@ -34,6 +36,7 @@
          
             echo "<tr>";
             echo "<td>{$user_id}</td>";
+            echo "<td>{$user_info}</td>";
             echo "<td>{$username}</td>";
             echo "<td>{$user_firstname}</td>";
             echo "<td>{$user_lastname}</td>";
@@ -50,8 +53,16 @@
 
            echo "<td><a href='users.php?change_to_admin=$user_id'>Admin</a></td>";
            echo "<td><a href='users.php?change_to_sub=$user_id'>Subscriber</a></td>";
-           echo "<td><a href='users.php?source=edit_user&edit_user=$user_id'>Edit</a></td>";
-           echo "<td><a href='users.php?source=delete&delete=$user_id'>Delete</a></td>";
+           echo "<td><a class='btn btn-info' href='users.php?source=edit_user&edit_user=$user_id'>Edit</a></td>";
+?>
+
+           <form method="post">
+            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+            <?php echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>'; ?>
+            </form>
+
+            <?php
+        //    echo "<td><a href='users.php?source=delete&delete=$user_id'>Delete</a></td>";
            echo "</tr>";           
         }
         ?>
@@ -87,11 +98,11 @@ if(isset($_GET["change_to_sub"])){
 }
 
 
-if(isset($_GET["delete"])){
+if(isset($_POST["delete"])){
     // global $conn;
     $user_role =  escape($_SESSION['user_role']);
         if($user_role == 'admin'){
-            $user_id = mysqli_real_escape_string($conn,$_GET["delete"]);
+            $user_id = mysqli_real_escape_string($conn,$_POST["user_id"]);
             $query = "DELETE FROM users WHERE user_id = '{$user_id}' ";
             $delete_query = mysqli_query($conn,$query);
             header("Location:users.php");

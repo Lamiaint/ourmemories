@@ -86,22 +86,15 @@ if(isset($_POST["create_post"])){
         </select>
     </div>
 
-     <div class="form-group"><!--//用户名不登陆可以发POST -->
-         <label for="post_author">Post Author</label>
-         <input type='text' name='post_author' class='form-control' placeholder='输入你喜欢的名字...'>
-         <?php
-            // if(isset($_SESSION['username'])){
-            //     echo "<input type='text' name='post_author' value='{$username}' class='form-control'>";          
-            //   }else{
-                // echo "<input type='text' name='post_author' class='form-control' placeholder='输入你喜欢的名字...'>";  
-                             
-            //   } ?>        
-     </div>
-
 
      <div class="form-group">
          <label for="post_user">Post User</label>
          <input type='text' name='post_user' placeholder='Enter Your Username' class='form-control'>
+     </div>
+
+     <div class="form-group">
+         <label for="post_author">Post Author</label>
+         <input type='text' name='post_author' placeholder='Enter Your Favourite Username' class='form-control'>
      </div>
 
      <div class="form-group">

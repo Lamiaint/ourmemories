@@ -1,68 +1,82 @@
-<?php ob_start(); ?>
-<?php session_start();  ?>
+<?php  session_start();  ?>
 <?php include "db.php";  ?>
-<?php include "../admin/functions.php"; ?>
+<?php  include "../admin/functions.php"; ?>
+
+                    <!-- login  form -->
+                    <div class="login-container">
+
+                    <?php  if(isset($_SESSION['user_role'])):   ?>
+                    <h5> Logged in as <?php echo $_SESSION['username'] ?></h5>
+                    <?php  else:   ?>
+
+                    <form class="login-form" method="POST" action="login.php">
+                     
+                    <input type="text" class="text"  name="username" placeholder="Enter Username" required>
+                    <br> 
+                    <br>
+
+                    <input type="password" class="text"  name="password" placeholder="Enter Password" required>
+                    <br> 
+                    <br> 
+     
+                    <button type="submit" name="Login">Login</button>
+                    </form>
+
+                    <?php  endif;   ?>
+
+                    </div>
+
+<!-- .. -->
+
+
+ 
+
+
+
+
+
+
+<!-- .. -->
+
+
+
+
+
+
+
+
+
+
+
+ 
+  
+    
+
+
 
 <?php 
-        //login    
-            if (isset($_POST["login"])) {
-                $Form_User_Name = $_POST["username"];
-                $Form_Password = $_POST["password"];
-                
-                echo $Form_User_Name." =Form_User_Name,  ";
-                echo $Form_Password." =Form_Password,";
-
-
-
-                // if(emptyInputSignup($Form_User_Name,$Form_Password )){
-
-                // }
-
-
-
-                //$Form_Password = password_hash($Form_Password,PASSWORD_BCRYPT,array('cost'=>12));
-
-                $conn = getConnection();
-                $Form_User_Name = escape($Form_User_Name);
-                $Form_Password = escape($Form_Password);
-                
-                $select_users = "SELECT * FROM users WHERE username = '{$Form_User_Name}' ";
-                $userNameResult = mysqli_query($conn, $select_users);
-               
-                print_r($userNameResult);
-
-                if (!$userNameResult) {
-                    die("query failed".mysqli_error($conn));
-                }
-
-                    while($row = mysqli_fetch_array($userNameResult)){
-                        $db_username = $row["username"];
-                        $db_user_password = $row["user_password"];
-                        $db_user_role = $row["user_role"];
-                        $db_user_firstname = $row["user_firstname"];
-                        $db_user_lastname = $row["user_lastname"];
-
-                        $Form_Password = crypt($Form_Password, $db_user_password);
-
-                     if (password_verify($Form_Password, $db_user_password) && $Form_User_Name === $db_username) {
-                        $_SESSION['username'] = $db_username;
-                        $_SESSION['firstname'] = $db_user_firstname;
-                        $_SESSION['lastname'] = $db_user_lastname;
-                        $_SESSION['user_role'] = $db_user_role;
-                        $_SESSION['password'] = $db_user_password;
-                        header("Location:../admin");
-                        exit();
-                        } else {
-                            header("Location:../admin");
-                        }
-
-                    }
-
-            }
+ $conn = getConnection();
+    if(isset($_POST['Login'])){
+             
+        $Name = trim($_POST['username']);
+        $Password = trim($_POST['password']);
+        login_user( $Name ,$Password);
+}
        
     ?>
 
 
   
-<?php //ob_end_flush(); //this should be last line of your page     ?>
+<?php // ob_end_flush(); //this should be last line of your page ?>
+ 
 
+
+ 
+
+
+
+
+
+
+
+ 

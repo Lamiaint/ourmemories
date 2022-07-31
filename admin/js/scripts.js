@@ -1,6 +1,7 @@
 // tinymce.init({ selector: 'textarea' });
 
 $(document).ready(function() {
+
     $('#summernote').summernote({
         height: 200
     });
@@ -35,4 +36,4 @@ function loadUsersOnline() {
         $(".usersonline").text(data);
     });
 }
-setInterval(function() { loadUsersOnline(), 500 });
+setInterval(function() { loadUsersOnline(), 100 });

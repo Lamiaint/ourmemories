@@ -33,15 +33,8 @@
                         <i class="fa fa-file-text fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-
                      <!--SELECT * FROM posts-->
-                    <?php
-                    $query = "SELECT * FROM posts";
-                    $select_all_post = mysqli_query($conn,$query);
-                    $post_counts = mysqli_num_rows($select_all_post );
-
-                    ?>
-                        <div class='huge'><?php  echo $post_counts; ?></div>
+                        <div class='huge'><?php  echo $post_counts = recordCount('posts'); ?></div>
                         <div>Posts</div>
                     </div>
                 </div>
@@ -65,13 +58,8 @@
                     <div class="col-xs-9 text-right">
 
                     <!--SELECT * FROM comments-->
-                    <?php
-                    $query = "SELECT * FROM  comments";
-                    $select_all_post = mysqli_query($conn,$query);
-                    $comment_counts = mysqli_num_rows($select_all_post );
-
-                    ?>
-                        <div class='huge'><?php echo $comment_counts; ?> </div>
+                    <div class='huge'><?php  echo $comment_counts = recordCount('comments'); ?></div>
+                     
                         <div>Comments</div>
                     </div>
                 </div>
@@ -95,12 +83,7 @@
                     <div class="col-xs-9 text-right">
 
                     <!--SELECT * FROM users-->
-                    <?php
-                    $query = "SELECT * FROM  users";
-                    $select_all_post = mysqli_query($conn,$query);
-                    $user_counts = mysqli_num_rows($select_all_post );
-                    ?>
-                        <div class='huge'><?php  echo $user_counts;  ?></div>
+                    <div class='huge'><?php  echo $user_counts = recordCount('users'); ?></div>
                         <div> Users</div>
                     </div>
                 </div>
@@ -124,13 +107,9 @@
                     <div class="col-xs-9 text-right">
                  
                     <!--SELECT * FROM categories-->
-                    <?php
-                    $query = "SELECT * FROM  categories";
-                    $select_all_post = mysqli_query($conn,$query);
-                    $category_counts = mysqli_num_rows($select_all_post );
-                    ?>
 
-                        <div class='huge'><?php  echo $category_counts;  ?></div>
+                <div class='huge'><?php  echo $category_counts = recordCount('categories'); ?></div>
+                
                         <div>Categories</div>
                     </div>
                 </div>
@@ -147,13 +126,20 @@
 </div>
 <!-- 2022 widges-->
 
-<!-- 添加到 Bubble Chart-->
-<?php
- $query = "SELECT * FROM  categories WHERE title = 'JAVA' ";
- $select_title = mysqli_query($conn,$query);
- $category_title = mysqli_num_rows($select_title );
+    <!-- 添加到 Bubble Chart-->
+    <?php
 
-?>
+       $post_published_count = checkStatus('posts','post_status','published');
+
+       $post_draft_count = checkStatus('posts','post_status','draft');
+
+       $unpproved_comment_count=checkStatus('comments','comment_status','unpproved');
+
+       $subscriber_count = checkStatus('users','user_role','subscriber');
+
+       $approve_comment_counts = checkStatus('comments','comment_status','approve');
+    
+    ?>
 
 
 <!-- Bubble Chart-->
@@ -168,8 +154,8 @@
    
           ['Data', 'Counts'],
             <?php
-            $element_text = ['Comments','Posts','Categories','Users','Title'];
-            $element_count = [$comment_counts,$post_counts,$user_counts,$category_counts,$category_title];
+            $element_text = ['approve_comment','post_published','post_draft','unpproved_comment','subscriber_count'];
+            $element_count = [$approve_comment_counts,$post_published_count,$post_draft_count,$unpproved_comment_count,$subscriber_count];
             for($i = 0;$i <= 4 ;$i++){
             echo "['{$element_text[$i]}'".","."{$element_count[$i]}],";
             }
@@ -192,10 +178,6 @@
     <div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
 
 
-
-
-
-
 </div>
 
 
@@ -209,6 +191,11 @@
           </div>
    </div>
     <!-- /.row -->
+
+
+
+ 
+
     </div>
     <!-- /.container-fluid -->
 

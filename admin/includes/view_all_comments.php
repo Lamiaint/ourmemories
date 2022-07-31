@@ -9,7 +9,7 @@
                 <th> In Response to </th>
                 <th> Date </th>
                 <th> Approve </th>
-                <th> Unapprove </th>
+                <th> Unpproved </th>
                 <th> Delete </th>
                <!-- <th> Edit </th>-->
             </tr>
@@ -18,7 +18,7 @@
     <?php
 
         $conn = getConnection();
-        $postResults = "SELECT * FROM comments ";
+        $postResults = "SELECT * FROM comments ";//sidebar_comments
         $select_comments = mysqli_query($conn,$postResults); 
             
         while ($post_row = mysqli_fetch_assoc($select_comments)) {
@@ -60,8 +60,17 @@
   
             echo "<td>{$comment_date}</td>"; 
             echo "<td><a href='comments.php?approve=$comment_id '>Approve</a></td>";
-            echo "<td><a href='comments.php?unapprove=$comment_id '>Unapprove</a></td>";
-            echo "<td><a href='comments.php?delete=$comment_id '>Delete</a></td>";
+            echo "<td><a href='comments.php?unapprove=$comment_id '>Unpproved</a></td>";
+
+            ?>
+
+           <form method="post">
+            <input type="hidden" name="comment_id" value="<?php echo $comment_id ?>">
+            <?php echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>'; ?>
+            </form>
+
+            <?php
+            // echo "<td><a href='comments.php?delete=$comment_id '>Delete</a></td>";
             echo "</tr>";
             
         }
@@ -79,19 +88,19 @@ if(isset($_GET["approve"])){
     header("Location:comments.php");
 }
 
-if(isset($_GET["unapprove"])){
+if(isset($_GET["unpproved"])){
     global $conn;
-    $the_comment_id = escape($_GET["unapprove"]);
-    $query = "UPDATE comments SET comment_status = 'unapprove' WHERE comment_id = '{$the_comment_id}' ";
+    $the_comment_id = escape($_GET["unpproved"]);
+    $query = "UPDATE comments SET comment_status = 'unpproved' WHERE comment_id = '{$the_comment_id}' ";
     $approve_comment_query = mysqli_query($conn,$query);
     header("Location:comments.php");
 }
 
 
-if(isset($_GET["delete"])){
+if(isset($_POST["delete"])){
     global $conn;
-    $the_comment_id = escape($_GET["delete"]);
-    $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id}";
+    $comment_id = escape($_POST["delete"]);
+    $query = "DELETE FROM comments WHERE comment_id = {$comment_id}";//sidebar_comments
     $delete_query = mysqli_query($conn,$query);
     header("Location:comments.php");
 
